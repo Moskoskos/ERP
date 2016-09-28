@@ -30,13 +30,24 @@
         {
             this.tabCont = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cmbTraFill = new System.Windows.Forms.ComboBox();
+            this.cmbLblkFill = new System.Windows.Forms.ComboBox();
+            this.cmbBlkFill = new System.Windows.Forms.ComboBox();
+            this.cmbRedFill = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cmbTra = new System.Windows.Forms.ComboBox();
+            this.label8 = new System.Windows.Forms.Label();
             this.cmbLBlack = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmdBlack = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbRed = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnSubmit = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -48,14 +59,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
-            this.cmbTra = new System.Windows.Forms.ComboBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.label10 = new System.Windows.Forms.Label();
             this.tabCont.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -69,16 +72,19 @@
             this.tabCont.Location = new System.Drawing.Point(12, 12);
             this.tabCont.Name = "tabCont";
             this.tabCont.SelectedIndex = 0;
-            this.tabCont.Size = new System.Drawing.Size(470, 368);
+            this.tabCont.Size = new System.Drawing.Size(470, 366);
             this.tabCont.TabIndex = 0;
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label13);
+            this.tabPage1.Controls.Add(this.label12);
+            this.tabPage1.Controls.Add(this.label11);
             this.tabPage1.Controls.Add(this.label10);
-            this.tabPage1.Controls.Add(this.comboBox4);
-            this.tabPage1.Controls.Add(this.comboBox3);
-            this.tabPage1.Controls.Add(this.comboBox2);
-            this.tabPage1.Controls.Add(this.comboBox1);
+            this.tabPage1.Controls.Add(this.cmbTraFill);
+            this.tabPage1.Controls.Add(this.cmbLblkFill);
+            this.tabPage1.Controls.Add(this.cmbBlkFill);
+            this.tabPage1.Controls.Add(this.cmbRedFill);
             this.tabPage1.Controls.Add(this.label9);
             this.tabPage1.Controls.Add(this.cmbTra);
             this.tabPage1.Controls.Add(this.label8);
@@ -88,17 +94,161 @@
             this.tabPage1.Controls.Add(this.label2);
             this.tabPage1.Controls.Add(this.cmbRed);
             this.tabPage1.Controls.Add(this.label1);
-            this.tabPage1.Controls.Add(this.button1);
+            this.tabPage1.Controls.Add(this.btnSubmit);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(462, 342);
+            this.tabPage1.Size = new System.Drawing.Size(462, 340);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Create Order";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(200, 190);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(30, 13);
+            this.label13.TabIndex = 21;
+            this.label13.Text = "Fill %";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(200, 135);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(30, 13);
+            this.label12.TabIndex = 20;
+            this.label12.Text = "Fill %";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(200, 79);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(30, 13);
+            this.label11.TabIndex = 19;
+            this.label11.Text = "Fill %";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(200, 24);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(30, 13);
+            this.label10.TabIndex = 18;
+            this.label10.Text = "Fill %";
+            // 
+            // cmbTraFill
+            // 
+            this.cmbTraFill.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTraFill.FormattingEnabled = true;
+            this.cmbTraFill.Items.AddRange(new object[] {
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80"});
+            this.cmbTraFill.Location = new System.Drawing.Point(200, 205);
+            this.cmbTraFill.Name = "cmbTraFill";
+            this.cmbTraFill.Size = new System.Drawing.Size(48, 21);
+            this.cmbTraFill.TabIndex = 17;
+            // 
+            // cmbLblkFill
+            // 
+            this.cmbLblkFill.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLblkFill.FormattingEnabled = true;
+            this.cmbLblkFill.Items.AddRange(new object[] {
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80"});
+            this.cmbLblkFill.Location = new System.Drawing.Point(200, 150);
+            this.cmbLblkFill.Name = "cmbLblkFill";
+            this.cmbLblkFill.Size = new System.Drawing.Size(48, 21);
+            this.cmbLblkFill.TabIndex = 16;
+            // 
+            // cmbBlkFill
+            // 
+            this.cmbBlkFill.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbBlkFill.FormattingEnabled = true;
+            this.cmbBlkFill.Items.AddRange(new object[] {
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80"});
+            this.cmbBlkFill.Location = new System.Drawing.Point(200, 95);
+            this.cmbBlkFill.Name = "cmbBlkFill";
+            this.cmbBlkFill.Size = new System.Drawing.Size(48, 21);
+            this.cmbBlkFill.TabIndex = 15;
+            // 
+            // cmbRedFill
+            // 
+            this.cmbRedFill.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbRedFill.FormattingEnabled = true;
+            this.cmbRedFill.Items.AddRange(new object[] {
+            "20",
+            "30",
+            "40",
+            "50",
+            "60",
+            "70",
+            "80"});
+            this.cmbRedFill.Location = new System.Drawing.Point(200, 40);
+            this.cmbRedFill.Name = "cmbRedFill";
+            this.cmbRedFill.Size = new System.Drawing.Size(48, 21);
+            this.cmbRedFill.TabIndex = 14;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(219, 25);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(0, 13);
+            this.label9.TabIndex = 13;
+            // 
+            // cmbTra
+            // 
+            this.cmbTra.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbTra.FormattingEnabled = true;
+            this.cmbTra.Items.AddRange(new object[] {
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
+            this.cmbTra.Location = new System.Drawing.Point(15, 205);
+            this.cmbTra.Name = "cmbTra";
+            this.cmbTra.Size = new System.Drawing.Size(121, 21);
+            this.cmbTra.TabIndex = 8;
+            this.cmbTra.SelectedIndexChanged += new System.EventHandler(this.cmbTra_SelectedIndexChanged);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(15, 190);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(86, 13);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Transparent Cup";
+            // 
             // cmbLBlack
             // 
+            this.cmbLBlack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbLBlack.FormattingEnabled = true;
             this.cmbLBlack.Items.AddRange(new object[] {
             "0",
@@ -116,7 +266,7 @@
             this.cmbLBlack.Name = "cmbLBlack";
             this.cmbLBlack.Size = new System.Drawing.Size(121, 21);
             this.cmbLBlack.TabIndex = 6;
-            this.cmbLBlack.Text = "0";
+            this.cmbLBlack.SelectedIndexChanged += new System.EventHandler(this.cmbLBlack_SelectedIndexChanged);
             // 
             // label3
             // 
@@ -129,6 +279,7 @@
             // 
             // cmdBlack
             // 
+            this.cmdBlack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmdBlack.FormattingEnabled = true;
             this.cmdBlack.Items.AddRange(new object[] {
             "0",
@@ -146,7 +297,7 @@
             this.cmdBlack.Name = "cmdBlack";
             this.cmdBlack.Size = new System.Drawing.Size(121, 21);
             this.cmdBlack.TabIndex = 4;
-            this.cmdBlack.Text = "0";
+            this.cmdBlack.SelectedIndexChanged += new System.EventHandler(this.cmdBlack_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -159,6 +310,7 @@
             // 
             // cmbRed
             // 
+            this.cmbRed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbRed.FormattingEnabled = true;
             this.cmbRed.Items.AddRange(new object[] {
             "0",
@@ -176,7 +328,7 @@
             this.cmbRed.Name = "cmbRed";
             this.cmbRed.Size = new System.Drawing.Size(121, 21);
             this.cmbRed.TabIndex = 2;
-            this.cmbRed.Text = "0";
+            this.cmbRed.SelectedIndexChanged += new System.EventHandler(this.cmbRed_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -187,14 +339,14 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Red Cup";
             // 
-            // button1
+            // btnSubmit
             // 
-            this.button1.Location = new System.Drawing.Point(10, 260);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(127, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Submit Order";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnSubmit.Location = new System.Drawing.Point(15, 260);
+            this.btnSubmit.Name = "btnSubmit";
+            this.btnSubmit.Size = new System.Drawing.Size(121, 21);
+            this.btnSubmit.TabIndex = 0;
+            this.btnSubmit.Text = "Submit Order";
+            this.btnSubmit.UseVisualStyleBackColor = true;
             // 
             // tabPage2
             // 
@@ -297,142 +449,11 @@
             this.button2.Text = "Connect";
             this.button2.UseVisualStyleBackColor = true;
             // 
-            // cmbTra
-            // 
-            this.cmbTra.FormattingEnabled = true;
-            this.cmbTra.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.cmbTra.Location = new System.Drawing.Point(15, 205);
-            this.cmbTra.Name = "cmbTra";
-            this.cmbTra.Size = new System.Drawing.Size(121, 21);
-            this.cmbTra.TabIndex = 8;
-            this.cmbTra.Text = "0";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(15, 190);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(86, 13);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Transparent Cup";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(219, 25);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(0, 13);
-            this.label9.TabIndex = 13;
-            // 
-            // comboBox1
-            // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.comboBox1.Location = new System.Drawing.Point(200, 40);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(48, 21);
-            this.comboBox1.TabIndex = 14;
-            this.comboBox1.Text = "20";
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.comboBox2.Location = new System.Drawing.Point(200, 95);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(48, 21);
-            this.comboBox2.TabIndex = 15;
-            this.comboBox2.Text = "20";
-            // 
-            // comboBox3
-            // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.comboBox3.Location = new System.Drawing.Point(200, 150);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(48, 21);
-            this.comboBox3.TabIndex = 16;
-            this.comboBox3.Text = "20";
-            // 
-            // comboBox4
-            // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Items.AddRange(new object[] {
-            "0",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5",
-            "6",
-            "7",
-            "8",
-            "9",
-            "10"});
-            this.comboBox4.Location = new System.Drawing.Point(200, 205);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(48, 21);
-            this.comboBox4.TabIndex = 17;
-            this.comboBox4.Text = "20";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(199, 24);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(30, 13);
-            this.label10.TabIndex = 18;
-            this.label10.Text = "Fill %";
-            // 
             // ERP
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(494, 443);
+            this.ClientSize = new System.Drawing.Size(494, 390);
             this.Controls.Add(this.tabCont);
             this.Name = "ERP";
             this.Text = "Form1";
@@ -451,7 +472,7 @@
         private System.Windows.Forms.TabControl tabCont;
         private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
         private System.Windows.Forms.ComboBox cmbRed;
@@ -472,10 +493,13 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox comboBox4;
-        private System.Windows.Forms.ComboBox comboBox3;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox cmbTraFill;
+        private System.Windows.Forms.ComboBox cmbLblkFill;
+        private System.Windows.Forms.ComboBox cmbBlkFill;
+        private System.Windows.Forms.ComboBox cmbRedFill;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
     }
 }
 

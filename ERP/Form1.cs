@@ -58,7 +58,59 @@ namespace ERP
             {
                 MessageBox.Show(ex.Message);
             }
+            cmbBlkFill.Enabled = false;
+            cmbLblkFill.Enabled = false;
+            cmbRedFill.Enabled = false;
+            cmbTraFill.Enabled = false;
         }
 
+        private void cmdBlack_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmdBlack.SelectedIndex != 0)
+            {
+                cmbBlkFill.Enabled = true;
+            }
+            else
+            {
+                cmbBlkFill.Enabled = false;
+            }
+        }
+
+        private void cmbRed_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbRed.SelectedIndex != 0)
+            {
+                cmbRedFill.Enabled = true;
+            }
+            else
+            {
+                cmbRedFill.Enabled = false;
+            }
+        }
+
+        private void cmbLBlack_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbLBlack.SelectedIndex != 0)
+            {
+                cmbLblkFill.Enabled = true;
+            }
+            else
+            {
+                cmbLblkFill.Enabled = false;
+            }
+
+        }
+
+        private void cmbTra_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbTra.SelectedIndex != 0)
+            {
+                cmbTraFill.Enabled = true;
+            }
+            else
+            {
+                cmbTraFill.Enabled = false;
+            }
+        }
     }
 }
