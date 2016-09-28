@@ -11,14 +11,14 @@ using System.IO;
 
 namespace ERP
 {
-    public partial class ERP : Form
+    public partial class frmMain : Form
     {
         private string folderPath = "";
         private string fileName = ""; //Name of the selected file.
         private string optionsTxtFile = ""; //Name of the options.txt file.
         private string[] optionsArray;
 
-        public ERP()
+        public frmMain()
         {
             InitializeComponent();
             optionsArray = new string[5] { "", "", "", "", "" };
