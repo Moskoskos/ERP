@@ -64,6 +64,19 @@ namespace ERP
             cmbFillTran.Enabled = false;
         }
 
+        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
 
+        }
+
+        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
