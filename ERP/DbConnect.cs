@@ -20,13 +20,13 @@ namespace ERP
 
         }
 
-        public ConnectionString()
-        {
-            using (SqlConnection conn = new SqlConnection())
-            {
-                conn.ConnectionString = "Server=[server_name];Database=[database_name];Trusted_Connection=true";
-                // using the code here...
-            }
-        }
+        //public ConnectionString()
+        //{
+        //    using (SqlConnection conn = new SqlConnection())
+        //    {
+        //        conn.ConnectionString = "Server=[server_name];Database=[database_name];Trusted_Connection=true";
+        //        // using the code here...
+        //    }
+        //}
     }
 }
