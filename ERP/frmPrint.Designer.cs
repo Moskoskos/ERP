@@ -54,6 +54,7 @@
             // 
             // cmbPrinters
             // 
+            this.cmbPrinters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPrinters.FormattingEnabled = true;
             this.cmbPrinters.Location = new System.Drawing.Point(13, 42);
             this.cmbPrinters.Name = "cmbPrinters";
