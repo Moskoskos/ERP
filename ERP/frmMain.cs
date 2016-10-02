@@ -78,5 +78,15 @@ namespace ERP
         {
 
         }
+
+        private void cmbRed_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void printToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

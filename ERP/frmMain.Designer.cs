@@ -46,10 +46,6 @@
             this.cmbTran = new System.Windows.Forms.ComboBox();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txtSubmit = new System.Windows.Forms.TextBox();
-            this.txtRec = new System.Windows.Forms.TextBox();
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Red = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.BlackCup = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,13 +55,17 @@
             this.Started = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.End = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Deviation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.txtSubmit = new System.Windows.Forms.TextBox();
+            this.txtRec = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -92,6 +92,7 @@
             this.cmbRed.Name = "cmbRed";
             this.cmbRed.Size = new System.Drawing.Size(121, 21);
             this.cmbRed.TabIndex = 0;
+            this.cmbRed.SelectedIndexChanged += new System.EventHandler(this.cmbRed_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -323,40 +324,6 @@
             this.dataGridView1.Size = new System.Drawing.Size(984, 271);
             this.dataGridView1.TabIndex = 17;
             // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(10, 254);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(83, 13);
-            this.label9.TabIndex = 18;
-            this.label9.Text = "Order Submitted";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(125, 254);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(82, 13);
-            this.label10.TabIndex = 19;
-            this.label10.Text = "Order Recieved";
-            // 
-            // txtSubmit
-            // 
-            this.txtSubmit.Location = new System.Drawing.Point(36, 270);
-            this.txtSubmit.Name = "txtSubmit";
-            this.txtSubmit.ReadOnly = true;
-            this.txtSubmit.Size = new System.Drawing.Size(20, 20);
-            this.txtSubmit.TabIndex = 20;
-            // 
-            // txtRec
-            // 
-            this.txtRec.Location = new System.Drawing.Point(158, 270);
-            this.txtRec.Name = "txtRec";
-            this.txtRec.ReadOnly = true;
-            this.txtRec.Size = new System.Drawing.Size(20, 20);
-            this.txtRec.TabIndex = 21;
-            // 
             // ID
             // 
             this.ID.HeaderText = "Order";
@@ -413,6 +380,40 @@
             this.Deviation.HeaderText = "Deviation";
             this.Deviation.Name = "Deviation";
             this.Deviation.ReadOnly = true;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 254);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(83, 13);
+            this.label9.TabIndex = 18;
+            this.label9.Text = "Order Submitted";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(125, 254);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(82, 13);
+            this.label10.TabIndex = 19;
+            this.label10.Text = "Order Recieved";
+            // 
+            // txtSubmit
+            // 
+            this.txtSubmit.Location = new System.Drawing.Point(36, 270);
+            this.txtSubmit.Name = "txtSubmit";
+            this.txtSubmit.ReadOnly = true;
+            this.txtSubmit.Size = new System.Drawing.Size(20, 20);
+            this.txtSubmit.TabIndex = 20;
+            // 
+            // txtRec
+            // 
+            this.txtRec.Location = new System.Drawing.Point(158, 270);
+            this.txtRec.Name = "txtRec";
+            this.txtRec.ReadOnly = true;
+            this.txtRec.Size = new System.Drawing.Size(20, 20);
+            this.txtRec.TabIndex = 21;
             // 
             // groupBox1
             // 
@@ -481,18 +482,19 @@
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
+            // printToolStripMenuItem
+            // 
+            this.printToolStripMenuItem.Name = "printToolStripMenuItem";
+            this.printToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.printToolStripMenuItem.Text = "Print";
+            this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
-            // 
-            // printToolStripMenuItem
-            // 
-            this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.printToolStripMenuItem.Text = "Print";
             // 
             // frmMain
             // 
