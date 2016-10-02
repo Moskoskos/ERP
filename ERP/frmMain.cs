@@ -86,7 +86,8 @@ namespace ERP
 
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            frmPrint frmprint = new frmPrint();
+            frmprint.Show();
         }
     }
 }
