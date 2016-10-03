@@ -184,6 +184,7 @@
             this.cmbBlack.Name = "cmbBlack";
             this.cmbBlack.Size = new System.Drawing.Size(121, 21);
             this.cmbBlack.TabIndex = 4;
+            this.cmbBlack.SelectedIndexChanged += new System.EventHandler(this.cmbBlack_SelectedIndexChanged_1);
             // 
             // label5
             // 
@@ -240,6 +241,7 @@
             this.CmbLargeBlack.Name = "CmbLargeBlack";
             this.CmbLargeBlack.Size = new System.Drawing.Size(121, 21);
             this.CmbLargeBlack.TabIndex = 8;
+            this.CmbLargeBlack.SelectedIndexChanged += new System.EventHandler(this.CmbLargeBlack_SelectedIndexChanged_1);
             // 
             // label7
             // 
@@ -296,6 +298,7 @@
             this.cmbTran.Name = "cmbTran";
             this.cmbTran.Size = new System.Drawing.Size(121, 21);
             this.cmbTran.TabIndex = 12;
+            this.cmbTran.SelectedIndexChanged += new System.EventHandler(this.cmbTran_SelectedIndexChanged_1);
             // 
             // btnSubmit
             // 
@@ -305,6 +308,7 @@
             this.btnSubmit.TabIndex = 16;
             this.btnSubmit.Text = "Submit Order";
             this.btnSubmit.UseVisualStyleBackColor = true;
+            this.btnSubmit.Click += new System.EventHandler(this.btnSubmit_Click);
             // 
             // dataGridView1
             // 

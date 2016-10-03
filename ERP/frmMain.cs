@@ -79,15 +79,62 @@ namespace ERP
 
         }
 
-        private void cmbRed_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void printToolStripMenuItem_Click(object sender, EventArgs e)
         {
             frmPrint frmprint = new frmPrint();
             frmprint.Show();
+        }
+
+        private void btnSubmit_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void cmbRed_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbRed.SelectedIndex != 0)
+            {
+                cmbFillRed.Enabled = true;
+            }
+            else
+            {
+                cmbFillRed.Enabled = false;
+            }
+        }
+
+        private void cmbBlack_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (cmbBlack.SelectedIndex != 0)
+            {
+                cmbFillBlack.Enabled = true;
+            }
+            else
+            {
+                cmbFillBlack.Enabled = false;
+            }
+        }
+
+        private void CmbLargeBlack_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (CmbLargeBlack.SelectedIndex != 0)
+            {
+                cmbFillLargeBlack.Enabled = true;
+            }
+            else
+            {
+                cmbFillLargeBlack.Enabled = false;
+            }
+        }
+
+        private void cmbTran_SelectedIndexChanged_1(object sender, EventArgs e)
+        {
+            if (cmbTran.SelectedIndex != 0)
+            {
+                cmbFillTran.Enabled = true;
+            }
+            else
+            {
+                cmbFillTran.Enabled = false;
+            }
         }
     }
 }
