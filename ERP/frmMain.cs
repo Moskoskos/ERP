@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 
+
 namespace ERP
 {
     public partial class frmMain : Form
@@ -62,16 +63,19 @@ namespace ERP
             cmbFillBlack.Enabled = false;
             cmbFillLargeBlack.Enabled = false;
             cmbFillTran.Enabled = false;
+
+           
         }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            dataGridView1.Refresh();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            frmSettings frmsettings = new frmSettings();
+            frmsettings.Show();
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)

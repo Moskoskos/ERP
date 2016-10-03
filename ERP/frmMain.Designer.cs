@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.cmbRed = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbFillRed = new System.Windows.Forms.ComboBox();
@@ -46,15 +47,8 @@
             this.cmbTran = new System.Windows.Forms.ComboBox();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Red = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.BlackCup = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.LargeBlack = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TransparentCup = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TotalCups = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Started = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.End = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Deviation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batchBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.reportServerSQLEXPRESSDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.txtSubmit = new System.Windows.Forms.TextBox();
@@ -66,10 +60,17 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.table1BindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cupDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.apeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.batchBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.reportServerSQLEXPRESSDataSetBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.table1BindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbRed
@@ -217,9 +218,9 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(10, 118);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(86, 13);
+            this.label6.Size = new System.Drawing.Size(46, 13);
             this.label6.TabIndex = 9;
-            this.label6.Text = "Large Black Cup";
+            this.label6.Text = "Tall Cup";
             // 
             // CmbLargeBlack
             // 
@@ -312,78 +313,30 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.ID,
-            this.Red,
-            this.BlackCup,
-            this.LargeBlack,
-            this.TransparentCup,
-            this.TotalCups,
-            this.Started,
-            this.End,
-            this.Deviation});
+            this.cupDataGridViewTextBoxColumn,
+            this.tidDataGridViewTextBoxColumn,
+            this.apeDataGridViewTextBoxColumn});
+            this.dataGridView1.DataSource = this.table1BindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(6, 19);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(984, 271);
             this.dataGridView1.TabIndex = 17;
             // 
-            // ID
+            // batchBindingSource
             // 
-            this.ID.HeaderText = "Order";
-            this.ID.Name = "ID";
-            this.ID.ReadOnly = true;
+            this.batchBindingSource.DataMember = "Batch";
+            this.batchBindingSource.DataSource = this.reportServerSQLEXPRESSDataSetBindingSource;
             // 
-            // Red
+            // reportServerSQLEXPRESSDataSetBindingSource
             // 
-            this.Red.HeaderText = "Red Cups";
-            this.Red.Name = "Red";
-            this.Red.ReadOnly = true;
+            this.reportServerSQLEXPRESSDataSetBindingSource.Position = 0;
             // 
-            // BlackCup
+            // _ReportServer_SQLEXPRESSDataSet
             // 
-            this.BlackCup.HeaderText = "Black Cup";
-            this.BlackCup.Name = "BlackCup";
-            this.BlackCup.ReadOnly = true;
-            // 
-            // LargeBlack
-            // 
-            this.LargeBlack.HeaderText = "Black Cup [Large]";
-            this.LargeBlack.Name = "LargeBlack";
-            this.LargeBlack.ReadOnly = true;
-            this.LargeBlack.Width = 120;
-            // 
-            // TransparentCup
-            // 
-            this.TransparentCup.HeaderText = "Transparent Cup";
-            this.TransparentCup.Name = "TransparentCup";
-            this.TransparentCup.ReadOnly = true;
-            this.TransparentCup.Width = 120;
-            // 
-            // TotalCups
-            // 
-            this.TotalCups.HeaderText = "Total Cups";
-            this.TotalCups.Name = "TotalCups";
-            this.TotalCups.ReadOnly = true;
-            // 
-            // Started
-            // 
-            this.Started.HeaderText = "Started";
-            this.Started.Name = "Started";
-            this.Started.ReadOnly = true;
-            // 
-            // End
-            // 
-            this.End.HeaderText = "End";
-            this.End.Name = "End";
-            this.End.ReadOnly = true;
-            // 
-            // Deviation
-            // 
-            this.Deviation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Deviation.HeaderText = "Deviation";
-            this.Deviation.Name = "Deviation";
-            this.Deviation.ReadOnly = true;
             // 
             // label9
             // 
@@ -500,6 +453,40 @@
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
+            // batchTableAdapter
+            // 
+            // 
+            // haloDataSet
+            // 
+            // 
+            // table1BindingSource
+            // 
+            this.table1BindingSource.DataMember = "Table_1";
+            // 
+            // table_1TableAdapter
+            // 
+            // 
+            // cupDataGridViewTextBoxColumn
+            // 
+            this.cupDataGridViewTextBoxColumn.DataPropertyName = "cup";
+            this.cupDataGridViewTextBoxColumn.HeaderText = "cup";
+            this.cupDataGridViewTextBoxColumn.Name = "cupDataGridViewTextBoxColumn";
+            this.cupDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // tidDataGridViewTextBoxColumn
+            // 
+            this.tidDataGridViewTextBoxColumn.DataPropertyName = "tid";
+            this.tidDataGridViewTextBoxColumn.HeaderText = "tid";
+            this.tidDataGridViewTextBoxColumn.Name = "tidDataGridViewTextBoxColumn";
+            this.tidDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // apeDataGridViewTextBoxColumn
+            // 
+            this.apeDataGridViewTextBoxColumn.DataPropertyName = "ape";
+            this.apeDataGridViewTextBoxColumn.HeaderText = "ape";
+            this.apeDataGridViewTextBoxColumn.Name = "apeDataGridViewTextBoxColumn";
+            this.apeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -512,11 +499,14 @@
             this.Text = "ERP";
             this.Load += new System.EventHandler(this.ERP_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.batchBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.reportServerSQLEXPRESSDataSetBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.table1BindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -546,15 +536,6 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TextBox txtSubmit;
         private System.Windows.Forms.TextBox txtRec;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Red;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BlackCup;
-        private System.Windows.Forms.DataGridViewTextBoxColumn LargeBlack;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TransparentCup;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TotalCups;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Started;
-        private System.Windows.Forms.DataGridViewTextBoxColumn End;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Deviation;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.MenuStrip menuStrip1;
@@ -562,6 +543,12 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;
+        private System.Windows.Forms.BindingSource reportServerSQLEXPRESSDataSetBindingSource;
+        private System.Windows.Forms.BindingSource batchBindingSource;
+        private System.Windows.Forms.BindingSource table1BindingSource;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cupDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn tidDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn apeDataGridViewTextBoxColumn;
     }
 }
 

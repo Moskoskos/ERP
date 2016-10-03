@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Management;
 using System.Data.EntityClient;
+using System.DirectoryServices;
+using System.Collections;
 
 
 
@@ -21,28 +23,64 @@ namespace ERP
             InitializeComponent();
         }
 
-        private void btnGetPrinters_Click(object sender, EventArgs e)
+        private void PrinterList()
         {
-            // Use the ObjectQuery to get the list of configured printers
-            System.Management.ObjectQuery oquery =
-                new System.Management.ObjectQuery("SELECT * FROM Win32_Printer");
-
-            System.Management.ManagementObjectSearcher mosearcher =
-                new System.Management.ManagementObjectSearcher(oquery);
-
-            System.Management.ManagementObjectCollection moc = mosearcher.Get();
-
-            foreach (ManagementObject mo in moc)
+            // POPULATE THE COMBO BOX.
+            foreach (string sPrinters in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
             {
-                System.Management.PropertyDataCollection pdc = mo.Properties;
-                foreach (System.Management.PropertyData pd in pdc)
+                cmbPrinterList.Items.Add(sPrinters);
+            }
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            PrinterList();
+        }
+
+        private void btn_Click(object sender, EventArgs e)
+        {
+            PrinterListNetwork();
+        }
+        private void PrinterListNetwork()
+        {
+            // USING WMI. (WINDOWS MANAGEMENT INSTRUMENTATION)
+
+            System.Management.ManagementScope objMS =
+                new System.Management.ManagementScope(ManagementPath.DefaultPath);
+            objMS.Connect();
+
+            SelectQuery objQuery = new SelectQuery("SELECT * FROM Win32_Printer");
+            ManagementObjectSearcher objMOS = new ManagementObjectSearcher(objMS, objQuery);
+            System.Management.ManagementObjectCollection objMOC = objMOS.Get();
+
+            foreach (ManagementObject Printers in objMOC)
+            {
+                if (Convert.ToBoolean(Printers["Local"]))       // LOCAL PRINTERS.
                 {
-                    if ((bool)mo["Network"])
-                    {
-                        cmbPrinters.Items.Add(mo[pd.Name]);
-                    }
+                    cmbLocalPrinters.Items.Add(Printers["Name"]);
+                }
+                if (Convert.ToBoolean(Printers["Network"]))     // ALL NETWORK PRINTERS.
+                {
+                    cmbNetworkPrinters.Items.Add(Printers["Name"]);
                 }
             }
+        }
+
+        private void btnNetwork_Click(object sender, EventArgs e)
+        {
+            ManagementScope objScope = new ManagementScope(ManagementPath.DefaultPath);
+            objScope.Connect();
+
+            SelectQuery selectQuery = new SelectQuery();
+            selectQuery.QueryString = "Select * from win32_Printer";
+            ManagementObjectSearcher MOS = new ManagementObjectSearcher(objScope, selectQuery);
+            ManagementObjectCollection MOC = MOS.Get();
+            foreach (ManagementObject mo in MOC)
+            {
+                listBox1.Items.Add(mo["Name"].ToString().ToUpper());
+            }
+
         }
     }
 }
