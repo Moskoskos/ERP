@@ -14,8 +14,8 @@ namespace ERP
 {
     public partial class frmMain : Form
     {
-        private string folderPath = "";
-        private string fileName = ""; //Name of the selected file.
+        //private string folderPath = "";
+        //private string fileName = ""; //Name of the selected file.
         private string optionsTxtFile = ""; //Name of the options.txt file.
         private string[] optionsArray;
 
@@ -32,7 +32,7 @@ namespace ERP
                 //Finds the default system folder for application data.
                 var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
                 //States the specifed application folder for the application.
-                var pathWithName = systemPath + @"\AutoDeleteInFolder\";
+                var pathWithName = systemPath + @"\ERP";
                 //States the specified application options file.
                 var optionFile = pathWithName + "options.txt";
                 //In-between-storage of content for optionFile
@@ -63,13 +63,32 @@ namespace ERP
             cmbFillBlack.Enabled = false;
             cmbFillLargeBlack.Enabled = false;
             cmbFillTran.Enabled = false;
+            dataGridView1.ReadOnly = true;
+            //cmbFillRed.SelectedIndex = 0;
+            //cmbFillBlack.SelectedIndex = 0;
+            //cmbFillLargeBlack.SelectedIndex = 0;
+            //cmbFillTran.SelectedIndex = 0;
+            //cmbRed.SelectedIndex = 0;
+            //cmbBlack.SelectedIndex = 0;
+            //CmbLargeBlack.SelectedIndex = 0;
+            //cmbTran.SelectedIndex = 0;
 
-           
+            foreach (Control ctrl in Controls)
+            {
+                if (ctrl is ComboBox)
+                {
+                    ((ComboBox)ctrl).SelectedIndex = 0;
+                }
+            }
+
         }
 
         private void fileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dataGridView1.Refresh();
+            
+
+            string rowCount = dataGridView1.RowCount.ToString();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -80,7 +99,15 @@ namespace ERP
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            string help = "\\help.pdf";
+            try
+            {
+                System.Diagnostics.Process.Start(help);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("File not found");
+            }
         }
 
         private void printToolStripMenuItem_Click(object sender, EventArgs e)

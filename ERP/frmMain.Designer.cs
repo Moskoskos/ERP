@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.cmbRed = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbFillRed = new System.Windows.Forms.ComboBox();
@@ -47,8 +46,6 @@
             this.cmbTran = new System.Windows.Forms.ComboBox();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.batchBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.reportServerSQLEXPRESSDataSetBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.txtSubmit = new System.Windows.Forms.TextBox();
@@ -60,17 +57,12 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.table1BindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.cupDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tidDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.apeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtRows = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.batchBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.reportServerSQLEXPRESSDataSetBindingSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.table1BindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // cmbRed
@@ -313,30 +305,12 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.AutoGenerateColumns = false;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.cupDataGridViewTextBoxColumn,
-            this.tidDataGridViewTextBoxColumn,
-            this.apeDataGridViewTextBoxColumn});
-            this.dataGridView1.DataSource = this.table1BindingSource;
             this.dataGridView1.Location = new System.Drawing.Point(6, 19);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.Size = new System.Drawing.Size(984, 271);
             this.dataGridView1.TabIndex = 17;
-            // 
-            // batchBindingSource
-            // 
-            this.batchBindingSource.DataMember = "Batch";
-            this.batchBindingSource.DataSource = this.reportServerSQLEXPRESSDataSetBindingSource;
-            // 
-            // reportServerSQLEXPRESSDataSetBindingSource
-            // 
-            this.reportServerSQLEXPRESSDataSetBindingSource.Position = 0;
-            // 
-            // _ReportServer_SQLEXPRESSDataSet
-            // 
             // 
             // label9
             // 
@@ -435,6 +409,7 @@
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+            this.settingsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
@@ -442,6 +417,7 @@
             // printToolStripMenuItem
             // 
             this.printToolStripMenuItem.Name = "printToolStripMenuItem";
+            this.printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
             this.printToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.printToolStripMenuItem.Text = "Print";
             this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
@@ -449,49 +425,35 @@
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.H)));
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
             // 
-            // batchTableAdapter
+            // txtRows
             // 
+            this.txtRows.Location = new System.Drawing.Point(249, 350);
+            this.txtRows.Name = "txtRows";
+            this.txtRows.ReadOnly = true;
+            this.txtRows.Size = new System.Drawing.Size(100, 20);
+            this.txtRows.TabIndex = 25;
             // 
-            // haloDataSet
+            // label11
             // 
-            // 
-            // table1BindingSource
-            // 
-            this.table1BindingSource.DataMember = "Table_1";
-            // 
-            // table_1TableAdapter
-            // 
-            // 
-            // cupDataGridViewTextBoxColumn
-            // 
-            this.cupDataGridViewTextBoxColumn.DataPropertyName = "cup";
-            this.cupDataGridViewTextBoxColumn.HeaderText = "cup";
-            this.cupDataGridViewTextBoxColumn.Name = "cupDataGridViewTextBoxColumn";
-            this.cupDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // tidDataGridViewTextBoxColumn
-            // 
-            this.tidDataGridViewTextBoxColumn.DataPropertyName = "tid";
-            this.tidDataGridViewTextBoxColumn.HeaderText = "tid";
-            this.tidDataGridViewTextBoxColumn.Name = "tidDataGridViewTextBoxColumn";
-            this.tidDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // apeDataGridViewTextBoxColumn
-            // 
-            this.apeDataGridViewTextBoxColumn.DataPropertyName = "ape";
-            this.apeDataGridViewTextBoxColumn.HeaderText = "ape";
-            this.apeDataGridViewTextBoxColumn.Name = "apeDataGridViewTextBoxColumn";
-            this.apeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(246, 333);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(115, 13);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "Total number of Orders";
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1259, 339);
+            this.ClientSize = new System.Drawing.Size(1259, 382);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.txtRows);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
@@ -499,14 +461,11 @@
             this.Text = "ERP";
             this.Load += new System.EventHandler(this.ERP_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.batchBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.reportServerSQLEXPRESSDataSetBindingSource)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.table1BindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -543,12 +502,8 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;
-        private System.Windows.Forms.BindingSource reportServerSQLEXPRESSDataSetBindingSource;
-        private System.Windows.Forms.BindingSource batchBindingSource;
-        private System.Windows.Forms.BindingSource table1BindingSource;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cupDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tidDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn apeDataGridViewTextBoxColumn;
+        private System.Windows.Forms.TextBox txtRows;
+        private System.Windows.Forms.Label label11;
     }
 }
 
