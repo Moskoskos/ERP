@@ -54,5 +54,16 @@ namespace ERP.Properties {
                 return ((string)(this["haloConnectionString1"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.2.15\\SQLEXPRESS;Initial Catalog=IA5-5-16;User ID=sa;Password=" +
+            "netlab_1")]
+        public string BatchOrder {
+            get {
+                return ((string)(this["BatchOrder"]));
+            }
+        }
     }
 }

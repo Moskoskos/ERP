@@ -48,6 +48,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BatchOrderDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BatchOrderDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="CupOrderDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CupOrderDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="DbConnect.cs" />
     <Compile Include="frmMain.cs">
       <SubType>Form</SubType>
@@ -87,6 +97,28 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="BatchOrderDataSet.xsc">
+      <DependentUpon>BatchOrderDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="BatchOrderDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>BatchOrderDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="BatchOrderDataSet.xss">
+      <DependentUpon>BatchOrderDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="CupOrderDataSet.xsc">
+      <DependentUpon>CupOrderDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="CupOrderDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>CupOrderDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="CupOrderDataSet.xss">
+      <DependentUpon>CupOrderDataSet.xsd</DependentUpon>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

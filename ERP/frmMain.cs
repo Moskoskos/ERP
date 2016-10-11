@@ -27,6 +27,10 @@ namespace ERP
 
         private void ERP_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'cupOrderDataSet.CupOrdre' table. You can move, or remove it, as needed.
+            this.cupOrdreTableAdapter.Fill(this.cupOrderDataSet.CupOrdre);
+            // TODO: This line of code loads data into the 'batchOrderDataSet.BatchOrdre' table. You can move, or remove it, as needed.
+            this.batchOrdreTableAdapter.Fill(this.batchOrderDataSet.BatchOrdre);
             try
             {
                 //Finds the default system folder for application data.
