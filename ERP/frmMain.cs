@@ -87,7 +87,7 @@ namespace ERP
 
         }
 
-        private void fileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             dataGridView1.Refresh();
             
@@ -170,6 +170,11 @@ namespace ERP
             {
                 cmbFillTran.Enabled = false;
             }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
