@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
+using System.Net.NetworkInformation;
 
 namespace ERP
 {
@@ -29,7 +30,24 @@ namespace ERP
                 database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
                 connection = new SqlConnection(connectionString);                           //Initialze connection with connectionString
             }
-            public bool OpenConnection()
+        public bool PingHost()
+        {
+            string nameOrAddress = "192.168.2.15";
+            bool pingable = false;
+            Ping pinger = new Ping();
+            try
+            {
+                PingReply reply = pinger.Send(nameOrAddress);
+                pingable = reply.Status == IPStatus.Success;
+            }
+            catch (PingException)
+            {
+                // Discard PingExceptions and return false;
+            }
+            return pingable;
+        }
+
+        public bool OpenConnection()
             {
                 try
                 {

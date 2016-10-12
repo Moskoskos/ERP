@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Net.NetworkInformation;
 
 
 namespace ERP
@@ -27,42 +28,8 @@ namespace ERP
 
         private void ERP_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'cupOrderDataSet.CupOrdre' table. You can move, or remove it, as needed.
-            this.cupOrdreTableAdapter.Fill(this.cupOrderDataSet.CupOrdre);
-            // TODO: This line of code loads data into the 'batchOrderDataSet.BatchOrdre' table. You can move, or remove it, as needed.
-            this.batchOrdreTableAdapter.Fill(this.batchOrderDataSet.BatchOrdre);
-            try
-            {
-                //Finds the default system folder for application data.
-                var systemPath = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-                //States the specifed application folder for the application.
-                var pathWithName = systemPath + @"\ERP";
-                //States the specified application options file.
-                var optionFile = pathWithName + "options.txt";
-                //In-between-storage of content for optionFile
-                optionsTxtFile = optionFile;
-                //Check if options file is created.
-                if (File.Exists(optionFile))
-                {
-                    //Reads settings from file.
-                    //Checks whether options have file has been initialized, if so, the program gets the path of the monitored folder.
-                    if (optionsArray[4] == "1")
-                    { 
+            ConnectToDatabase();
 
-
-                    }
-                }
-                else
-                {
-                    //if the options file doesnt exists, create file and create default settings.
-                    Directory.CreateDirectory(pathWithName);
-                    File.WriteAllText(optionFile, ("0\r\n" + "0\r\n" + "0\r\n" + "0\r\n" + "0\r\n"));
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
             cmbFillRed.Enabled = false;
             cmbFillBlack.Enabled = false;
             cmbFillLargeBlack.Enabled = false;
@@ -86,6 +53,24 @@ namespace ERP
             }
 
         }
+        private void ConnectToDatabase()
+        {
+            DbConnect dc = new DbConnect();
+            if (dc.PingHost())
+            {
+                // TODO: This line of code loads data into the 'cupOrderDataSet.CupOrdre' table. You can move, or remove it, as needed.
+                this.cupOrdreTableAdapter.Fill(this.cupOrderDataSet.CupOrdre);
+                // TODO: This line of code loads data into the 'batchOrderDataSet.BatchOrdre' table. You can move, or remove it, as needed.
+                this.batchOrdreTableAdapter.Fill(this.batchOrderDataSet.BatchOrdre);
+                btnReconnect.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Host not connectable");
+                btnReconnect.Show();
+            }
+        }
+
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -175,6 +160,11 @@ namespace ERP
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnReconnect_Click(object sender, EventArgs e)
+        {
+            ConnectToDatabase();
         }
     }
 }
