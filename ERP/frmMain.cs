@@ -17,13 +17,15 @@ namespace ERP
     {
         //private string folderPath = "";
         //private string fileName = ""; //Name of the selected file.
-        private string optionsTxtFile = ""; //Name of the options.txt file.
-        private string[] optionsArray;
+        private int red = 0;
+        private int black = 0;
+        private int tall = 0;
+        private int tran = 0;
+
 
         public frmMain()
         {
             InitializeComponent();
-            optionsArray = new string[5] { "", "", "", "", "" };
         }
 
         private void ERP_Load(object sender, EventArgs e)
@@ -35,22 +37,22 @@ namespace ERP
             cmbFillLargeBlack.Enabled = false;
             cmbFillTran.Enabled = false;
             dataGridView1.ReadOnly = true;
-            //cmbFillRed.SelectedIndex = 0;
-            //cmbFillBlack.SelectedIndex = 0;
-            //cmbFillLargeBlack.SelectedIndex = 0;
-            //cmbFillTran.SelectedIndex = 0;
-            //cmbRed.SelectedIndex = 0;
-            //cmbBlack.SelectedIndex = 0;
-            //CmbLargeBlack.SelectedIndex = 0;
-            //cmbTran.SelectedIndex = 0;
+            cmbFillRed.SelectedIndex = 0;
+            cmbFillBlack.SelectedIndex = 0;
+            cmbFillLargeBlack.SelectedIndex = 0;
+            cmbFillTran.SelectedIndex = 0;
+            cmbRed.SelectedIndex = 0;
+            cmbBlack.SelectedIndex = 0;
+            CmbLargeBlack.SelectedIndex = 0;
+            cmbTran.SelectedIndex = 0;
 
-            foreach (Control ctrl in Controls)
-            {
-                if (ctrl is ComboBox)
-                {
-                    ((ComboBox)ctrl).SelectedIndex = 0;
-                }
-            }
+            //foreach (Control ctrl in Controls)
+            //{
+            //    if (ctrl is ComboBox)
+            //    {
+            //        ((ComboBox)ctrl).SelectedIndex = 0;
+            //    }
+            //}
 
         }
         private void ConnectToDatabase()
@@ -66,7 +68,7 @@ namespace ERP
             }
             else
             {
-                MessageBox.Show("Host not connectable");
+                MessageBox.Show("Could not connect to host...");
                 btnReconnect.Show();
             }
         }
@@ -74,10 +76,7 @@ namespace ERP
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            dataGridView1.Refresh();
-            
-
-            string rowCount = dataGridView1.RowCount.ToString();
+            Application.Exit();
         }
 
         private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -107,13 +106,17 @@ namespace ERP
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-
+            int totalCups = 0;
+            totalCups = GetTotalCups();
         }
+
+        //Disables the fill box if selected index = 0
         private void cmbRed_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cmbRed.SelectedIndex != 0)
             {
                 cmbFillRed.Enabled = true;
+                red = cmbRed.SelectedIndex;
             }
             else
             {
@@ -121,11 +124,13 @@ namespace ERP
             }
         }
 
+        //Disables the fill box if selected index = 0
         private void cmbBlack_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (cmbBlack.SelectedIndex != 0)
             {
                 cmbFillBlack.Enabled = true;
+                black = cmbBlack.SelectedIndex;
             }
             else
             {
@@ -133,11 +138,13 @@ namespace ERP
             }
         }
 
+        //Disables the fill box if selected index = 0
         private void CmbLargeBlack_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (CmbLargeBlack.SelectedIndex != 0)
             {
                 cmbFillLargeBlack.Enabled = true;
+                tall = CmbLargeBlack.SelectedIndex;
             }
             else
             {
@@ -145,11 +152,13 @@ namespace ERP
             }
         }
 
+        //Disables the fill box if selected index = 0
         private void cmbTran_SelectedIndexChanged_1(object sender, EventArgs e)
         {
             if (cmbTran.SelectedIndex != 0)
             {
                 cmbFillTran.Enabled = true;
+                tran = cmbTran.SelectedIndex;
             }
             else
             {
@@ -166,5 +175,16 @@ namespace ERP
         {
             ConnectToDatabase();
         }
+
+        private int GetTotalCups()
+        {
+            int sum = 0;
+            sum = red + black + tall + tran;
+            return sum;
+        }
+
+
+
+
     }
 }

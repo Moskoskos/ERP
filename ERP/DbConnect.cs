@@ -118,6 +118,47 @@ namespace ERP
                     }
                 }
             }
+
+        public void CreateBatchOrder(int numberOfCups)
+        {
+            try
+            {
+                string query = "INSERT INTO BatchOrdre(NumberOfCups)VALUES(@numberOfCups);";
+                if (OpenConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@numberOfCups", numberOfCups);
+                        cmd.ExecuteNonQuery();
+                        CloseConnection();
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public double GetLatestValue()
+        {
+            string result = "";
+            string query = "SELECT BatchID FROM BatchOrdre LIMIT 1;";
+            //Sjekker at tilkoblingen er åpen.
+            if (this.OpenConnection())
+            {
+                //Bruker spørringen ovenfor og tilkoblingstrengen i DbConnect.
+                using (SqlCommand cmd = new SqlCommand(query, connection))
+                {
+                    //Kjører spørringen og får en verdi tilbake
+                    result = cmd.ExecuteScalar().ToString();
+                    CloseConnection();
+                }
+            }
+            return Convert.ToDouble(result);
+
+
+
         }
     }
 
