@@ -201,5 +201,39 @@ namespace ERP
             dc.CreateBatchOrder(numOfCups);
             UpdateDataGridViews();
         }
+
+        //private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        //{
+        //    int selectedRow = 0;
+        //    selectedRow = dataGridView1.CurrentCell.RowIndex;
+        //    int batchID = 
+            
+        //}
+
+
+        private void dataGridView1_SelectionChanged_1(object sender, EventArgs e)
+        {
+            if (dataGridView1.SelectedCells.Count > 0)
+            {
+                var index = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                txtBATCHIDFORCELL.Text = index.ToString();
+                this.cupOrdreTableAdapter.FillWithBatchNumber(this.cupOrderDataSet.CupOrdre, index);
+            }
+        }
+
+        private void fillToolStripButton_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                this.batchOrdreTableAdapter.Fill(this.batchOrderDataSet.BatchOrdre);
+            }
+            catch (System.Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+
+        }
+
+
     }
 }

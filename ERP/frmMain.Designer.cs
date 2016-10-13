@@ -60,6 +60,8 @@
             this.txtSubmit = new System.Windows.Forms.TextBox();
             this.txtRec = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnNext = new System.Windows.Forms.Button();
+            this.btnPrevious = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.cupIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -81,6 +83,7 @@
             this.cupOrdreTableAdapter = new ERP.CupOrderDataSetTableAdapters.CupOrdreTableAdapter();
             this.btnReconnect = new System.Windows.Forms.Button();
             this.btnBATCHORDER_TEST = new System.Windows.Forms.Button();
+            this.txtBATCHIDFORCELL = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.batchOrdreBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.batchOrderDataSet)).BeginInit();
@@ -345,9 +348,10 @@
             this.dataGridView1.Location = new System.Drawing.Point(6, 19);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
-            this.dataGridView1.Size = new System.Drawing.Size(753, 186);
+            this.dataGridView1.Size = new System.Drawing.Size(645, 250);
             this.dataGridView1.TabIndex = 17;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged_1);
             // 
             // batchIDDataGridViewTextBoxColumn
             // 
@@ -438,20 +442,40 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnNext);
+            this.groupBox1.Controls.Add(this.btnPrevious);
             this.groupBox1.Controls.Add(this.label11);
             this.groupBox1.Controls.Add(this.dataGridView2);
             this.groupBox1.Controls.Add(this.dataGridView1);
             this.groupBox1.Location = new System.Drawing.Point(249, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(769, 451);
+            this.groupBox1.Size = new System.Drawing.Size(769, 573);
             this.groupBox1.TabIndex = 22;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Previous Orders";
             // 
+            // btnNext
+            // 
+            this.btnNext.Image = global::ERP.Properties.Resources.right_arrow;
+            this.btnNext.Location = new System.Drawing.Point(705, 227);
+            this.btnNext.Name = "btnNext";
+            this.btnNext.Size = new System.Drawing.Size(42, 42);
+            this.btnNext.TabIndex = 24;
+            this.btnNext.UseVisualStyleBackColor = true;
+            // 
+            // btnPrevious
+            // 
+            this.btnPrevious.Image = global::ERP.Properties.Resources.left_arrow2;
+            this.btnPrevious.Location = new System.Drawing.Point(657, 227);
+            this.btnPrevious.Name = "btnPrevious";
+            this.btnPrevious.Size = new System.Drawing.Size(42, 42);
+            this.btnPrevious.TabIndex = 23;
+            this.btnPrevious.UseVisualStyleBackColor = true;
+            // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(5, 238);
+            this.label11.Location = new System.Drawing.Point(6, 301);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(78, 13);
             this.label11.TabIndex = 22;
@@ -470,10 +494,10 @@
             this.completedApprovedDataGridViewCheckBoxColumn,
             this.completedDiscardDataGridViewCheckBoxColumn});
             this.dataGridView2.DataSource = this.cupOrdreBindingSource;
-            this.dataGridView2.Location = new System.Drawing.Point(8, 254);
+            this.dataGridView2.Location = new System.Drawing.Point(6, 317);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
-            this.dataGridView2.Size = new System.Drawing.Size(751, 186);
+            this.dataGridView2.Size = new System.Drawing.Size(751, 250);
             this.dataGridView2.TabIndex = 18;
             // 
             // cupIDDataGridViewTextBoxColumn
@@ -574,7 +598,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1028, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1038, 24);
             this.menuStrip1.TabIndex = 24;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -619,7 +643,7 @@
             // 
             // btnReconnect
             // 
-            this.btnReconnect.Location = new System.Drawing.Point(22, 457);
+            this.btnReconnect.Location = new System.Drawing.Point(22, 344);
             this.btnReconnect.Name = "btnReconnect";
             this.btnReconnect.Size = new System.Drawing.Size(197, 21);
             this.btnReconnect.TabIndex = 22;
@@ -629,7 +653,7 @@
             // 
             // btnBATCHORDER_TEST
             // 
-            this.btnBATCHORDER_TEST.Location = new System.Drawing.Point(25, 430);
+            this.btnBATCHORDER_TEST.Location = new System.Drawing.Point(22, 573);
             this.btnBATCHORDER_TEST.Name = "btnBATCHORDER_TEST";
             this.btnBATCHORDER_TEST.Size = new System.Drawing.Size(197, 21);
             this.btnBATCHORDER_TEST.TabIndex = 25;
@@ -637,11 +661,19 @@
             this.btnBATCHORDER_TEST.UseVisualStyleBackColor = true;
             this.btnBATCHORDER_TEST.Click += new System.EventHandler(this.btnBATCHORDER_TEST_Click);
             // 
+            // txtBATCHIDFORCELL
+            // 
+            this.txtBATCHIDFORCELL.Location = new System.Drawing.Point(25, 547);
+            this.txtBATCHIDFORCELL.Name = "txtBATCHIDFORCELL";
+            this.txtBATCHIDFORCELL.Size = new System.Drawing.Size(100, 20);
+            this.txtBATCHIDFORCELL.TabIndex = 26;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1028, 490);
+            this.ClientSize = new System.Drawing.Size(1038, 620);
+            this.Controls.Add(this.txtBATCHIDFORCELL);
             this.Controls.Add(this.btnBATCHORDER_TEST);
             this.Controls.Add(this.btnReconnect);
             this.Controls.Add(this.groupBox2);
@@ -721,6 +753,9 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn batchTimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnReconnect;
         private System.Windows.Forms.Button btnBATCHORDER_TEST;
+        private System.Windows.Forms.TextBox txtBATCHIDFORCELL;
+        private System.Windows.Forms.Button btnNext;
+        private System.Windows.Forms.Button btnPrevious;
     }
 }
 
