@@ -53,6 +53,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BatchOrderDataSet.xsd</DependentUpon>
     </Compile>
+    <Compile Include="CupOrderDataSet.cs">
+      <DependentUpon>CupOrderDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="CupOrderDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

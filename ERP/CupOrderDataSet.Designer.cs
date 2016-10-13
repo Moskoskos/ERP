@@ -283,9 +283,9 @@ namespace ERP {
             
             private global::System.Data.DataColumn columnTypeOfCup;
             
-            private global::System.Data.DataColumn columnOrderedWheight;
+            private global::System.Data.DataColumn columnOrderedWeight;
             
-            private global::System.Data.DataColumn columnActualWheight;
+            private global::System.Data.DataColumn columnActualWeight;
             
             private global::System.Data.DataColumn columnRFID;
             
@@ -346,17 +346,17 @@ namespace ERP {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn OrderedWheightColumn {
+            public global::System.Data.DataColumn OrderedWeightColumn {
                 get {
-                    return this.columnOrderedWheight;
+                    return this.columnOrderedWeight;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public global::System.Data.DataColumn ActualWheightColumn {
+            public global::System.Data.DataColumn ActualWeightColumn {
                 get {
-                    return this.columnActualWheight;
+                    return this.columnActualWeight;
                 }
             }
             
@@ -429,13 +429,13 @@ namespace ERP {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CupOrdreRow AddCupOrdreRow(int TypeOfCup, double OrderedWheight, double ActualWheight, string RFID, bool CompletedApproved, bool CompletedDiscard, int BatchID) {
+            public CupOrdreRow AddCupOrdreRow(int TypeOfCup, double OrderedWeight, double ActualWeight, string RFID, bool CompletedApproved, bool CompletedDiscard, int BatchID) {
                 CupOrdreRow rowCupOrdreRow = ((CupOrdreRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         TypeOfCup,
-                        OrderedWheight,
-                        ActualWheight,
+                        OrderedWeight,
+                        ActualWeight,
                         RFID,
                         CompletedApproved,
                         CompletedDiscard,
@@ -471,8 +471,8 @@ namespace ERP {
             internal void InitVars() {
                 this.columnCupID = base.Columns["CupID"];
                 this.columnTypeOfCup = base.Columns["TypeOfCup"];
-                this.columnOrderedWheight = base.Columns["OrderedWheight"];
-                this.columnActualWheight = base.Columns["ActualWheight"];
+                this.columnOrderedWeight = base.Columns["OrderedWeight"];
+                this.columnActualWeight = base.Columns["ActualWeight"];
                 this.columnRFID = base.Columns["RFID"];
                 this.columnCompletedApproved = base.Columns["CompletedApproved"];
                 this.columnCompletedDiscard = base.Columns["CompletedDiscard"];
@@ -486,10 +486,10 @@ namespace ERP {
                 base.Columns.Add(this.columnCupID);
                 this.columnTypeOfCup = new global::System.Data.DataColumn("TypeOfCup", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTypeOfCup);
-                this.columnOrderedWheight = new global::System.Data.DataColumn("OrderedWheight", typeof(double), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOrderedWheight);
-                this.columnActualWheight = new global::System.Data.DataColumn("ActualWheight", typeof(double), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnActualWheight);
+                this.columnOrderedWeight = new global::System.Data.DataColumn("OrderedWeight", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOrderedWeight);
+                this.columnActualWeight = new global::System.Data.DataColumn("ActualWeight", typeof(double), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnActualWeight);
                 this.columnRFID = new global::System.Data.DataColumn("RFID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRFID);
                 this.columnCompletedApproved = new global::System.Data.DataColumn("CompletedApproved", typeof(bool), null, global::System.Data.MappingType.Element);
@@ -676,33 +676,33 @@ namespace ERP {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public double OrderedWheight {
+            public double OrderedWeight {
                 get {
                     try {
-                        return ((double)(this[this.tableCupOrdre.OrderedWheightColumn]));
+                        return ((double)(this[this.tableCupOrdre.OrderedWeightColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'OrderedWheight\' in table \'CupOrdre\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'OrderedWhight\' in table \'CupOrdre\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableCupOrdre.OrderedWheightColumn] = value;
+                    this[this.tableCupOrdre.OrderedWeightColumn] = value;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public double ActualWheight {
+            public double ActualWeight {
                 get {
                     try {
-                        return ((double)(this[this.tableCupOrdre.ActualWheightColumn]));
+                        return ((double)(this[this.tableCupOrdre.ActualWeightColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ActualWheight\' in table \'CupOrdre\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'ActualWeight\' in table \'CupOrdre\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableCupOrdre.ActualWheightColumn] = value;
+                    this[this.tableCupOrdre.ActualWeightColumn] = value;
                 }
             }
             
@@ -784,26 +784,26 @@ namespace ERP {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsOrderedWheightNull() {
-                return this.IsNull(this.tableCupOrdre.OrderedWheightColumn);
+            public bool IsOrderedWeightNull() {
+                return this.IsNull(this.tableCupOrdre.OrderedWeightColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetOrderedWheightNull() {
-                this[this.tableCupOrdre.OrderedWheightColumn] = global::System.Convert.DBNull;
+            public void SetOrderedWeightNull() {
+                this[this.tableCupOrdre.OrderedWeightColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public bool IsActualWheightNull() {
-                return this.IsNull(this.tableCupOrdre.ActualWheightColumn);
+            public bool IsActualWeightNull() {
+                return this.IsNull(this.tableCupOrdre.ActualWeightColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public void SetActualWheightNull() {
-                this[this.tableCupOrdre.ActualWheightColumn] = global::System.Convert.DBNull;
+            public void SetActualWeightNull() {
+                this[this.tableCupOrdre.ActualWeightColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1016,8 +1016,8 @@ namespace ERP.CupOrderDataSetTableAdapters {
             tableMapping.DataSetTable = "CupOrdre";
             tableMapping.ColumnMappings.Add("CupID", "CupID");
             tableMapping.ColumnMappings.Add("TypeOfCup", "TypeOfCup");
-            tableMapping.ColumnMappings.Add("OrderedWheight", "OrderedWheight");
-            tableMapping.ColumnMappings.Add("ActualWheight", "ActualWheight");
+            tableMapping.ColumnMappings.Add("OrderedWeight", "OrderedWeight");
+            tableMapping.ColumnMappings.Add("ActualWeight", "ActualWeight");
             tableMapping.ColumnMappings.Add("RFID", "RFID");
             tableMapping.ColumnMappings.Add("CompletedApproved", "CompletedApproved");
             tableMapping.ColumnMappings.Add("CompletedDiscard", "CompletedDiscard");
@@ -1025,15 +1025,15 @@ namespace ERP.CupOrderDataSetTableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[CupOrdre] WHERE (([CupID] = @Original_CupID) AND ((@IsNull_TypeOfCup = 1 AND [TypeOfCup] IS NULL) OR ([TypeOfCup] = @Original_TypeOfCup)) AND ((@IsNull_OrderedWheight = 1 AND [OrderedWheight] IS NULL) OR ([OrderedWheight] = @Original_OrderedWheight)) AND ((@IsNull_ActualWheight = 1 AND [ActualWheight] IS NULL) OR ([ActualWheight] = @Original_ActualWheight)) AND ((@IsNull_RFID = 1 AND [RFID] IS NULL) OR ([RFID] = @Original_RFID)) AND ((@IsNull_CompletedApproved = 1 AND [CompletedApproved] IS NULL) OR ([CompletedApproved] = @Original_CompletedApproved)) AND ((@IsNull_CompletedDiscard = 1 AND [CompletedDiscard] IS NULL) OR ([CompletedDiscard] = @Original_CompletedDiscard)) AND ((@IsNull_BatchID = 1 AND [BatchID] IS NULL) OR ([BatchID] = @Original_BatchID)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM [dbo].[CupOrdre] WHERE (([CupID] = @Original_CupID) AND ((@IsNull_TypeOfCup = 1 AND [TypeOfCup] IS NULL) OR ([TypeOfCup] = @Original_TypeOfCup)) AND ((@IsNull_OrderedWeight = 1 AND [OrderedWeight] IS NULL) OR ([OrderedWeight] = @Original_OrderedWeight)) AND ((@IsNull_ActualWeight = 1 AND [ActualWeight] IS NULL) OR ([ActualWeight] = @Original_ActualWeight)) AND ((@IsNull_RFID = 1 AND [RFID] IS NULL) OR ([RFID] = @Original_RFID)) AND ((@IsNull_CompletedApproved = 1 AND [CompletedApproved] IS NULL) OR ([CompletedApproved] = @Original_CompletedApproved)) AND ((@IsNull_CompletedDiscard = 1 AND [CompletedDiscard] IS NULL) OR ([CompletedDiscard] = @Original_CompletedDiscard)) AND ((@IsNull_BatchID = 1 AND [BatchID] IS NULL) OR ([BatchID] = @Original_BatchID)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CupID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CupID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TypeOfCup", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TypeOfCup", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TypeOfCup", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TypeOfCup", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_OrderedWheight", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OrderedWheight", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OrderedWheight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OrderedWheight", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ActualWheight", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ActualWheight", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ActualWheight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ActualWheight", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_OrderedWeight", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OrderedWeight", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OrderedWeight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OrderedWeight", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ActualWeight", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ActualWeight", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ActualWeight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ActualWeight", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_RFID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RFID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RFID", global::System.Data.SqlDbType.Char, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RFID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CompletedApproved", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CompletedApproved", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -1044,24 +1044,24 @@ namespace ERP.CupOrderDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_BatchID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "BatchID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.InsertCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[CupOrdre] ([TypeOfCup], [OrderedWheight], [ActualWheight], [RFID], [CompletedApproved], [CompletedDiscard], [BatchID]) VALUES (@TypeOfCup, @OrderedWheight, @ActualWheight, @RFID, @CompletedApproved, @CompletedDiscard, @BatchID);
-SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved, CompletedDiscard, BatchID FROM CupOrdre WHERE (CupID = SCOPE_IDENTITY())";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO [dbo].[CupOrdre] ([TypeOfCup], [OrderedWeight], [ActualWeight], [RFID], [CompletedApproved], [CompletedDiscard], [BatchID]) VALUES (@TypeOfCup, @OrderedWeight, @ActualWeight, @RFID, @CompletedApproved, @CompletedDiscard, @BatchID);
+SELECT CupID, TypeOfCup, OrderedWeight, ActualWeight, RFID, CompletedApproved, CompletedDiscard, BatchID FROM CupOrdre WHERE (CupID = SCOPE_IDENTITY())";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TypeOfCup", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TypeOfCup", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OrderedWheight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OrderedWheight", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ActualWheight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ActualWheight", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OrderedWeight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OrderedWeight", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ActualWeight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ActualWeight", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RFID", global::System.Data.SqlDbType.Char, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RFID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CompletedApproved", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CompletedApproved", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CompletedDiscard", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CompletedDiscard", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BatchID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "BatchID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand = new global::System.Data.SqlClient.SqlCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[CupOrdre] SET [TypeOfCup] = @TypeOfCup, [OrderedWheight] = @OrderedWheight, [ActualWheight] = @ActualWheight, [RFID] = @RFID, [CompletedApproved] = @CompletedApproved, [CompletedDiscard] = @CompletedDiscard, [BatchID] = @BatchID WHERE (([CupID] = @Original_CupID) AND ((@IsNull_TypeOfCup = 1 AND [TypeOfCup] IS NULL) OR ([TypeOfCup] = @Original_TypeOfCup)) AND ((@IsNull_OrderedWheight = 1 AND [OrderedWheight] IS NULL) OR ([OrderedWheight] = @Original_OrderedWheight)) AND ((@IsNull_ActualWheight = 1 AND [ActualWheight] IS NULL) OR ([ActualWheight] = @Original_ActualWheight)) AND ((@IsNull_RFID = 1 AND [RFID] IS NULL) OR ([RFID] = @Original_RFID)) AND ((@IsNull_CompletedApproved = 1 AND [CompletedApproved] IS NULL) OR ([CompletedApproved] = @Original_CompletedApproved)) AND ((@IsNull_CompletedDiscard = 1 AND [CompletedDiscard] IS NULL) OR ([CompletedDiscard] = @Original_CompletedDiscard)) AND ((@IsNull_BatchID = 1 AND [BatchID] IS NULL) OR ([BatchID] = @Original_BatchID)));
-SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved, CompletedDiscard, BatchID FROM CupOrdre WHERE (CupID = @CupID)";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE [dbo].[CupOrdre] SET [TypeOfCup] = @TypeOfCup, [OrderedWeight] = @OrderedWeight, [ActualWeight] = @ActualWeight, [RFID] = @RFID, [CompletedApproved] = @CompletedApproved, [CompletedDiscard] = @CompletedDiscard, [BatchID] = @BatchID WHERE (([CupID] = @Original_CupID) AND ((@IsNull_TypeOfCup = 1 AND [TypeOfCup] IS NULL) OR ([TypeOfCup] = @Original_TypeOfCup)) AND ((@IsNull_OrderedWeight = 1 AND [OrderedWeight] IS NULL) OR ([OrderedWeight] = @Original_OrderedWeight)) AND ((@IsNull_ActualWeight = 1 AND [ActualWeight] IS NULL) OR ([ActualWeight] = @Original_ActualWeight)) AND ((@IsNull_RFID = 1 AND [RFID] IS NULL) OR ([RFID] = @Original_RFID)) AND ((@IsNull_CompletedApproved = 1 AND [CompletedApproved] IS NULL) OR ([CompletedApproved] = @Original_CompletedApproved)) AND ((@IsNull_CompletedDiscard = 1 AND [CompletedDiscard] IS NULL) OR ([CompletedDiscard] = @Original_CompletedDiscard)) AND ((@IsNull_BatchID = 1 AND [BatchID] IS NULL) OR ([BatchID] = @Original_BatchID)));
+SELECT CupID, TypeOfCup, OrderedWeight, ActualWeight, RFID, CompletedApproved, CompletedDiscard, BatchID FROM CupOrdre WHERE (CupID = @CupID)";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@TypeOfCup", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TypeOfCup", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OrderedWheight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OrderedWheight", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ActualWheight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ActualWheight", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@OrderedWeight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OrderedWeight", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@ActualWeight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ActualWeight", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@RFID", global::System.Data.SqlDbType.Char, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RFID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CompletedApproved", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CompletedApproved", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@CompletedDiscard", global::System.Data.SqlDbType.Bit, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CompletedDiscard", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1069,10 +1069,10 @@ SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved,
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_CupID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CupID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_TypeOfCup", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TypeOfCup", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_TypeOfCup", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "TypeOfCup", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_OrderedWheight", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OrderedWheight", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OrderedWheight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OrderedWheight", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ActualWheight", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ActualWheight", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ActualWheight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ActualWheight", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_OrderedWeight", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OrderedWeight", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_OrderedWeight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "OrderedWeight", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_ActualWeight", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ActualWeight", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_ActualWeight", global::System.Data.SqlDbType.Float, 0, global::System.Data.ParameterDirection.Input, 0, 0, "ActualWeight", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_RFID", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RFID", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@Original_RFID", global::System.Data.SqlDbType.Char, 0, global::System.Data.ParameterDirection.Input, 0, 0, "RFID", global::System.Data.DataRowVersion.Original, false, null, "", "", ""));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@IsNull_CompletedApproved", global::System.Data.SqlDbType.Int, 0, global::System.Data.ParameterDirection.Input, 0, 0, "CompletedApproved", global::System.Data.DataRowVersion.Original, true, null, "", "", ""));
@@ -1097,12 +1097,12 @@ SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved,
             this._commandCollection = new global::System.Data.SqlClient.SqlCommand[2];
             this._commandCollection[0] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved, " +
+            this._commandCollection[0].CommandText = "SELECT CupID, TypeOfCup, OrderedWeight, ActualWeight, RFID, CompletedApproved, " +
                 "CompletedDiscard, BatchID FROM dbo.CupOrdre";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1] = new global::System.Data.SqlClient.SqlCommand();
             this._commandCollection[1].Connection = this.Connection;
-            this._commandCollection[1].CommandText = "SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved, " +
+            this._commandCollection[1].CommandText = "SELECT CupID, TypeOfCup, OrderedWeight, ActualWeight, RFID, CompletedApproved, " +
                 "CompletedDiscard, BatchID FROM dbo.CupOrdre WHERE (BatchID=@BatchID)";
             this._commandCollection[1].CommandType = global::System.Data.CommandType.Text;
             this._commandCollection[1].Parameters.Add(new global::System.Data.SqlClient.SqlParameter("@BatchID", global::System.Data.SqlDbType.Int, 4, global::System.Data.ParameterDirection.Input, 0, 0, "BatchID", global::System.Data.DataRowVersion.Current, false, null, "", "", ""));
@@ -1201,7 +1201,7 @@ SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved,
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_CupID, global::System.Nullable<int> Original_TypeOfCup, global::System.Nullable<double> Original_OrderedWheight, global::System.Nullable<double> Original_ActualWheight, string Original_RFID, global::System.Nullable<bool> Original_CompletedApproved, global::System.Nullable<bool> Original_CompletedDiscard, global::System.Nullable<int> Original_BatchID) {
+        public virtual int Delete(int Original_CupID, global::System.Nullable<int> Original_TypeOfCup, global::System.Nullable<double> Original_OrderedWeight, global::System.Nullable<double> Original_ActualWeight, string Original_RFID, global::System.Nullable<bool> Original_CompletedApproved, global::System.Nullable<bool> Original_CompletedDiscard, global::System.Nullable<int> Original_BatchID) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_CupID));
             if ((Original_TypeOfCup.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
@@ -1211,17 +1211,17 @@ SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved,
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            if ((Original_OrderedWheight.HasValue == true)) {
+            if ((Original_OrderedWeight.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((double)(Original_OrderedWheight.Value));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((double)(Original_OrderedWeight.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
             }
-            if ((Original_ActualWheight.HasValue == true)) {
+            if ((Original_ActualWeight.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((double)(Original_ActualWheight.Value));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((double)(Original_ActualWeight.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
@@ -1279,21 +1279,21 @@ SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved,
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<int> TypeOfCup, global::System.Nullable<double> OrderedWheight, global::System.Nullable<double> ActualWheight, string RFID, global::System.Nullable<bool> CompletedApproved, global::System.Nullable<bool> CompletedDiscard, global::System.Nullable<int> BatchID) {
+        public virtual int Insert(global::System.Nullable<int> TypeOfCup, global::System.Nullable<double> OrderedWeight, global::System.Nullable<double> ActualWeight, string RFID, global::System.Nullable<bool> CompletedApproved, global::System.Nullable<bool> CompletedDiscard, global::System.Nullable<int> BatchID) {
             if ((TypeOfCup.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((int)(TypeOfCup.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            if ((OrderedWheight.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((double)(OrderedWheight.Value));
+            if ((OrderedWeight.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((double)(OrderedWeight.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((ActualWheight.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((double)(ActualWheight.Value));
+            if ((ActualWeight.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((double)(ActualWeight.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
@@ -1344,16 +1344,16 @@ SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved,
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(
                     global::System.Nullable<int> TypeOfCup, 
-                    global::System.Nullable<double> OrderedWheight, 
-                    global::System.Nullable<double> ActualWheight, 
+                    global::System.Nullable<double> OrderedWeight, 
+                    global::System.Nullable<double> ActualWeight, 
                     string RFID, 
                     global::System.Nullable<bool> CompletedApproved, 
                     global::System.Nullable<bool> CompletedDiscard, 
                     global::System.Nullable<int> BatchID, 
                     int Original_CupID, 
                     global::System.Nullable<int> Original_TypeOfCup, 
-                    global::System.Nullable<double> Original_OrderedWheight, 
-                    global::System.Nullable<double> Original_ActualWheight, 
+                    global::System.Nullable<double> Original_OrderedWeight, 
+                    global::System.Nullable<double> Original_ActualWeight, 
                     string Original_RFID, 
                     global::System.Nullable<bool> Original_CompletedApproved, 
                     global::System.Nullable<bool> Original_CompletedDiscard, 
@@ -1365,14 +1365,14 @@ SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved,
             else {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
-            if ((OrderedWheight.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((double)(OrderedWheight.Value));
+            if ((OrderedWeight.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((double)(OrderedWeight.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
             }
-            if ((ActualWheight.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((double)(ActualWheight.Value));
+            if ((ActualWeight.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((double)(ActualWeight.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
@@ -1410,17 +1410,17 @@ SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved,
                 this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
             }
-            if ((Original_OrderedWheight.HasValue == true)) {
+            if ((Original_OrderedWeight.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((double)(Original_OrderedWheight.Value));
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((double)(Original_OrderedWeight.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
             }
-            if ((Original_ActualWheight.HasValue == true)) {
+            if ((Original_ActualWeight.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[13].Value = ((double)(Original_ActualWheight.Value));
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((double)(Original_ActualWeight.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(1));
@@ -1479,8 +1479,8 @@ SELECT CupID, TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved,
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> TypeOfCup, global::System.Nullable<double> OrderedWheight, global::System.Nullable<double> ActualWheight, string RFID, global::System.Nullable<bool> CompletedApproved, global::System.Nullable<bool> CompletedDiscard, global::System.Nullable<int> BatchID, int Original_CupID, global::System.Nullable<int> Original_TypeOfCup, global::System.Nullable<double> Original_OrderedWheight, global::System.Nullable<double> Original_ActualWheight, string Original_RFID, global::System.Nullable<bool> Original_CompletedApproved, global::System.Nullable<bool> Original_CompletedDiscard, global::System.Nullable<int> Original_BatchID) {
-            return this.Update(TypeOfCup, OrderedWheight, ActualWheight, RFID, CompletedApproved, CompletedDiscard, BatchID, Original_CupID, Original_TypeOfCup, Original_OrderedWheight, Original_ActualWheight, Original_RFID, Original_CompletedApproved, Original_CompletedDiscard, Original_BatchID, Original_CupID);
+        public virtual int Update(global::System.Nullable<int> TypeOfCup, global::System.Nullable<double> OrderedWeight, global::System.Nullable<double> ActualWeight, string RFID, global::System.Nullable<bool> CompletedApproved, global::System.Nullable<bool> CompletedDiscard, global::System.Nullable<int> BatchID, int Original_CupID, global::System.Nullable<int> Original_TypeOfCup, global::System.Nullable<double> Original_OrderedWeight, global::System.Nullable<double> Original_ActualWeight, string Original_RFID, global::System.Nullable<bool> Original_CompletedApproved, global::System.Nullable<bool> Original_CompletedDiscard, global::System.Nullable<int> Original_BatchID) {
+            return this.Update(TypeOfCup, OrderedWeight, ActualWeight, RFID, CompletedApproved, CompletedDiscard, BatchID, Original_CupID, Original_TypeOfCup, Original_OrderedWeight, Original_ActualWeight, Original_RFID, Original_CompletedApproved, Original_CompletedDiscard, Original_BatchID, Original_CupID);
         }
     }
     

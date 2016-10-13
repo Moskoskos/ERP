@@ -73,10 +73,11 @@ namespace ERP
 
         private void UpdateDataGridViews()
         {
-            // TODO: This line of code loads data into the 'cupOrderDataSet.CupOrdre' table. You can move, or remove it, as needed.
-            this.cupOrdreTableAdapter.Fill(this.cupOrderDataSet.CupOrdre);
+
             // TODO: This line of code loads data into the 'batchOrderDataSet.BatchOrdre' table. You can move, or remove it, as needed.
             this.batchOrdreTableAdapter.Fill(this.batchOrderDataSet.BatchOrdre);
+            // TODO: This line of code loads data into the 'cupOrderDataSet.CupOrdre' table. You can move, or remove it, as needed.
+            this.cupOrdreTableAdapter.Fill(this.cupOrderDataSet.CupOrdre);
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -221,18 +222,6 @@ namespace ERP
             }
         }
 
-        private void fillToolStripButton_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                this.batchOrdreTableAdapter.Fill(this.batchOrderDataSet.BatchOrdre);
-            }
-            catch (System.Exception ex)
-            {
-                System.Windows.Forms.MessageBox.Show(ex.Message);
-            }
-
-        }
 
 
     }
