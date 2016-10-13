@@ -12,25 +12,14 @@ namespace ERP
 {
     public class DbConnect
     {
-
-        private string server;
-        private string database;
-        private string uid;
-        private string password;
         private SqlConnection connection;
         private DataSet ds = new DataSet();
         private DataTable dt = new DataTable();
+        string batchid = "";
 
         public DbConnect()
         {
-            server = "192.168.2.15";                                                    //Host
-            database = "IA5-5-16";                                                      //Database
-            uid = "sa";                                                                 //Username
-            password = "netlab_1";                                                      //Password
-            string connectionString;                                                    //Declare connectionString
-            connectionString = "SERVER=" + server + ";" + "DATABASE=" +                 //Format connectiongString
-            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
-            //connection = new SqlConnection(connectionString);                           //Initialze connection with connectionString
+             //Initialze connection with connectionString
             connection = new SqlConnection("Data Source = 192.168.2.15\\SQLEXPRESS; Initial Catalog = IA5-5-16; User ID = sa; Password = " + "netlab_1");
         }
         public bool PingHost()
@@ -94,13 +83,13 @@ namespace ERP
         {
             try
             {
-                string query = "INSERT INTO BatchOrdre(NumberOfCups)VALUES(@numberOfCups);";
+                string query = "INSERT INTO BatchOrdre(NumberOfCups)VALUES(@numberOfCups); SELECT SCOPE_IDENTITY();";
                 if (OpenConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@numberOfCups", numberOfCups);
-                        cmd.ExecuteScalar();
+                        batchid = cmd.ExecuteScalar().ToString();
                         CloseConnection();
                     }
                 }
@@ -111,22 +100,17 @@ namespace ERP
                 throw;
             }
         }
-        public double GetLatestValue()
+
+        public void AddCupsToBatchOrder()
         {
-            string result = "";
-            string query = "SELECT BatchID FROM BatchOrdre LIMIT 1;";
-            //Sjekker at tilkoblingen er åpen.
-            if (this.OpenConnection())
+            try
             {
-                //Bruker spørringen ovenfor og tilkoblingstrengen i DbConnect.
-                using (SqlCommand cmd = new SqlCommand(query, connection))
-                {
-                    //Kjører spørringen og får en verdi tilbake
-                    result = cmd.ExecuteScalar().ToString();
-                    CloseConnection();
-                }
+                string query ="INSERT INTO CupOrdre("
             }
-            return Convert.ToDouble(result);
+            catch (Exception)
+            {
+
+            }
         }
 
         //public void FillDataSet()

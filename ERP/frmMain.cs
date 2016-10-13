@@ -32,11 +32,17 @@ namespace ERP
         {
             ConnectToDatabase();
 
+            //Disable fill comboboxes
             cmbFillRed.Enabled = false;
             cmbFillBlack.Enabled = false;
             cmbFillLargeBlack.Enabled = false;
             cmbFillTran.Enabled = false;
+
+            //Set Datagridviews to readonly
             dataGridView1.ReadOnly = true;
+            dataGridView2.ReadOnly = true;
+
+            //Set selected indexes to 0;
             cmbFillRed.SelectedIndex = 0;
             cmbFillBlack.SelectedIndex = 0;
             cmbFillLargeBlack.SelectedIndex = 0;
@@ -45,15 +51,11 @@ namespace ERP
             cmbBlack.SelectedIndex = 0;
             CmbLargeBlack.SelectedIndex = 0;
             cmbTran.SelectedIndex = 0;
+
+            //Default sort option for grids.
             dataGridView1.Sort(dataGridView1.Columns[0], ListSortDirection.Descending);
             dataGridView2.Sort(dataGridView2.Columns[0], ListSortDirection.Ascending);
-            //foreach (Control ctrl in Controls)
-            //{
-            //    if (ctrl is ComboBox)
-            //    {
-            //        ((ComboBox)ctrl).SelectedIndex = 0;
-            //    }
-            //}
+
 
         }
         private void ConnectToDatabase()
@@ -111,8 +113,11 @@ namespace ERP
 
         private void btnSubmit_Click(object sender, EventArgs e)
         {
-            int totalCups = 0;
-            totalCups = GetTotalCups();
+            int numOfCups = 0;
+            DbConnect dc = new DbConnect();
+            numOfCups = GetTotalCups();
+            dc.CreateBatchOrder(numOfCups);
+            UpdateDataGridViews();
         }
 
         //Disables the fill box if selected index = 0
@@ -188,41 +193,31 @@ namespace ERP
             return sum;
         }
 
+        //|    TYPE      |   FILLLEVEL    |
+        //|     RED      |      20        |
+        //|     RED      |      20        |
+        //|    BLACK     |      40        |
+        //|     TALL     |      80        |
+        //|_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|
         private void InsertOrderIntoDataSet()
         {
-            
+
+            DataTable dt = new DataTable();
+            for (int i = 0; i <= GetTotalCups(); i++)
+            {
+
+
+            }
         }
 
-        //Write Order to DB
-        private void btnBATCHORDER_TEST_Click(object sender, EventArgs e)
-        {
-            int numOfCups = 0;
-            DbConnect dc = new DbConnect();
-            numOfCups =  GetTotalCups();
-            dc.CreateBatchOrder(numOfCups);
-            UpdateDataGridViews();
-        }
-
-        //private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
-        //{
-        //    int selectedRow = 0;
-        //    selectedRow = dataGridView1.CurrentCell.RowIndex;
-        //    int batchID = 
-            
-        //}
-
-
+        //Display order data as selection of batchorder is changed.
         private void dataGridView1_SelectionChanged_1(object sender, EventArgs e)
         {
             if (dataGridView1.SelectedCells.Count > 0)
             {
                 var index = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-                txtBATCHIDFORCELL.Text = index.ToString();
                 this.cupOrdreTableAdapter.FillWithBatchNumber(this.cupOrderDataSet.CupOrdre, index);
             }
         }
-
-
-
     }
 }
