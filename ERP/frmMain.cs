@@ -45,7 +45,8 @@ namespace ERP
             cmbBlack.SelectedIndex = 0;
             CmbLargeBlack.SelectedIndex = 0;
             cmbTran.SelectedIndex = 0;
-
+            dataGridView1.Sort(dataGridView1.Columns[0], ListSortDirection.Descending);
+            dataGridView2.Sort(dataGridView2.Columns[0], ListSortDirection.Ascending);
             //foreach (Control ctrl in Controls)
             //{
             //    if (ctrl is ComboBox)
@@ -60,10 +61,7 @@ namespace ERP
             DbConnect dc = new DbConnect();
             if (dc.PingHost())
             {
-                // TODO: This line of code loads data into the 'cupOrderDataSet.CupOrdre' table. You can move, or remove it, as needed.
-                this.cupOrdreTableAdapter.Fill(this.cupOrderDataSet.CupOrdre);
-                // TODO: This line of code loads data into the 'batchOrderDataSet.BatchOrdre' table. You can move, or remove it, as needed.
-                this.batchOrdreTableAdapter.Fill(this.batchOrderDataSet.BatchOrdre);
+                UpdateDataGridViews();
                 btnReconnect.Hide();
             }
             else
@@ -73,7 +71,13 @@ namespace ERP
             }
         }
 
-
+        private void UpdateDataGridViews()
+        {
+            // TODO: This line of code loads data into the 'cupOrderDataSet.CupOrdre' table. You can move, or remove it, as needed.
+            this.cupOrdreTableAdapter.Fill(this.cupOrderDataSet.CupOrdre);
+            // TODO: This line of code loads data into the 'batchOrderDataSet.BatchOrdre' table. You can move, or remove it, as needed.
+            this.batchOrdreTableAdapter.Fill(this.batchOrderDataSet.BatchOrdre);
+        }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -183,8 +187,19 @@ namespace ERP
             return sum;
         }
 
+        private void InsertOrderIntoDataSet()
+        {
+            
+        }
 
-
-
+        //Write Order to DB
+        private void btnBATCHORDER_TEST_Click(object sender, EventArgs e)
+        {
+            int numOfCups = 0;
+            DbConnect dc = new DbConnect();
+            numOfCups =  GetTotalCups();
+            dc.CreateBatchOrder(numOfCups);
+            UpdateDataGridViews();
+        }
     }
 }

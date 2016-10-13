@@ -13,23 +13,26 @@ namespace ERP
     public class DbConnect
     {
 
-            private string server;
-            private string database;
-            private string uid;
-            private string password;
-            private SqlConnection connection;
+        private string server;
+        private string database;
+        private string uid;
+        private string password;
+        private SqlConnection connection;
+        private DataSet ds = new DataSet();
+        private DataTable dt = new DataTable();
 
-            public DbConnect()
-            {
-                server = "192.168.2.15";                                                    //Host
-                database = "IA5-5-16";                                                      //Database
-                uid = "sa";                                                                 //Username
-                password = "netlab_1";                                                      //Password
-                string connectionString;                                                    //Declare connectionString
-                connectionString = "SERVER=" + server + ";" + "DATABASE=" +                 //Format connectiongString
-                database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
-                connection = new SqlConnection(connectionString);                           //Initialze connection with connectionString
-            }
+        public DbConnect()
+        {
+            server = "192.168.2.15";                                                    //Host
+            database = "IA5-5-16";                                                      //Database
+            uid = "sa";                                                                 //Username
+            password = "netlab_1";                                                      //Password
+            string connectionString;                                                    //Declare connectionString
+            connectionString = "SERVER=" + server + ";" + "DATABASE=" +                 //Format connectiongString
+            database + ";" + "UID=" + uid + ";" + "PASSWORD=" + password + ";";
+            //connection = new SqlConnection(connectionString);                           //Initialze connection with connectionString
+            connection = new SqlConnection("Data Source = 192.168.2.15\\SQLEXPRESS; Initial Catalog = IA5-5-16; User ID = sa; Password = " + "netlab_1");
+        }
         public bool PingHost()
         {
             string nameOrAddress = "192.168.2.15";
@@ -48,76 +51,44 @@ namespace ERP
         }
 
         public bool OpenConnection()
+        {
+            try
             {
-                try
-                {
-                    if (connection.State != ConnectionState.Open)
-                    {
-                        connection.Close();
-                        connection.Open();
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-
-                }
-                catch (SqlException ex)
-                {
-                    MessageBox.Show(ex.Message);
-
-                    return false;
-                }
-            }
-
-            public bool CloseConnection()
-            {
-
-                try
+                if (connection.State != ConnectionState.Open)
                 {
                     connection.Close();
+                    connection.Open();
                     return true;
                 }
-                catch (SqlException ex)
+                else
                 {
-                    MessageBox.Show(ex.Message);
+                    return false;
                 }
+
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
+
+                return false;
+            }
+        }
+
+        public bool CloseConnection()
+        {
+
+            try
+            {
+                connection.Close();
                 return true;
             }
-            public void InsertIntoUsers(string usernameIn, string firstnameIn, string lastnameIn, string emailIn, int numberIn)
+            catch (SqlException ex)
             {
-                //Source:
-                //http://stackoverflow.com/questions/19527554/inserting-values-into-mysql-database-from-c-sharp-application-text-box
-                {
-                    try
-                    {
-
-                        string query = "INSERT INTO users(username, firstname, lastname, email, phonenumber)VALUES(@username, @firstname, @lastname,@email,@number);";
-                        //Sjekker at tilkoblingen er åpen.
-                        if (OpenConnection())
-                        {
-                            //Bruker spørringen ovenfor og tilkoblingstrengen i DbConnect.
-                            using (SqlCommand cmd = new SqlCommand(query, connection))
-                            {
-                                // Henter inn verdiene fra parameterene og legger de til som en verdi i spørringen query
-                                cmd.Parameters.AddWithValue("@username", usernameIn);
-                                cmd.Parameters.AddWithValue("@firstname", firstnameIn);
-                                cmd.Parameters.AddWithValue("@lastname", lastnameIn);
-                                cmd.Parameters.AddWithValue("@email", emailIn);
-                                cmd.Parameters.AddWithValue("@number", numberIn);
-                                //Kjører en SQL-commando uten å få noen verdi tilbake.
-                                cmd.ExecuteNonQuery();
-                                CloseConnection();
-                            }
-                        }
-                    }
-                    catch (SqlException ex)
-                    {
-                        MessageBox.Show("Could not process your order\r\r\n" + ex.Message);
-                    }
-                }
+                MessageBox.Show(ex.Message);
             }
+            return true;
+        }
+
 
         public void CreateBatchOrder(int numberOfCups)
         {
@@ -129,7 +100,7 @@ namespace ERP
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
                         cmd.Parameters.AddWithValue("@numberOfCups", numberOfCups);
-                        cmd.ExecuteNonQuery();
+                        cmd.ExecuteScalar();
                         CloseConnection();
                     }
                 }
@@ -156,9 +127,28 @@ namespace ERP
                 }
             }
             return Convert.ToDouble(result);
-
-
-
         }
+
+        //public void FillDataSet()
+        //{
+
+        //    dt.Columns.Add();
+        //    // take note of SqlBulkCopyOptions.KeepIdentity , you may or may not want to use this for your situation.  
+
+        //    using (var bulkCopy = new SqlBulkCopy(_connection.ConnectionString, SqlBulkCopyOptions.KeepIdentity))
+        //    {
+        //        // my DataTable column names match my SQL Column names, so I simply made this loop. However if your column names don't match, just pass in which datatable name matches the SQL column name in Column Mappings
+        //        foreach (DataColumn col in table.Columns)
+        //        {
+        //            bulkCopy.ColumnMappings.Add(col.ColumnName, col.ColumnName);
+        //        }
+
+        //        bulkCopy.BulkCopyTimeout = 600;
+        //        bulkCopy.DestinationTableName = destinationTableName;
+        //        bulkCopy.WriteToServer(table);
+        //    }
+        //}
+
     }
+}
 
