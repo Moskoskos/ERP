@@ -17,10 +17,18 @@ namespace ERP
     {
         //private string folderPath = "";
         //private string fileName = ""; //Name of the selected file.
-        private int red = 0;
-        private int black = 0;
-        private int tall = 0;
-        private int tran = 0;
+        private int numRed = 0;
+        private int numBlack = 0;
+        private int numTall = 0;
+        private int numTran = 0;
+        private const int black = 1; //Identifier for DB
+        private const int red = 2;   //Identifier for DB
+        private const int tran = 3;  //Identifier for DB
+        private const int tall = 4;  //Identifier for DB
+        private int fillBlack = 0;
+        private int fillRed = 0;
+        private int fillTran = 0;
+        private int fillTall = 0;
 
 
         public frmMain()
@@ -117,8 +125,24 @@ namespace ERP
             DbConnect dc = new DbConnect();
             numOfCups = GetTotalCups();
             dc.CreateBatchOrder(numOfCups);
+
+            fillBlack = Convert.ToInt32(cmbFillBlack.SelectedValue);
+            if(fillBlack != 0) { dc.InsertOrderIntoDataTable(numBlack, black, fillBlack); }
+
+            fillRed = Convert.ToInt32(cmbFillRed.SelectedValue);
+            if(fillRed != 0) { dc.InsertOrderIntoDataTable(numRed, red, fillRed); }
+
+            fillTran = Convert.ToInt32(cmbFillLargeBlack.SelectedValue);
+            if(fillTran != 0) { dc.InsertOrderIntoDataTable(numTran, tran, fillTran); }
+
+            fillBlack = Convert.ToInt32(cmbFillTran.SelectedValue);
+            if(fillTall != 0) { dc.InsertOrderIntoDataTable(numTall, tall, fillTall); }
+            
+            dc.DataTableToDB();
+
             UpdateDataGridViews();
         }
+
 
         //Disables the fill box if selected index = 0
         private void cmbRed_SelectedIndexChanged(object sender, EventArgs e)
@@ -126,7 +150,7 @@ namespace ERP
             if (cmbRed.SelectedIndex != 0)
             {
                 cmbFillRed.Enabled = true;
-                red = cmbRed.SelectedIndex;
+                numRed = cmbRed.SelectedIndex;
             }
             else
             {
@@ -140,7 +164,7 @@ namespace ERP
             if (cmbBlack.SelectedIndex != 0)
             {
                 cmbFillBlack.Enabled = true;
-                black = cmbBlack.SelectedIndex;
+                numBlack = cmbBlack.SelectedIndex;
             }
             else
             {
@@ -154,7 +178,7 @@ namespace ERP
             if (CmbLargeBlack.SelectedIndex != 0)
             {
                 cmbFillLargeBlack.Enabled = true;
-                tall = CmbLargeBlack.SelectedIndex;
+                numTall = CmbLargeBlack.SelectedIndex;
             }
             else
             {
@@ -168,7 +192,7 @@ namespace ERP
             if (cmbTran.SelectedIndex != 0)
             {
                 cmbFillTran.Enabled = true;
-                tran = cmbTran.SelectedIndex;
+                numTran = cmbTran.SelectedIndex;
             }
             else
             {
@@ -189,7 +213,7 @@ namespace ERP
         private int GetTotalCups()
         {
             int sum = 0;
-            sum = red + black + tall + tran;
+            sum = numRed + numBlack + numTall + numTran;
             return sum;
         }
 
@@ -199,16 +223,7 @@ namespace ERP
         //|    BLACK     |      40        |
         //|     TALL     |      80        |
         //|_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|
-        private void InsertOrderIntoDataSet()
-        {
 
-            DataTable dt = new DataTable();
-            for (int i = 0; i <= GetTotalCups(); i++)
-            {
-
-
-            }
-        }
 
         //Display order data as selection of batchorder is changed.
         private void dataGridView1_SelectionChanged_1(object sender, EventArgs e)

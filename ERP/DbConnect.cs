@@ -17,10 +17,14 @@ namespace ERP
         private DataTable dt = new DataTable();
         string batchid = "";
 
+
         public DbConnect()
         {
              //Initialze connection with connectionString
             connection = new SqlConnection("Data Source = 192.168.2.15\\SQLEXPRESS; Initial Catalog = IA5-5-16; User ID = sa; Password = " + "netlab_1");
+            dt.Columns.Add("TypeOfCup", typeof(int));
+            dt.Columns.Add("OrderedWeight", typeof(int));
+            dt.Columns.Add("BatchID", typeof(int));
         }
         public bool PingHost()
         {
@@ -101,37 +105,36 @@ namespace ERP
             }
         }
 
-        public void AddCupsToBatchOrder()
+        public void InsertOrderIntoDataTable(int numOfCups, int typeOfCup, int fillLevel)
         {
-            try
-            {
-                string query ="INSERT INTO CupOrdre("
-            }
-            catch (Exception)
-            {
 
+
+
+            for (int i = 0; i <= numOfCups; i++)
+            {
+                // ADD X-AMOUNT OF ROWS TO COLLUMN "TYPE" WITH COLOR Y, ADD CORRESPONDING FILL LEVEL TO COLLUMN FILLLEVEL
+                dt.Rows.Add(typeOfCup, fillLevel, batchid);
             }
         }
+       //Source:  http://stackoverflow.com/questions/10405373/insert-entire-datatable-into-database-at-once-instead-of-row-by-row
+        public void DataTableToDB()
+        {
+            // take note of SqlBulkCopyOptions.KeepIdentity , you may or may not want to use this for your situation.  
 
-        //public void FillDataSet()
-        //{
+            using (var bulkCopy = new SqlBulkCopy(connection.ConnectionString, SqlBulkCopyOptions.KeepIdentity))
+            {
+                // my DataTable column names match my SQL Column names, so I simply made this loop. However if your column names don't match, just pass in which datatable name matches the SQL column name in Column Mappings
+                foreach (DataColumn col in dt.Columns)
+                {
+                    bulkCopy.ColumnMappings.Add(col.ColumnName, col.ColumnName);
+                }
 
-        //    dt.Columns.Add();
-        //    // take note of SqlBulkCopyOptions.KeepIdentity , you may or may not want to use this for your situation.  
-
-        //    using (var bulkCopy = new SqlBulkCopy(_connection.ConnectionString, SqlBulkCopyOptions.KeepIdentity))
-        //    {
-        //        // my DataTable column names match my SQL Column names, so I simply made this loop. However if your column names don't match, just pass in which datatable name matches the SQL column name in Column Mappings
-        //        foreach (DataColumn col in table.Columns)
-        //        {
-        //            bulkCopy.ColumnMappings.Add(col.ColumnName, col.ColumnName);
-        //        }
-
-        //        bulkCopy.BulkCopyTimeout = 600;
-        //        bulkCopy.DestinationTableName = destinationTableName;
-        //        bulkCopy.WriteToServer(table);
-        //    }
-        //}
+                bulkCopy.BulkCopyTimeout = 600;
+                bulkCopy.DestinationTableName = "dbo.CupOrdre";
+                bulkCopy.WriteToServer(dt);
+            }
+            dt.Clear();
+        }
 
     }
 }
