@@ -64,6 +64,7 @@ namespace ERP
             dataGridView1.Sort(dataGridView1.Columns[0], ListSortDirection.Descending);
             dataGridView2.Sort(dataGridView2.Columns[0], ListSortDirection.Ascending);
 
+            UpdateCupGrid();
 
         }
         private void ConnectToDatabase()
@@ -126,21 +127,27 @@ namespace ERP
             numOfCups = GetTotalCups();
             dc.CreateBatchOrder(numOfCups);
 
-            fillBlack = Convert.ToInt32(cmbFillBlack.SelectedValue);
-            if(fillBlack != 0) { dc.InsertOrderIntoDataTable(numBlack, black, fillBlack); }
+            fillBlack = Convert.ToInt32(cmbFillBlack.Text);
+            numBlack = Convert.ToInt32(cmbBlack.Text);
+            if(numBlack != 0) { dc.InsertOrderIntoDataTable(numBlack, black, fillBlack); }
 
-            fillRed = Convert.ToInt32(cmbFillRed.SelectedValue);
-            if(fillRed != 0) { dc.InsertOrderIntoDataTable(numRed, red, fillRed); }
+            fillRed = Convert.ToInt32(cmbFillRed.Text);
+            numRed = Convert.ToInt32(cmbRed.Text);
+            if(numRed != 0) { dc.InsertOrderIntoDataTable(numRed, red, fillRed); }
 
-            fillTran = Convert.ToInt32(cmbFillLargeBlack.SelectedValue);
-            if(fillTran != 0) { dc.InsertOrderIntoDataTable(numTran, tran, fillTran); }
+            fillTall = Convert.ToInt32(cmbFillLargeBlack.Text);
+            numTran = Convert.ToInt32(CmbLargeBlack.Text);
+            if(numTran != 0) { dc.InsertOrderIntoDataTable(numTran, tran, fillTran); }
 
-            fillBlack = Convert.ToInt32(cmbFillTran.SelectedValue);
-            if(fillTall != 0) { dc.InsertOrderIntoDataTable(numTall, tall, fillTall); }
+            fillTran = Convert.ToInt32(cmbFillTran.Text);
+            numBlack = Convert.ToInt32(cmbTran.Text);
+            if(numTall != 0) { dc.InsertOrderIntoDataTable(numTall, tall, fillTall); }
             
             dc.DataTableToDB();
 
+            
             UpdateDataGridViews();
+            UpdateCupGrid();
         }
 
 
@@ -217,16 +224,12 @@ namespace ERP
             return sum;
         }
 
-        //|    TYPE      |   FILLLEVEL    |
-        //|     RED      |      20        |
-        //|     RED      |      20        |
-        //|    BLACK     |      40        |
-        //|     TALL     |      80        |
-        //|_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _|
-
-
         //Display order data as selection of batchorder is changed.
         private void dataGridView1_SelectionChanged_1(object sender, EventArgs e)
+        {
+            UpdateCupGrid();
+        }
+        private void UpdateCupGrid()
         {
             if (dataGridView1.SelectedCells.Count > 0)
             {
