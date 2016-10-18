@@ -136,64 +136,7 @@ namespace ERP
 
                 throw;
             }
-
         }
-        //Source:  http://stackoverflow.com/questions/10405373/insert-entire-datatable-into-database-at-once-instead-of-row-by-row
-        public void DataTableToDB()
-        {
-            try
-            {
-                // take note of SqlBulkCopyOptions.KeepIdentity , you may or may not want to use this for your situation.  
-                if (OpenConnection())
-                {
-                    using (var bulkCopy = new SqlBulkCopy(conString, SqlBulkCopyOptions.KeepIdentity | 
-                        SqlBulkCopyOptions.CheckConstraints | SqlBulkCopyOptions.TableLock | SqlBulkCopyOptions.FireTriggers))
-                    {
-                        // my DataTable column names match my SQL Column names, so I simply made this loop. However if your column names don't match, just pass in which datatable name matches the SQL column name in Column Mappings
-                        foreach (DataColumn col in dt.Columns)
-                        {
-                            bulkCopy.ColumnMappings.Add(col.ColumnName, col.ColumnName);
-                        }
-
-                        bulkCopy.BulkCopyTimeout = 600;
-                        bulkCopy.DestinationTableName = "dbo.CupOrdre";
-                        bulkCopy.WriteToServer(dt);
-                    }
-                    dt.Clear();
-                }
-            }
-            catch (Exception e)
-            {
-
-                MessageBox.Show( e.Message);
-            }
-            finally
-            {
-                CloseConnection();
-            }
-        }
-        public void TransferToDatabase()
-        {
-            try
-            {
-                // take note of SqlBulkCopyOptions.KeepIdentity , you may or may not want to use this for your situation.  
-                if (OpenConnection())
-                {
-                    CupOrderDataSet cods = new CupOrderDataSet();
-                    
-                }
-            }
-            catch (Exception e)
-            {
-
-                MessageBox.Show(e.Message);
-            }
-            finally
-            {
-                CloseConnection();
-            }
-        }
-
-        }
+    }
 }
 

@@ -137,19 +137,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\left_arrow.png" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\left_arrow1.png" />
+    <None Include="images\left_arrow.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\left_arrow2.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\right_arrow.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\ec_tm_20150916_03_rdax_100.jpg" />
+    <None Include="images\right_arrow.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

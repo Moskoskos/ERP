@@ -40,12 +40,6 @@ namespace ERP
         {
             ConnectToDatabase();
 
-            //Disable fill comboboxes
-            cmbFillRed.Enabled = false;
-            cmbFillBlack.Enabled = false;
-            cmbFillLargeBlack.Enabled = false;
-            cmbFillTran.Enabled = false;
-
             //Set Datagridviews to readonly
             dataGridView1.ReadOnly = true;
             dataGridView2.ReadOnly = true;
@@ -55,10 +49,7 @@ namespace ERP
             cmbFillBlack.SelectedIndex = 0;
             cmbFillLargeBlack.SelectedIndex = 0;
             cmbFillTran.SelectedIndex = 0;
-            cmbRed.SelectedIndex = 0;
-            cmbBlack.SelectedIndex = 0;
-            CmbLargeBlack.SelectedIndex = 0;
-            cmbTran.SelectedIndex = 0;
+
 
             //Default sort option for grids.
             dataGridView1.Sort(dataGridView1.Columns[0], ListSortDirection.Descending);
@@ -77,7 +68,7 @@ namespace ERP
             }
             else
             {
-                MessageBox.Show("Could not connect to host...");
+                MessageBox.Show("Could not find host...");
                 btnReconnect.Show();
             }
         }
@@ -123,89 +114,65 @@ namespace ERP
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             int numOfCups = 0;
+            
             DbConnect dc = new DbConnect();
             numOfCups = GetTotalCups();
+
+            //Creates the Batchorder
             dc.CreateBatchOrder(numOfCups);
 
-            fillBlack = Convert.ToInt32(cmbFillBlack.Text);
-            numBlack = Convert.ToInt32(cmbBlack.Text);
-            if(numBlack != 0) { dc.InsertOrderIntoDataTable(numBlack, black, fillBlack); }
+            //Checks that the input is valid, then proceeds to insert the cupOrder data into the database
+            if (TestInput(txtBlack.Text))
+            {
+                fillBlack = Convert.ToInt32(cmbFillBlack.Text);
+                numBlack = Convert.ToInt32(txtBlack.Text);
+                if (numBlack != 0)
+                {
+                    dc.InsertOrderIntoDataTable(numBlack, black, fillBlack);
+                }
+            }
 
-            fillRed = Convert.ToInt32(cmbFillRed.Text);
-            numRed = Convert.ToInt32(cmbRed.Text);
-            if(numRed != 0) { dc.InsertOrderIntoDataTable(numRed, red, fillRed); }
+            //Checks that the input is valid, then proceeds to insert the cupOrder data into the database
+            if (TestInput(txtRed.Text))
+            {
+                fillRed = Convert.ToInt32(cmbFillRed.Text);
+                numRed = Convert.ToInt32(txtRed.Text);
+                if (numRed != 0)
+                {
+                    dc.InsertOrderIntoDataTable(numRed, red, fillRed);
+                }
+            }
 
-            fillTall = Convert.ToInt32(cmbFillLargeBlack.Text);
-            numTran = Convert.ToInt32(CmbLargeBlack.Text);
-            if(numTran != 0) { dc.InsertOrderIntoDataTable(numTran, tran, fillTran); }
+            //Checks that the input is valid, then proceeds to insert the cupOrder data into the database
+            if (TestInput(txtTall.Text))
+            {
+                fillTall = Convert.ToInt32(cmbFillLargeBlack.Text);
+                numTran = Convert.ToInt32(txtTall.Text);
+                if (numTran != 0)
+                {
+                    dc.InsertOrderIntoDataTable(numTran, tran, fillTran);
+                }
+            }
 
-            fillTran = Convert.ToInt32(cmbFillTran.Text);
-            numBlack = Convert.ToInt32(cmbTran.Text);
-            if(numTall != 0) { dc.InsertOrderIntoDataTable(numTall, tall, fillTall); }
+            //Checks that the input is valid, then proceeds to insert the cupOrder data into the database
+            if (TestInput(txtTran.Text))
+            {
+                fillTran = Convert.ToInt32(cmbFillTran.Text);
+                numTran = Convert.ToInt32(txtTran.Text);
+                if (numTall != 0)
+                {
+                    dc.InsertOrderIntoDataTable(numTall, tall, fillTall);
+                }
+            }
             
-            dc.DataTableToDB();
-
-            
+                        
             UpdateDataGridViews();
             UpdateCupGrid();
         }
 
 
         //Disables the fill box if selected index = 0
-        private void cmbRed_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (cmbRed.SelectedIndex != 0)
-            {
-                cmbFillRed.Enabled = true;
-                numRed = cmbRed.SelectedIndex;
-            }
-            else
-            {
-                cmbFillRed.Enabled = false;
-            }
-        }
 
-        //Disables the fill box if selected index = 0
-        private void cmbBlack_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            if (cmbBlack.SelectedIndex != 0)
-            {
-                cmbFillBlack.Enabled = true;
-                numBlack = cmbBlack.SelectedIndex;
-            }
-            else
-            {
-                cmbFillBlack.Enabled = false;
-            }
-        }
-
-        //Disables the fill box if selected index = 0
-        private void CmbLargeBlack_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            if (CmbLargeBlack.SelectedIndex != 0)
-            {
-                cmbFillLargeBlack.Enabled = true;
-                numTall = CmbLargeBlack.SelectedIndex;
-            }
-            else
-            {
-                cmbFillLargeBlack.Enabled = false;
-            }
-        }
-
-        //Disables the fill box if selected index = 0
-        private void cmbTran_SelectedIndexChanged_1(object sender, EventArgs e)
-        {
-            if (cmbTran.SelectedIndex != 0)
-            {
-                cmbFillTran.Enabled = true;
-                numTran = cmbTran.SelectedIndex;
-            }
-            else
-            {
-                cmbFillTran.Enabled = false;
-            }
-        }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -237,5 +204,19 @@ namespace ERP
                 this.cupOrdreTableAdapter.FillWithBatchNumber(this.cupOrderDataSet.CupOrdre, index);
             }
         }
+        private bool TestInput(string input)
+        {
+            int output;
+            Int32.TryParse(input, out output);                                    //Check that input is an integer
+            if (output >= 1 && output <= 65535)                                     //Check that input is within 65535
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
     }
 }
