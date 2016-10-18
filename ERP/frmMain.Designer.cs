@@ -30,16 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
-            this.cmbFillRed = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.cmbFillBlack = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.cmbFillLargeBlack = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.cmbFillTran = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -64,6 +60,9 @@
             this.cupOrdreBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cupOrderDataSet = new ERP.CupOrderDataSet();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtFillTran = new System.Windows.Forms.TextBox();
+            this.txtFillTall = new System.Windows.Forms.TextBox();
+            this.txtFillRed = new System.Windows.Forms.TextBox();
             this.txtTran = new System.Windows.Forms.TextBox();
             this.txtTall = new System.Windows.Forms.TextBox();
             this.txtRed = new System.Windows.Forms.TextBox();
@@ -76,7 +75,7 @@
             this.batchOrdreTableAdapter = new ERP.BatchOrderDataSetTableAdapters.BatchOrdreTableAdapter();
             this.cupOrdreTableAdapter = new ERP.CupOrderDataSetTableAdapters.CupOrdreTableAdapter();
             this.btnReconnect = new System.Windows.Forms.Button();
-            this.listBox1 = new System.Windows.Forms.ListBox();
+            this.txtFillBlack = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.batchOrdreBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.batchOrderDataSet)).BeginInit();
@@ -97,57 +96,23 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Red Cup";
             // 
-            // cmbFillRed
-            // 
-            this.cmbFillRed.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFillRed.FormattingEnabled = true;
-            this.cmbFillRed.Items.AddRange(new object[] {
-            "20",
-            "30",
-            "40",
-            "50",
-            "60",
-            "70",
-            "80"});
-            this.cmbFillRed.Location = new System.Drawing.Point(137, 84);
-            this.cmbFillRed.Name = "cmbFillRed";
-            this.cmbFillRed.Size = new System.Drawing.Size(70, 21);
-            this.cmbFillRed.TabIndex = 2;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(137, 18);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 13);
+            this.label2.Size = new System.Drawing.Size(34, 13);
             this.label2.TabIndex = 3;
-            this.label2.Text = "Fill %";
+            this.label2.Text = "Fill [g]";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(137, 68);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(30, 13);
+            this.label3.Size = new System.Drawing.Size(34, 13);
             this.label3.TabIndex = 7;
-            this.label3.Text = "Fill %";
-            // 
-            // cmbFillBlack
-            // 
-            this.cmbFillBlack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFillBlack.FormattingEnabled = true;
-            this.cmbFillBlack.Items.AddRange(new object[] {
-            "20",
-            "30",
-            "40",
-            "50",
-            "60",
-            "70",
-            "80"});
-            this.cmbFillBlack.Location = new System.Drawing.Point(137, 34);
-            this.cmbFillBlack.Name = "cmbFillBlack";
-            this.cmbFillBlack.Size = new System.Drawing.Size(70, 21);
-            this.cmbFillBlack.TabIndex = 6;
+            this.label3.Text = "Fill [g]";
             // 
             // label4
             // 
@@ -163,26 +128,9 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(137, 118);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(30, 13);
+            this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 11;
-            this.label5.Text = "Fill %";
-            // 
-            // cmbFillLargeBlack
-            // 
-            this.cmbFillLargeBlack.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFillLargeBlack.FormattingEnabled = true;
-            this.cmbFillLargeBlack.Items.AddRange(new object[] {
-            "20",
-            "30",
-            "40",
-            "50",
-            "60",
-            "70",
-            "80"});
-            this.cmbFillLargeBlack.Location = new System.Drawing.Point(137, 134);
-            this.cmbFillLargeBlack.Name = "cmbFillLargeBlack";
-            this.cmbFillLargeBlack.Size = new System.Drawing.Size(70, 21);
-            this.cmbFillLargeBlack.TabIndex = 10;
+            this.label5.Text = "Fill [g]";
             // 
             // label6
             // 
@@ -198,26 +146,9 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(134, 168);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(30, 13);
+            this.label7.Size = new System.Drawing.Size(34, 13);
             this.label7.TabIndex = 15;
-            this.label7.Text = "Fill %";
-            // 
-            // cmbFillTran
-            // 
-            this.cmbFillTran.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFillTran.FormattingEnabled = true;
-            this.cmbFillTran.Items.AddRange(new object[] {
-            "20",
-            "30",
-            "40",
-            "50",
-            "60",
-            "70",
-            "80"});
-            this.cmbFillTran.Location = new System.Drawing.Point(137, 184);
-            this.cmbFillTran.Name = "cmbFillTran";
-            this.cmbFillTran.Size = new System.Drawing.Size(70, 21);
-            this.cmbFillTran.TabIndex = 14;
+            this.label7.Text = "Fill [g]";
             // 
             // label8
             // 
@@ -424,29 +355,55 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.txtFillTran);
+            this.groupBox2.Controls.Add(this.txtFillTall);
+            this.groupBox2.Controls.Add(this.txtFillRed);
             this.groupBox2.Controls.Add(this.txtTran);
             this.groupBox2.Controls.Add(this.txtTall);
             this.groupBox2.Controls.Add(this.txtRed);
             this.groupBox2.Controls.Add(this.txtBlack);
-            this.groupBox2.Controls.Add(this.cmbFillTran);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.cmbFillRed);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.btnSubmit);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label7);
-            this.groupBox2.Controls.Add(this.cmbFillBlack);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label8);
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.label5);
-            this.groupBox2.Controls.Add(this.cmbFillLargeBlack);
             this.groupBox2.Location = new System.Drawing.Point(12, 27);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(220, 269);
             this.groupBox2.TabIndex = 23;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Create Order";
+            // 
+            // txtFillTran
+            // 
+            this.txtFillTran.Location = new System.Drawing.Point(137, 185);
+            this.txtFillTran.Name = "txtFillTran";
+            this.txtFillTran.Size = new System.Drawing.Size(70, 20);
+            this.txtFillTran.TabIndex = 29;
+            this.txtFillTran.Text = "0";
+            this.txtFillTran.MouseHover += new System.EventHandler(this.txtFillTran_MouseHover);
+            // 
+            // txtFillTall
+            // 
+            this.txtFillTall.Location = new System.Drawing.Point(137, 134);
+            this.txtFillTall.Name = "txtFillTall";
+            this.txtFillTall.Size = new System.Drawing.Size(70, 20);
+            this.txtFillTall.TabIndex = 28;
+            this.txtFillTall.Text = "0";
+            this.txtFillTall.MouseHover += new System.EventHandler(this.txtFillTall_MouseHover);
+            // 
+            // txtFillRed
+            // 
+            this.txtFillRed.Location = new System.Drawing.Point(137, 84);
+            this.txtFillRed.Name = "txtFillRed";
+            this.txtFillRed.Size = new System.Drawing.Size(70, 20);
+            this.txtFillRed.TabIndex = 27;
+            this.txtFillRed.Text = "0";
+            this.txtFillRed.MouseHover += new System.EventHandler(this.txtFillRed_MouseHover);
             // 
             // txtTran
             // 
@@ -542,20 +499,21 @@
             this.btnReconnect.UseVisualStyleBackColor = true;
             this.btnReconnect.Click += new System.EventHandler(this.btnReconnect_Click);
             // 
-            // listBox1
+            // txtFillBlack
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.Location = new System.Drawing.Point(22, 344);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(120, 95);
-            this.listBox1.TabIndex = 25;
+            this.txtFillBlack.Location = new System.Drawing.Point(149, 61);
+            this.txtFillBlack.Name = "txtFillBlack";
+            this.txtFillBlack.Size = new System.Drawing.Size(70, 20);
+            this.txtFillBlack.TabIndex = 26;
+            this.txtFillBlack.Text = "0";
+            this.txtFillBlack.MouseHover += new System.EventHandler(this.txtFillBlack_MouseHover);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1038, 620);
-            this.Controls.Add(this.listBox1);
+            this.Controls.Add(this.txtFillBlack);
             this.Controls.Add(this.btnReconnect);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -582,15 +540,10 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.ComboBox cmbFillRed;
-        private System.Windows.Forms.ComboBox cmbFillBlack;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.ComboBox cmbFillLargeBlack;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.ComboBox cmbFillTran;
         private System.Windows.Forms.Button btnSubmit;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label3;
@@ -623,8 +576,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn batchTimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn cupIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeOfCupDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn orderedWheightDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn actualWheightDataGridViewTextBoxColumn;
+        //private System.Windows.Forms.DataGridViewTextBoxColumn orderedWheightDataGridViewTextBoxColumn;
+        //private System.Windows.Forms.DataGridViewTextBoxColumn actualWheightDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn rFIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn completedApprovedDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn completedDiscardDataGridViewCheckBoxColumn;
@@ -632,7 +585,10 @@
         private System.Windows.Forms.TextBox txtTall;
         private System.Windows.Forms.TextBox txtRed;
         private System.Windows.Forms.TextBox txtBlack;
-        private System.Windows.Forms.ListBox listBox1;
+        private System.Windows.Forms.TextBox txtFillTran;
+        private System.Windows.Forms.TextBox txtFillTall;
+        private System.Windows.Forms.TextBox txtFillRed;
+        private System.Windows.Forms.TextBox txtFillBlack;
     }
 }
 

@@ -136,7 +136,7 @@ namespace ERP
                 throw;
             }
         }
-        public void GetBatchOrder(int batchID)
+        public void GetBatchOrder()
         {
             try
             {

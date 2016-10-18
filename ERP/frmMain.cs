@@ -30,6 +30,11 @@ namespace ERP
         private int fillTran = 0;
         private int fillTall = 0;
 
+        private string smallCupMin = "0";
+        private string smallCupMax = "100";
+        private string tallCupMin = "0";
+        private string tallCupMax = "150";
+
 
         public frmMain()
         {
@@ -43,13 +48,6 @@ namespace ERP
             //Set Datagridviews to readonly
             dataGridView1.ReadOnly = true;
             dataGridView2.ReadOnly = true;
-
-            //Set selected indexes to 0;
-            cmbFillRed.SelectedIndex = 0;
-            cmbFillBlack.SelectedIndex = 0;
-            cmbFillLargeBlack.SelectedIndex = 0;
-            cmbFillTran.SelectedIndex = 0;
-
 
             //Default sort option for grids.
             dataGridView1.Sort(dataGridView1.Columns[0], ListSortDirection.Descending);
@@ -114,16 +112,16 @@ namespace ERP
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             int numOfCups = 0;
-            fillBlack = Convert.ToInt32(cmbFillBlack.Text);
-            fillRed = Convert.ToInt32(cmbFillRed.Text);
-            fillTran = Convert.ToInt32(cmbFillTran.Text);
-            fillTall = Convert.ToInt32(cmbFillLargeBlack.Text);
 
             //Checks that all the inputs are in a valid format before assigning values to the variables, creates the DbConnect object and summerizes.
             //Then Create the order
-            if (TestInput(txtBlack.Text) && TestInput(txtRed.Text) && TestInput(txtTall.Text) && TestInput(txtTran.Text))
+            if (TestIntegerInput(txtBlack.Text) && TestIntegerInput(txtRed.Text) && TestIntegerInput(txtTall.Text) && TestIntegerInput(txtTran.Text) && 
+                CheckGramInput(txtFillBlack.Text) && CheckGramInput(txtFillRed.Text) && CheckGramInput(txtFillTran.Text) && CheckGramInputTall(txtTall.Text))
             {
-
+                fillBlack = Convert.ToInt32(txtFillBlack.Text);
+                fillRed = Convert.ToInt32(txtFillRed.Text);
+                fillTran = Convert.ToInt32(txtFillTran.Text);
+                fillTall = Convert.ToInt32(txtFillTall.Text);
                 numBlack = Convert.ToInt32(txtBlack.Text);
                 numRed = Convert.ToInt32(txtRed.Text);
                 numTall = Convert.ToInt32(txtTall.Text);
@@ -199,39 +197,112 @@ namespace ERP
                 this.cupOrdreTableAdapter.FillWithBatchNumber(this.cupOrderDataSet.CupOrdre, index);
             }
         }
-        private bool TestInput(string input)
+
+        //Check if amount of cups is an integer and a positive number
+        private bool TestIntegerInput(string input)
         {
             int output;
-            Int32.TryParse(input, out output);                                    //Check that input is an integer
-            if (output >= 1 && output <= 65535)                                     //Check that input is within 65535
+            if (Int32.TryParse(input, out output))                                    
             {
-                return true;
+                if (output >= 0 && output <= 1000)                                    
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {
                 return false;
             }
+
         }
+    
+        private bool CheckGramInput(string input)
+        {
+            //Check that input is an integer
+            int output;
+            if(Int32.TryParse(input, out output))                                   
+            {
+                //Check that input is within x grams
+                if (output >= Convert.ToInt32(smallCupMin) && output <= Convert.ToInt32(smallCupMax))                                   
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
+        //Checks if the input is an integer and also if the content is between certain values
+        private bool CheckGramInputTall(string input)
+        {
+            int output;
+            if (Int32.TryParse(input, out output))                                   
+            {
+                if (output >= Convert.ToInt32(tallCupMin) && output <= Convert.ToInt32(tallCupMax))                                   
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+    
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-
         }
 
         private void btnNext_Click(object sender, EventArgs e)
         {
 
         }
-        //TESTING AREA
-        //TESTING AREA
-        //TESTING AREA
-        //TESTING AREA
-        //TESTING AREA
-        //TESTING AREA
-        //TESTING AREA
 
-        private void GetPrintContents()
+        //Method to show a tooltip over the txtFill-boxes, where minimum and maximum content is displayed.
+        private void FillMessage(TextBox textbox, string min, string max)
         {
+            ToolTip ToolTip1 = new ToolTip();
+            ToolTip1.SetToolTip(textbox, "Value may be between " + min + "g and " + max + "g.");
         }
+
+        private void txtFillBlack_MouseHover(object sender, EventArgs e)
+        {
+            FillMessage(txtFillBlack, smallCupMin, smallCupMax);
+        }
+
+        private void txtFillRed_MouseHover(object sender, EventArgs e)
+        {
+            FillMessage(txtFillRed, smallCupMin, smallCupMax);
+        }
+
+        private void txtFillTall_MouseHover(object sender, EventArgs e)
+        {
+            FillMessage(txtFillTall, tallCupMin, tallCupMax);
+        }
+
+        private void txtFillTran_MouseHover(object sender, EventArgs e)
+        {
+            FillMessage(txtFillTran, smallCupMin, smallCupMax);
+        }
+
+        //-------------------------------------------------------TESTING AREA----------------------------------------------------------------------------
+
     }
 }
