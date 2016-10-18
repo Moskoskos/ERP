@@ -30,6 +30,7 @@
         {
             this.cmbPrinterList = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.crystalReportViewer1 = new CrystalDecisions.Windows.Forms.CrystalReportViewer();
             this.SuspendLayout();
             // 
             // cmbPrinterList
@@ -50,11 +51,22 @@
             this.label1.TabIndex = 7;
             this.label1.Text = "Installed Printers";
             // 
+            // crystalReportViewer1
+            // 
+            this.crystalReportViewer1.ActiveViewIndex = -1;
+            this.crystalReportViewer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.crystalReportViewer1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.crystalReportViewer1.Location = new System.Drawing.Point(12, 52);
+            this.crystalReportViewer1.Name = "crystalReportViewer1";
+            this.crystalReportViewer1.Size = new System.Drawing.Size(680, 571);
+            this.crystalReportViewer1.TabIndex = 8;
+            // 
             // frmPrint
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(387, 489);
+            this.ClientSize = new System.Drawing.Size(704, 635);
+            this.Controls.Add(this.crystalReportViewer1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmbPrinterList);
             this.Name = "frmPrint";
@@ -68,5 +80,6 @@
         #endregion
         private System.Windows.Forms.ComboBox cmbPrinterList;
         private System.Windows.Forms.Label label1;
+        private CrystalDecisions.Windows.Forms.CrystalReportViewer crystalReportViewer1;
     }
 }

@@ -14,8 +14,7 @@ namespace ERP
     public class DbConnect
     {
         private SqlConnection connection;
-        private DataSet ds = new DataSet();
-        private DataTable dt = new DataTable();
+        public DataTable dt = new DataTable();
         string batchid = "";
         string conString = "";
 
@@ -135,6 +134,26 @@ namespace ERP
             {
 
                 throw;
+            }
+        }
+        public void GetBatchOrder(int batchID)
+        {
+            try
+            {
+                string query = "SELECT * FROM BatchOrdre WHERE BatchID = @batchID";
+                if (OpenConnection())
+                {
+                    using (SqlCommand cmd = new SqlCommand(query, connection))
+                    {
+                        cmd.Parameters.AddWithValue("@batchID", batchid);
+                        dt.Load(cmd.ExecuteReader());
+                        CloseConnection();
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show(e.Message);
             }
         }
     }

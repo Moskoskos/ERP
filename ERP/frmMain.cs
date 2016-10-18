@@ -114,58 +114,53 @@ namespace ERP
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             int numOfCups = 0;
-            
-            DbConnect dc = new DbConnect();
-            numOfCups = GetTotalCups();
+            fillBlack = Convert.ToInt32(cmbFillBlack.Text);
+            fillRed = Convert.ToInt32(cmbFillRed.Text);
+            fillTran = Convert.ToInt32(cmbFillTran.Text);
+            fillTall = Convert.ToInt32(cmbFillLargeBlack.Text);
 
-            //Creates the Batchorder
-            dc.CreateBatchOrder(numOfCups);
-
-            //Checks that the input is valid, then proceeds to insert the cupOrder data into the database
-            if (TestInput(txtBlack.Text))
+            //Checks that all the inputs are in a valid format before assigning values to the variables, creates the DbConnect object and summerizes.
+            //Then Create the order
+            if (TestInput(txtBlack.Text) && TestInput(txtRed.Text) && TestInput(txtTall.Text) && TestInput(txtTran.Text))
             {
-                fillBlack = Convert.ToInt32(cmbFillBlack.Text);
+
                 numBlack = Convert.ToInt32(txtBlack.Text);
-                if (numBlack != 0)
-                {
-                    dc.InsertOrderIntoDataTable(numBlack, black, fillBlack);
-                }
-            }
-
-            //Checks that the input is valid, then proceeds to insert the cupOrder data into the database
-            if (TestInput(txtRed.Text))
-            {
-                fillRed = Convert.ToInt32(cmbFillRed.Text);
                 numRed = Convert.ToInt32(txtRed.Text);
-                if (numRed != 0)
-                {
-                    dc.InsertOrderIntoDataTable(numRed, red, fillRed);
-                }
-            }
-
-            //Checks that the input is valid, then proceeds to insert the cupOrder data into the database
-            if (TestInput(txtTall.Text))
-            {
-                fillTall = Convert.ToInt32(cmbFillLargeBlack.Text);
-                numTran = Convert.ToInt32(txtTall.Text);
-                if (numTran != 0)
-                {
-                    dc.InsertOrderIntoDataTable(numTran, tran, fillTran);
-                }
-            }
-
-            //Checks that the input is valid, then proceeds to insert the cupOrder data into the database
-            if (TestInput(txtTran.Text))
-            {
-                fillTran = Convert.ToInt32(cmbFillTran.Text);
+                numTall = Convert.ToInt32(txtTall.Text);
                 numTran = Convert.ToInt32(txtTran.Text);
-                if (numTall != 0)
+
+                DbConnect dc = new DbConnect();
+                numOfCups = GetTotalCups();
+
+                //Creates the Batchorder
+                if (numOfCups != 0)
                 {
-                    dc.InsertOrderIntoDataTable(numTall, tall, fillTall);
+                    dc.CreateBatchOrder(numOfCups);
+
+                    //Creates CupOrder data for the batchorder
+                    if (numBlack != 0)
+                    {
+                        dc.InsertOrderIntoDataTable(numBlack, black, fillBlack);
+                    }
+                    if (numRed != 0)
+                    {
+                        dc.InsertOrderIntoDataTable(numRed, red, fillRed);
+                    }
+                    if (numTall != 0)
+                    {
+                        dc.InsertOrderIntoDataTable(numTall, tall, fillTall);
+                    }
+                    if (numTran != 0)
+                    {
+                        dc.InsertOrderIntoDataTable(numTran, tran, fillTran);
+                    }
                 }
             }
-            
-                        
+            else
+            {
+                MessageBox.Show("Order empty or invalid input");
+            }
+
             UpdateDataGridViews();
             UpdateCupGrid();
         }
@@ -226,6 +221,17 @@ namespace ERP
         private void btnNext_Click(object sender, EventArgs e)
         {
 
+        }
+        //TESTING AREA
+        //TESTING AREA
+        //TESTING AREA
+        //TESTING AREA
+        //TESTING AREA
+        //TESTING AREA
+        //TESTING AREA
+
+        private void GetPrintContents()
+        {
         }
     }
 }
