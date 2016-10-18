@@ -331,19 +331,23 @@
             // 
             // btnNext
             // 
-            this.btnNext.Location = new System.Drawing.Point(715, 275);
+            this.btnNext.Location = new System.Drawing.Point(676, 275);
             this.btnNext.Name = "btnNext";
-            this.btnNext.Size = new System.Drawing.Size(42, 25);
+            this.btnNext.Size = new System.Drawing.Size(80, 25);
             this.btnNext.TabIndex = 24;
+            this.btnNext.Text = "Next";
             this.btnNext.UseVisualStyleBackColor = true;
+            this.btnNext.Click += new System.EventHandler(this.btnNext_Click);
             // 
             // btnPrevious
             // 
-            this.btnPrevious.Location = new System.Drawing.Point(667, 275);
+            this.btnPrevious.Location = new System.Drawing.Point(590, 275);
             this.btnPrevious.Name = "btnPrevious";
-            this.btnPrevious.Size = new System.Drawing.Size(42, 25);
+            this.btnPrevious.Size = new System.Drawing.Size(80, 25);
             this.btnPrevious.TabIndex = 23;
+            this.btnPrevious.Text = "Previous";
             this.btnPrevious.UseVisualStyleBackColor = true;
+            this.btnPrevious.Click += new System.EventHandler(this.btnPrevious_Click);
             // 
             // label11
             // 
@@ -529,7 +533,7 @@
             // 
             // btnReconnect
             // 
-            this.btnReconnect.Location = new System.Drawing.Point(22, 344);
+            this.btnReconnect.Location = new System.Drawing.Point(22, 579);
             this.btnReconnect.Name = "btnReconnect";
             this.btnReconnect.Size = new System.Drawing.Size(197, 21);
             this.btnReconnect.TabIndex = 22;
@@ -547,6 +551,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.Name = "frmMain";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ERP";
             this.Load += new System.EventHandler(this.ERP_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
