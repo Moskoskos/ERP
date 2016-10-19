@@ -1,29 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
-using System.Net.NetworkInformation;
-using iTextSharp;
-using iTextSharp.text;
-using iTextSharp.text.html;
-using iTextSharp.text.io;
-using iTextSharp.text.xml;
-using iTextSharp.text.pdf;
-using iTextSharp.text.api;
-using iTextSharp.text.log;
-using iTextSharp.text.error_messages;
-using iTextSharp.testutils;
-using iTextSharp.xmp;
-using System.Web;
-using System.Web.Configuration;
-using System.Web.Management;
-using System.Net;
 
 
 
@@ -37,10 +16,12 @@ namespace ERP
         private int numBlack = 0;
         private int numTall = 0;
         private int numTran = 0;
+
         private const int black = 1; //Identifier for DB
         private const int red = 2;   //Identifier for DB
         private const int tran = 3;  //Identifier for DB
         private const int tall = 4;  //Identifier for DB
+
         private int fillBlack = 0;
         private int fillRed = 0;
         private int fillTran = 0;
@@ -50,6 +31,8 @@ namespace ERP
         private string smallCupMax = "100";
         private string tallCupMin = "1";
         private string tallCupMax = "150";
+
+        private int currentSelectedBatchID;
 
         Validation val = new Validation();
 
@@ -105,12 +88,6 @@ namespace ERP
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
-        }
-
-        private void settingsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmSettings frmsettings = new frmSettings();
-            frmsettings.Show();
         }
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
@@ -207,12 +184,14 @@ namespace ERP
         {
             UpdateCupGrid();
         }
+
         private void UpdateCupGrid()
         {
             if (dataGridView1.SelectedCells.Count > 0)
             {
-                var index = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-                this.cupOrdreTableAdapter.FillWithBatchNumber(this.cupOrderDataSet.CupOrdre, index);
+                currentSelectedBatchID = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                this.cupOrdreTableAdapter.FillWithBatchNumber(this.cupOrderDataSet.CupOrdre, currentSelectedBatchID);
+                txtSelectedOrder.Text = currentSelectedBatchID.ToString();
             }
         }
 
@@ -220,7 +199,6 @@ namespace ERP
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
-            GetValuesFromGridView();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -264,19 +242,24 @@ namespace ERP
 
         }
 
-        //-------------------------------------------------------TESTING AREA----------------------------------------------------------------------------
-
-        private void GetValuesFromGridView()
+        private void btnInvoice_Click(object sender, EventArgs e)
         {
-
+            DataTable cupTable = cupOrderDataSet.CupOrdre;
+            Write(cupTable);
         }
 
+        //------------------------------------------------------------------------TESTING AREA----------------------------------------------------------------------------//
+
+
+
         //Source: http://stackoverflow.com/questions/7174077/export-a-c-sharp-dataset-to-a-text-file
-        static void Write(DataTable dt)
+        private void Write(DataTable dt)
         {
-            string filePath = @".\Orders\Order.txt";
+            
+            string filePath = @".\Order_"+currentSelectedBatchID+".txt";
             int[] maxLengths = new int[dt.Columns.Count];
 
+            //Get Column count
             for (int i = 0; i < dt.Columns.Count; i++)
             {
                 maxLengths[i] = dt.Columns[i].ColumnName.Length;
@@ -368,10 +351,22 @@ namespace ERP
             }
         }
 
-        private void btnInvoice_Click(object sender, EventArgs e)
+
+
+        private void testtesttest()
         {
-            DataTable  cupTable = cupOrderDataSet.CupOrdre;
-            Write(cupTable);
+            DataTable dt = new DataTable();
+            foreach (DataGridViewColumn column in dataGridView1.Columns)
+                dt.Columns.Add(column.Name, column.CellType); //better to have cell type
+            for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
+            {
+                dt.Rows.Add();
+                for (int j = 0; j < dataGridView1.Columns.Count; j++)
+                {
+                    dt.Rows[i][j] = dataGridView1.SelectedRows[i].Cells[j].Value;
+                    //^^^^^^^^^^^
+                }
+            }
         }
     }
 }

@@ -80,6 +80,8 @@
             this.cmbPrinters = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.txtSelectedOrder = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.batchOrdreBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.batchOrderDataSet)).BeginInit();
@@ -513,7 +515,7 @@
             // 
             // btnInvoice
             // 
-            this.btnInvoice.Location = new System.Drawing.Point(10, 73);
+            this.btnInvoice.Location = new System.Drawing.Point(10, 131);
             this.btnInvoice.Name = "btnInvoice";
             this.btnInvoice.Size = new System.Drawing.Size(197, 21);
             this.btnInvoice.TabIndex = 16;
@@ -541,15 +543,35 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.label10);
+            this.groupBox3.Controls.Add(this.txtSelectedOrder);
             this.groupBox3.Controls.Add(this.btnInvoice);
             this.groupBox3.Controls.Add(this.label9);
             this.groupBox3.Controls.Add(this.cmbPrinters);
             this.groupBox3.Location = new System.Drawing.Point(12, 344);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(220, 111);
+            this.groupBox3.Size = new System.Drawing.Size(220, 179);
             this.groupBox3.TabIndex = 26;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Print";
+            // 
+            // txtSelectedOrder
+            // 
+            this.txtSelectedOrder.Location = new System.Drawing.Point(13, 88);
+            this.txtSelectedOrder.Name = "txtSelectedOrder";
+            this.txtSelectedOrder.ReadOnly = true;
+            this.txtSelectedOrder.Size = new System.Drawing.Size(194, 20);
+            this.txtSelectedOrder.TabIndex = 16;
+            this.txtSelectedOrder.Text = "0";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(10, 72);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(78, 13);
+            this.label10.TabIndex = 26;
+            this.label10.Text = "Selected Order";
             // 
             // frmMain
             // 
@@ -639,6 +661,8 @@
         private System.Windows.Forms.ComboBox cmbPrinters;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtSelectedOrder;
     }
 }
 

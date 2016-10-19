@@ -14,9 +14,9 @@ namespace ERP
     public class DbConnect
     {
         private SqlConnection connection;
-        public DataTable dt = new DataTable();
-        string batchid = "";
-        string conString = "";
+        private DataTable dt = new DataTable();
+        public  string batchid = "";
+        public string conString = "";
 
 
 
