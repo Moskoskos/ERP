@@ -245,7 +245,8 @@ namespace ERP
         private void btnInvoice_Click(object sender, EventArgs e)
         {
             DataTable cupTable = cupOrderDataSet.CupOrdre;
-            Write(cupTable);
+            DataTable batchTable = testtesttest();
+            Write(batchTable, cupTable);
         }
 
         //------------------------------------------------------------------------TESTING AREA----------------------------------------------------------------------------//
@@ -253,13 +254,13 @@ namespace ERP
 
 
         //Source: http://stackoverflow.com/questions/7174077/export-a-c-sharp-dataset-to-a-text-file
-        private void Write(DataTable dt)
+        private void Write(DataTable dtb,DataTable dt)
         {
             
             string filePath = @".\Order_"+currentSelectedBatchID+".txt";
             int[] maxLengths = new int[dt.Columns.Count];
 
-            //Get Column count
+//----------------------------------------------------THIS IS FOR THE BATCH ORDER DATA---------------------------------------------//
             for (int i = 0; i < dt.Columns.Count; i++)
             {
                 maxLengths[i] = dt.Columns[i].ColumnName.Length;
@@ -278,9 +279,33 @@ namespace ERP
                 }
             }
 
-            
+            //WRITE TO FILE
             using (StreamWriter sw = new StreamWriter(filePath, false))
             {
+                for (int i = 0; i < dtb.Columns.Count; i++)
+                {
+                    sw.Write(dtb.Columns[i].ColumnName.PadRight(maxLengths[i] + 2));
+                }
+
+                sw.WriteLine();
+
+                foreach (DataRow row in dtb.Rows)
+                {
+                    for (int i = 0; i < dtb.Columns.Count; i++)
+                    {
+                        if (!row.IsNull(i))
+                        {
+                            sw.Write(row[i].ToString().PadRight(maxLengths[i] + 2));
+                        }
+                        else
+                        {
+                            sw.Write(new string(' ', maxLengths[i] + 2));
+                        }
+                    }
+
+                    sw.WriteLine();
+                }
+//-------------------------------------------THIS IS FOR THE CUP ORDER DATA-------------------------------------//
                 for (int i = 0; i < dt.Columns.Count; i++)
                 {
                     sw.Write(dt.Columns[i].ColumnName.PadRight(maxLengths[i] + 2));
@@ -353,20 +378,62 @@ namespace ERP
 
 
 
-        private void testtesttest()
+        private DataTable testtesttest()
         {
+            //  string bajs = this.dataGridView1.Columns[i].HeaderText;
+
             DataTable dt = new DataTable();
+            DataRow toInsert = dt.NewRow();
+            int index = dataGridView1.CurrentCell.RowIndex;
+
             foreach (DataGridViewColumn column in dataGridView1.Columns)
-                dt.Columns.Add(column.Name, column.CellType); //better to have cell type
-            for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
+                dt.Columns.Add(column.HeaderText); //better to have cell type
+
+            for (int i = 0; i < dataGridView1.ColumnCount; i++)
             {
-                dt.Rows.Add();
-                for (int j = 0; j < dataGridView1.Columns.Count; j++)
-                {
-                    dt.Rows[i][j] = dataGridView1.SelectedRows[i].Cells[j].Value;
-                    //^^^^^^^^^^^
-                }
+                dt.Rows.InsertAt(toInsert, index);
+                dt.Rows.Add(dataGridView1.CurrentRow.Cells[i].Value) ;
             }
+            // generate the data you want to insert
+            
+
+            // insert in the desired place
+            
+
+
+            //for (int j = 0; j < dataGridView1.Columns.Count; j++)
+            //{
+
+            //    dt.Rows.Add(dataGridView1.SelectedRows[index]);
+            //    //^^^^^^^^^^^
+            //}
+
+            return dt;
+
+            //THIS WORKS BUT IT USES THE DATABASE NAMES, NOT THE COLUMNN ONES
+            //
+            //DataTable dtnew = new DataTable();
+            //int index = dataGridView1.CurrentCell.RowIndex;
+            //DbConnect dc = new DbConnect();
+            //dc.GetBatchOrder();
+            //dtnew = dc.dt;
+            ////dt.Rows.Add(1);
+            //return dtnew;
+
+
+
+
+
+
+            //for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
+            //{
+            //    dt.Rows.Add();
+            //    for (int j = 0; j < dataGridView1.Columns.Count; j++)
+            //    {
+            //        dt.Rows[i][j] = dataGridView1.SelectedRows[i].Cells[j].Value;
+            //        //^^^^^^^^^^^
+            //    }
+            //}
         }
     }
 }
