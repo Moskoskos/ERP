@@ -9,6 +9,22 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Net.NetworkInformation;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.html;
+using iTextSharp.text.io;
+using iTextSharp.text.xml;
+using iTextSharp.text.pdf;
+using iTextSharp.text.api;
+using iTextSharp.text.log;
+using iTextSharp.text.error_messages;
+using iTextSharp.testutils;
+using iTextSharp.xmp;
+using System.Web;
+using System.Web.Configuration;
+using System.Web.Management;
+using System.Net;
+
 
 
 namespace ERP
@@ -30,10 +46,14 @@ namespace ERP
         private int fillTran = 0;
         private int fillTall = 0;
 
-        private string smallCupMin = "0";
+        private string smallCupMin = "1";
         private string smallCupMax = "100";
-        private string tallCupMin = "0";
+        private string tallCupMin = "1";
         private string tallCupMax = "150";
+
+        Validation val = new Validation();
+
+        
 
 
         public frmMain()
@@ -54,6 +74,9 @@ namespace ERP
             dataGridView2.Sort(dataGridView2.Columns[0], ListSortDirection.Ascending);
 
             UpdateCupGrid();
+
+            PrinterList();
+            cmbPrinters.SelectedIndex = 0;
 
         }
         private void ConnectToDatabase()
@@ -103,20 +126,16 @@ namespace ERP
             }
         }
 
-        private void printToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            frmPrint frmprint = new frmPrint();
-            frmprint.Show();
-        }
-
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             int numOfCups = 0;
 
             //Checks that all the inputs are in a valid format before assigning values to the variables, creates the DbConnect object and summerizes.
             //Then Create the order
-            if (TestIntegerInput(txtBlack.Text) && TestIntegerInput(txtRed.Text) && TestIntegerInput(txtTall.Text) && TestIntegerInput(txtTran.Text) && 
-                CheckGramInput(txtFillBlack.Text) && CheckGramInput(txtFillRed.Text) && CheckGramInput(txtFillTran.Text) && CheckGramInputTall(txtTall.Text))
+            //PS I'm not proud of this 
+            if (val.TestIntegerInput(txtBlack.Text) && val.TestIntegerInput(txtRed.Text) && val.TestIntegerInput(txtTall.Text) && val.TestIntegerInput(txtTran.Text) &&
+                val.CheckGramInput(txtFillBlack.Text, smallCupMin, smallCupMax) && val.CheckGramInput(txtFillRed.Text, smallCupMin, smallCupMax) && 
+                val.CheckGramInput(txtFillTran.Text, smallCupMin, smallCupMax) && val.CheckGramInputTall(txtTall.Text, tallCupMin, tallCupMax))
             {
                 fillBlack = Convert.ToInt32(txtFillBlack.Text);
                 fillRed = Convert.ToInt32(txtFillRed.Text);
@@ -163,7 +182,6 @@ namespace ERP
             UpdateCupGrid();
         }
 
-
         //Disables the fill box if selected index = 0
 
 
@@ -198,76 +216,11 @@ namespace ERP
             }
         }
 
-        //Check if amount of cups is an integer and a positive number
-        private bool TestIntegerInput(string input)
-        {
-            int output;
-            if (Int32.TryParse(input, out output))                                    
-            {
-                if (output >= 0 && output <= 1000)                                    
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
 
-        }
-    
-        private bool CheckGramInput(string input)
-        {
-            //Check that input is an integer
-            int output;
-            if(Int32.TryParse(input, out output))                                   
-            {
-                //Check that input is within x grams
-                if (output >= Convert.ToInt32(smallCupMin) && output <= Convert.ToInt32(smallCupMax))                                   
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-
-        //Checks if the input is an integer and also if the content is between certain values
-        private bool CheckGramInputTall(string input)
-        {
-            int output;
-            if (Int32.TryParse(input, out output))                                   
-            {
-                if (output >= Convert.ToInt32(tallCupMin) && output <= Convert.ToInt32(tallCupMax))                                   
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                return false;
-            }
-
-        }
-    
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
+            GetValuesFromGridView();
         }
 
         private void btnNext_Click(object sender, EventArgs e)
@@ -301,8 +254,124 @@ namespace ERP
         {
             FillMessage(txtFillTran, smallCupMin, smallCupMax);
         }
+        private void PrinterList()
+        {
+            // POPULATE THE COMBO BOX.
+            foreach (string sPrinters in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+            {
+                cmbPrinters.Items.Add(sPrinters);
+            }
+
+        }
 
         //-------------------------------------------------------TESTING AREA----------------------------------------------------------------------------
 
+        private void GetValuesFromGridView()
+        {
+
+        }
+
+        //Source: http://stackoverflow.com/questions/7174077/export-a-c-sharp-dataset-to-a-text-file
+        static void Write(DataTable dt)
+        {
+            string filePath = @".\Orders\Order.txt";
+            int[] maxLengths = new int[dt.Columns.Count];
+
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                maxLengths[i] = dt.Columns[i].ColumnName.Length;
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    if (!row.IsNull(i))
+                    {
+                        int length = row[i].ToString().Length;
+
+                        if (length > maxLengths[i])
+                        {
+                            maxLengths[i] = length;
+                        }
+                    }
+                }
+            }
+
+            
+            using (StreamWriter sw = new StreamWriter(filePath, false))
+            {
+                for (int i = 0; i < dt.Columns.Count; i++)
+                {
+                    sw.Write(dt.Columns[i].ColumnName.PadRight(maxLengths[i] + 2));
+                }
+
+                sw.WriteLine();
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    for (int i = 0; i < dt.Columns.Count; i++)
+                    {
+                        if (!row.IsNull(i))
+                        {
+                            sw.Write(row[i].ToString().PadRight(maxLengths[i] + 2));
+                        }
+                        else
+                        {
+                            sw.Write(new string(' ', maxLengths[i] + 2));
+                        }
+                    }
+
+                    sw.WriteLine();
+                }
+
+                sw.Close();
+            }
+        }
+        public void WriteDataToFile(DataTable submittedDataTable)
+        {
+            int arraysize = dataGridView1.ColumnCount;
+
+            string[] batchOrder = new string[arraysize];
+            string[] headerRowTextArray = new string[arraysize];
+
+            int j = 0;
+            StreamWriter sw = null;
+            string filePath = @".\test.txt";
+
+            sw = new StreamWriter(filePath, false);
+
+            for (int i = 0; i < arraysize; i++)
+            {
+                headerRowTextArray[i] = dataGridView1.Columns[i].HeaderCell.Value.ToString();
+                batchOrder[i] = dataGridView1[i, dataGridView1.CurrentRow.Index].Value.ToString();
+
+            }
+
+            for (j = 0; j < submittedDataTable.Columns.Count - 1; j++)
+            {
+
+                sw.Write(submittedDataTable.Columns[j].ColumnName + ";");
+
+            }
+            sw.Write(submittedDataTable.Columns[j].ColumnName);
+            sw.WriteLine();
+
+            foreach (DataRow row in submittedDataTable.Rows)
+            {
+                object[] array = row.ItemArray;
+
+                for (j = 0; j < array.Length - 1; j++)
+                {
+                    sw.Write(array[j].ToString() + ";");
+                }
+                sw.Write(array[j].ToString());
+                sw.WriteLine();
+
+            }
+        }
+
+        private void btnInvoice_Click(object sender, EventArgs e)
+        {
+            DataTable  cupTable = cupOrderDataSet.CupOrdre;
+            Write(cupTable);
+        }
     }
 }

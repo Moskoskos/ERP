@@ -71,12 +71,15 @@
             this.txtBlack = new System.Windows.Forms.TextBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.printToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.batchOrdreTableAdapter = new ERP.BatchOrderDataSetTableAdapters.BatchOrdreTableAdapter();
             this.cupOrdreTableAdapter = new ERP.CupOrderDataSetTableAdapters.CupOrdreTableAdapter();
             this.btnReconnect = new System.Windows.Forms.Button();
             this.txtFillBlack = new System.Windows.Forms.TextBox();
+            this.btnInvoice = new System.Windows.Forms.Button();
+            this.cmbPrinters = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.batchOrdreBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.batchOrderDataSet)).BeginInit();
@@ -86,6 +89,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.cupOrderDataSet)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -458,7 +462,6 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem,
-            this.printToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -472,14 +475,6 @@
             this.exitToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
-            // 
-            // printToolStripMenuItem
-            // 
-            this.printToolStripMenuItem.Name = "printToolStripMenuItem";
-            this.printToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.P)));
-            this.printToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.printToolStripMenuItem.Text = "Print";
-            this.printToolStripMenuItem.Click += new System.EventHandler(this.printToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -516,11 +511,52 @@
             this.txtFillBlack.Text = "0";
             this.txtFillBlack.MouseHover += new System.EventHandler(this.txtFillBlack_MouseHover);
             // 
+            // btnInvoice
+            // 
+            this.btnInvoice.Location = new System.Drawing.Point(10, 73);
+            this.btnInvoice.Name = "btnInvoice";
+            this.btnInvoice.Size = new System.Drawing.Size(197, 21);
+            this.btnInvoice.TabIndex = 16;
+            this.btnInvoice.Text = "Print Selected Batch Order";
+            this.btnInvoice.UseVisualStyleBackColor = true;
+            this.btnInvoice.Click += new System.EventHandler(this.btnInvoice_Click);
+            // 
+            // cmbPrinters
+            // 
+            this.cmbPrinters.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPrinters.FormattingEnabled = true;
+            this.cmbPrinters.Location = new System.Drawing.Point(10, 34);
+            this.cmbPrinters.Name = "cmbPrinters";
+            this.cmbPrinters.Size = new System.Drawing.Size(197, 21);
+            this.cmbPrinters.TabIndex = 25;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 18);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(84, 13);
+            this.label9.TabIndex = 16;
+            this.label9.Text = "Installed Printers";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnInvoice);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.cmbPrinters);
+            this.groupBox3.Location = new System.Drawing.Point(12, 344);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(220, 111);
+            this.groupBox3.TabIndex = 26;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Print";
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1038, 620);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.txtFillBlack);
             this.Controls.Add(this.btnReconnect);
             this.Controls.Add(this.groupBox2);
@@ -542,6 +578,8 @@
             this.groupBox2.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -563,7 +601,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem printToolStripMenuItem;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DataGridView dataGridView2;
         private BatchOrderDataSet batchOrderDataSet;
@@ -598,6 +635,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn rFIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn completedApprovedDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn completedDiscardDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.Button btnInvoice;
+        private System.Windows.Forms.ComboBox cmbPrinters;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox3;
     }
 }
 
