@@ -253,7 +253,7 @@ namespace ERP
         private void PrinterList()
         {
             // POPULATE THE COMBO BOX.
-            foreach (string sPrinters in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
+            foreach (string sPrinters in PrinterSettings.InstalledPrinters)
             {
                 cmbPrinters.Items.Add(sPrinters);
             }
@@ -263,8 +263,9 @@ namespace ERP
         private void btnInvoice_Click(object sender, EventArgs e)
         {
             DataTable cupTable = cupOrderDataSet.CupOrdre;
-            DataTable batchTable = GetSelectedBatchOrder();
-            Write(batchTable, cupTable);
+            DataTable batchTable = GetBatchOrderColumnNames();
+            DataTable cupHeaders = GetCupOrderColumnNames();
+            Write(batchTable, cupTable, cupHeaders);
             PrintDocument();
         }
 
@@ -273,11 +274,11 @@ namespace ERP
 
 
         //Source: http://stackoverflow.com/questions/7174077/export-a-c-sharp-dataset-to-a-text-file
-        private void Write(DataTable dtb,DataTable dtc)
+        private void Write(DataTable dtBatchOrderHeaders,DataTable dtCupOrderData, DataTable dtCupOrderHeaders)
         {
           
             
-            int batchLength = dtb.Columns.Count;
+            int batchLength = dtBatchOrderHeaders.Columns.Count;
             string[] cellValues = new string[batchLength];
             for (int i = 0; i < cellValues.Length; i++)
             {
@@ -290,12 +291,12 @@ namespace ERP
 
             //----------------------------------------------------THIS IS FOR THE BATCH ORDER DATA---------------------------------------------//  
             //Count columns in datatable
-            int[] maxLengthsDtb = new int[dtb.Columns.Count];
+            int[] maxLengthsDtb = new int[dtBatchOrderHeaders.Columns.Count];
 
             //Create spacing between columns in txt file
-            for (int i = 0; i < dtb.Columns.Count; i++)
+            for (int i = 0; i < dtBatchOrderHeaders.Columns.Count; i++)
             {
-                maxLengthsDtb[i] = dtb.Columns[i].ColumnName.Length;
+                maxLengthsDtb[i] = dtBatchOrderHeaders.Columns[i].ColumnName.Length;
 
                     if (cellValues[i] != null)
                     {
@@ -312,20 +313,20 @@ namespace ERP
             //WRITE TO FILE
             using (StreamWriter sw = new StreamWriter(filePath, false))
             {
-                
-                sw.Write("------------------------------------------ORDER DETAILS------------------------------------------");
+
+                sw.Write("------------------------------ BATCH ORDER ----------------------------");
                 sw.WriteLine();
                 sw.WriteLine();
 
-                for (int i = 0; i < dtb.Columns.Count; i++)
+                for (int i = 0; i < dtBatchOrderHeaders.Columns.Count; i++)
                 {
-                    sw.Write(dtb.Columns[i].ColumnName.PadRight(maxLengthsDtb[i] + 2));
+                    sw.Write(dtBatchOrderHeaders.Columns[i].ColumnName.PadRight(maxLengthsDtb[i] + 2));
                 }
 
                 sw.WriteLine();
 
                 
-                    for (int i = 0; i < dtb.Columns.Count; i++)
+                    for (int i = 0; i < dtBatchOrderHeaders.Columns.Count; i++)
                     {
                         if (cellValues[i] != null)
                         {
@@ -338,21 +339,21 @@ namespace ERP
                 }
                 sw.WriteLine();
                 sw.WriteLine();
-                sw.Write("--------------------------------------- BATCH ORDER DETAILS---------------------------------------");
+                sw.Write("----------------------------- UNITS ORDERED ---------------------------");
                 sw.WriteLine();
                 sw.WriteLine();
                 sw.WriteLine();
 
                 //-------------------------------------------THIS IS FOR THE CUP ORDER DATA-------------------------------------//
 
-                int[] maxLengthsDtc = new int[dtc.Columns.Count];
+                int[] maxLengthsDtc = new int[dtCupOrderData.Columns.Count];
 
                 //Create spacing between columns in txt file
-                for (int i = 0; i < dtc.Columns.Count; i++)
+                for (int i = 0; i < dtCupOrderHeaders.Columns.Count; i++)
                 {
-                    maxLengthsDtc[i] = dtc.Columns[i].ColumnName.Length;
+                    maxLengthsDtc[i] = dtCupOrderHeaders.Columns[i].ColumnName.Length;
 
-                    foreach (DataRow row in dtc.Rows)
+                    foreach (DataRow row in dtCupOrderData.Rows)
                     {
                         if (!row.IsNull(i))
                         {
@@ -365,16 +366,16 @@ namespace ERP
                         }
                     }
                 }
-                for (int i = 0; i < dtc.Columns.Count; i++)
+                for (int i = 0; i < dtCupOrderHeaders.Columns.Count; i++)
                 {
-                    sw.Write(dtc.Columns[i].ColumnName.PadRight(maxLengthsDtc[i] + 2));
+                    sw.Write(dtCupOrderHeaders.Columns[i].ColumnName.PadRight(maxLengthsDtc[i] + 2));
                 }
 
                 sw.WriteLine();
 
-                foreach (DataRow row in dtc.Rows)
+                foreach (DataRow row in dtCupOrderData.Rows)
                 {
-                    for (int i = 0; i < dtc.Columns.Count; i++)
+                    for (int i = 0; i < dtCupOrderData.Columns.Count- 1; i++)
                     {
                         if (!row.IsNull(i))
                         {
@@ -387,6 +388,7 @@ namespace ERP
                     }
 
                     sw.WriteLine();
+                    
                 }
 
                 sw.Close();
@@ -396,12 +398,21 @@ namespace ERP
 
 
 
-        private DataTable GetSelectedBatchOrder()
+        private DataTable GetBatchOrderColumnNames()
         {
 
             DataTable dt = new DataTable() ;
 
             foreach (DataGridViewColumn column in dataGridView1.Columns)
+                dt.Columns.Add(column.HeaderText); //better to have cell type
+
+            return dt;
+        }
+        private DataTable GetCupOrderColumnNames()
+        {
+            DataTable dt = new DataTable();
+
+            foreach (DataGridViewColumn column in dataGridView2.Columns)
                 dt.Columns.Add(column.HeaderText); //better to have cell type
 
             return dt;
@@ -422,10 +433,14 @@ namespace ERP
 
             PrintDocument pdoc = new PrintDocument();
 
+            //PaperSize ps = new PaperSize("Custom", 100, 100);
+
+            
+           
             pdoc.DefaultPageSettings.PrinterSettings.PrinterName = printer;
-            pdoc.DefaultPageSettings.Landscape = true;
-            bool s = pdoc.DefaultPageSettings.Landscape;
-            bool sa = s;
+
+            //pdoc.DefaultPageSettings.PaperSize.Height = 104;
+            //pdoc.DefaultPageSettings.PaperSize.Width = 140;
 
 
             ProcessStartInfo info = new ProcessStartInfo(filePath.Trim());

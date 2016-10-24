@@ -39,12 +39,6 @@
             this.label8 = new System.Windows.Forms.Label();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.batchIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.numberOfCupsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.batchCompletedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.timeDateOrderedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timeDateCompletedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.batchTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.batchOrdreBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.batchOrderDataSet = new ERP.BatchOrderDataSet();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -52,13 +46,6 @@
             this.btnPrevious = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.cupIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeOfCupDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.OrderedWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ActualWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.rFIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.completedApprovedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.completedDiscardDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.cupOrdreBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.cupOrderDataSet = new ERP.CupOrderDataSet();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -83,6 +70,19 @@
             this.label10 = new System.Windows.Forms.Label();
             this.txtSelectedOrder = new System.Windows.Forms.TextBox();
             this.printDocument1 = new System.Drawing.Printing.PrintDocument();
+            this.batchIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.numberOfCupsDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batchCompletedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.timeDateOrderedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timeDateCompletedDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.batchTimeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cupIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeOfCupDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.OrderedWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ActualWeight = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rFIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.completedApprovedDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.completedDiscardDataGridViewCheckBoxColumn = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.batchOrdreBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.batchOrderDataSet)).BeginInit();
@@ -197,54 +197,6 @@
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged_1);
             // 
-            // batchIDDataGridViewTextBoxColumn
-            // 
-            this.batchIDDataGridViewTextBoxColumn.DataPropertyName = "BatchID";
-            this.batchIDDataGridViewTextBoxColumn.HeaderText = "Batch";
-            this.batchIDDataGridViewTextBoxColumn.Name = "batchIDDataGridViewTextBoxColumn";
-            this.batchIDDataGridViewTextBoxColumn.ReadOnly = true;
-            this.batchIDDataGridViewTextBoxColumn.Width = 120;
-            // 
-            // numberOfCupsDataGridViewTextBoxColumn
-            // 
-            this.numberOfCupsDataGridViewTextBoxColumn.DataPropertyName = "NumberOfCups";
-            this.numberOfCupsDataGridViewTextBoxColumn.HeaderText = "TotalCups";
-            this.numberOfCupsDataGridViewTextBoxColumn.Name = "numberOfCupsDataGridViewTextBoxColumn";
-            this.numberOfCupsDataGridViewTextBoxColumn.ReadOnly = true;
-            this.numberOfCupsDataGridViewTextBoxColumn.Width = 120;
-            // 
-            // batchCompletedDataGridViewCheckBoxColumn
-            // 
-            this.batchCompletedDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.batchCompletedDataGridViewCheckBoxColumn.DataPropertyName = "BatchCompleted";
-            this.batchCompletedDataGridViewCheckBoxColumn.HeaderText = "Completed";
-            this.batchCompletedDataGridViewCheckBoxColumn.Name = "batchCompletedDataGridViewCheckBoxColumn";
-            this.batchCompletedDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // timeDateOrderedDataGridViewTextBoxColumn
-            // 
-            this.timeDateOrderedDataGridViewTextBoxColumn.DataPropertyName = "TimeDateOrdered";
-            this.timeDateOrderedDataGridViewTextBoxColumn.HeaderText = "OrderStart";
-            this.timeDateOrderedDataGridViewTextBoxColumn.Name = "timeDateOrderedDataGridViewTextBoxColumn";
-            this.timeDateOrderedDataGridViewTextBoxColumn.ReadOnly = true;
-            this.timeDateOrderedDataGridViewTextBoxColumn.Width = 120;
-            // 
-            // timeDateCompletedDataGridViewTextBoxColumn
-            // 
-            this.timeDateCompletedDataGridViewTextBoxColumn.DataPropertyName = "TimeDateCompleted";
-            this.timeDateCompletedDataGridViewTextBoxColumn.HeaderText = "OrderCompleted";
-            this.timeDateCompletedDataGridViewTextBoxColumn.Name = "timeDateCompletedDataGridViewTextBoxColumn";
-            this.timeDateCompletedDataGridViewTextBoxColumn.ReadOnly = true;
-            this.timeDateCompletedDataGridViewTextBoxColumn.Width = 120;
-            // 
-            // batchTimeDataGridViewTextBoxColumn
-            // 
-            this.batchTimeDataGridViewTextBoxColumn.DataPropertyName = "BatchTime";
-            this.batchTimeDataGridViewTextBoxColumn.HeaderText = "ProductionTime";
-            this.batchTimeDataGridViewTextBoxColumn.Name = "batchTimeDataGridViewTextBoxColumn";
-            this.batchTimeDataGridViewTextBoxColumn.ReadOnly = true;
-            this.batchTimeDataGridViewTextBoxColumn.Width = 120;
-            // 
             // batchOrdreBindingSource
             // 
             this.batchOrdreBindingSource.DataMember = "BatchOrdre";
@@ -316,56 +268,6 @@
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.Size = new System.Drawing.Size(751, 250);
             this.dataGridView2.TabIndex = 18;
-            // 
-            // cupIDDataGridViewTextBoxColumn
-            // 
-            this.cupIDDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.cupIDDataGridViewTextBoxColumn.DataPropertyName = "CupID";
-            this.cupIDDataGridViewTextBoxColumn.HeaderText = "CupID";
-            this.cupIDDataGridViewTextBoxColumn.Name = "cupIDDataGridViewTextBoxColumn";
-            this.cupIDDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // typeOfCupDataGridViewTextBoxColumn
-            // 
-            this.typeOfCupDataGridViewTextBoxColumn.DataPropertyName = "TypeOfCup";
-            this.typeOfCupDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.typeOfCupDataGridViewTextBoxColumn.Name = "typeOfCupDataGridViewTextBoxColumn";
-            this.typeOfCupDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // OrderedWeight
-            // 
-            this.OrderedWeight.DataPropertyName = "OrderedWeight";
-            this.OrderedWeight.HeaderText = "OrderedWeight";
-            this.OrderedWeight.Name = "OrderedWeight";
-            this.OrderedWeight.ReadOnly = true;
-            // 
-            // ActualWeight
-            // 
-            this.ActualWeight.DataPropertyName = "ActualWeight";
-            this.ActualWeight.HeaderText = "ActualWeight";
-            this.ActualWeight.Name = "ActualWeight";
-            this.ActualWeight.ReadOnly = true;
-            // 
-            // rFIDDataGridViewTextBoxColumn
-            // 
-            this.rFIDDataGridViewTextBoxColumn.DataPropertyName = "RFID";
-            this.rFIDDataGridViewTextBoxColumn.HeaderText = "Tag";
-            this.rFIDDataGridViewTextBoxColumn.Name = "rFIDDataGridViewTextBoxColumn";
-            this.rFIDDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // completedApprovedDataGridViewCheckBoxColumn
-            // 
-            this.completedApprovedDataGridViewCheckBoxColumn.DataPropertyName = "CompletedApproved";
-            this.completedApprovedDataGridViewCheckBoxColumn.HeaderText = "Approved";
-            this.completedApprovedDataGridViewCheckBoxColumn.Name = "completedApprovedDataGridViewCheckBoxColumn";
-            this.completedApprovedDataGridViewCheckBoxColumn.ReadOnly = true;
-            // 
-            // completedDiscardDataGridViewCheckBoxColumn
-            // 
-            this.completedDiscardDataGridViewCheckBoxColumn.DataPropertyName = "CompletedDiscard";
-            this.completedDiscardDataGridViewCheckBoxColumn.HeaderText = "Discarded";
-            this.completedDiscardDataGridViewCheckBoxColumn.Name = "completedDiscardDataGridViewCheckBoxColumn";
-            this.completedDiscardDataGridViewCheckBoxColumn.ReadOnly = true;
             // 
             // cupOrdreBindingSource
             // 
@@ -574,6 +476,104 @@
             this.txtSelectedOrder.TabIndex = 16;
             this.txtSelectedOrder.Text = "0";
             // 
+            // batchIDDataGridViewTextBoxColumn
+            // 
+            this.batchIDDataGridViewTextBoxColumn.DataPropertyName = "BatchID";
+            this.batchIDDataGridViewTextBoxColumn.HeaderText = "Batch Number";
+            this.batchIDDataGridViewTextBoxColumn.Name = "batchIDDataGridViewTextBoxColumn";
+            this.batchIDDataGridViewTextBoxColumn.ReadOnly = true;
+            this.batchIDDataGridViewTextBoxColumn.Width = 120;
+            // 
+            // numberOfCupsDataGridViewTextBoxColumn
+            // 
+            this.numberOfCupsDataGridViewTextBoxColumn.DataPropertyName = "NumberOfCups";
+            this.numberOfCupsDataGridViewTextBoxColumn.HeaderText = "Total Cups";
+            this.numberOfCupsDataGridViewTextBoxColumn.Name = "numberOfCupsDataGridViewTextBoxColumn";
+            this.numberOfCupsDataGridViewTextBoxColumn.ReadOnly = true;
+            this.numberOfCupsDataGridViewTextBoxColumn.Width = 120;
+            // 
+            // batchCompletedDataGridViewCheckBoxColumn
+            // 
+            this.batchCompletedDataGridViewCheckBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.batchCompletedDataGridViewCheckBoxColumn.DataPropertyName = "BatchCompleted";
+            this.batchCompletedDataGridViewCheckBoxColumn.HeaderText = "Completed";
+            this.batchCompletedDataGridViewCheckBoxColumn.Name = "batchCompletedDataGridViewCheckBoxColumn";
+            this.batchCompletedDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // timeDateOrderedDataGridViewTextBoxColumn
+            // 
+            this.timeDateOrderedDataGridViewTextBoxColumn.DataPropertyName = "TimeDateOrdered";
+            this.timeDateOrderedDataGridViewTextBoxColumn.HeaderText = "Started";
+            this.timeDateOrderedDataGridViewTextBoxColumn.Name = "timeDateOrderedDataGridViewTextBoxColumn";
+            this.timeDateOrderedDataGridViewTextBoxColumn.ReadOnly = true;
+            this.timeDateOrderedDataGridViewTextBoxColumn.Width = 120;
+            // 
+            // timeDateCompletedDataGridViewTextBoxColumn
+            // 
+            this.timeDateCompletedDataGridViewTextBoxColumn.DataPropertyName = "TimeDateCompleted";
+            this.timeDateCompletedDataGridViewTextBoxColumn.HeaderText = "Finished";
+            this.timeDateCompletedDataGridViewTextBoxColumn.Name = "timeDateCompletedDataGridViewTextBoxColumn";
+            this.timeDateCompletedDataGridViewTextBoxColumn.ReadOnly = true;
+            this.timeDateCompletedDataGridViewTextBoxColumn.Width = 120;
+            // 
+            // batchTimeDataGridViewTextBoxColumn
+            // 
+            this.batchTimeDataGridViewTextBoxColumn.DataPropertyName = "BatchTime";
+            this.batchTimeDataGridViewTextBoxColumn.HeaderText = "Production Time";
+            this.batchTimeDataGridViewTextBoxColumn.Name = "batchTimeDataGridViewTextBoxColumn";
+            this.batchTimeDataGridViewTextBoxColumn.ReadOnly = true;
+            this.batchTimeDataGridViewTextBoxColumn.Width = 120;
+            // 
+            // cupIDDataGridViewTextBoxColumn
+            // 
+            this.cupIDDataGridViewTextBoxColumn.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.cupIDDataGridViewTextBoxColumn.DataPropertyName = "CupID";
+            this.cupIDDataGridViewTextBoxColumn.HeaderText = "Cup Number";
+            this.cupIDDataGridViewTextBoxColumn.Name = "cupIDDataGridViewTextBoxColumn";
+            this.cupIDDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // typeOfCupDataGridViewTextBoxColumn
+            // 
+            this.typeOfCupDataGridViewTextBoxColumn.DataPropertyName = "TypeOfCup";
+            this.typeOfCupDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.typeOfCupDataGridViewTextBoxColumn.Name = "typeOfCupDataGridViewTextBoxColumn";
+            this.typeOfCupDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // OrderedWeight
+            // 
+            this.OrderedWeight.DataPropertyName = "OrderedWeight";
+            this.OrderedWeight.HeaderText = "Ordered";
+            this.OrderedWeight.Name = "OrderedWeight";
+            this.OrderedWeight.ReadOnly = true;
+            // 
+            // ActualWeight
+            // 
+            this.ActualWeight.DataPropertyName = "ActualWeight";
+            this.ActualWeight.HeaderText = "Measured";
+            this.ActualWeight.Name = "ActualWeight";
+            this.ActualWeight.ReadOnly = true;
+            // 
+            // rFIDDataGridViewTextBoxColumn
+            // 
+            this.rFIDDataGridViewTextBoxColumn.DataPropertyName = "RFID";
+            this.rFIDDataGridViewTextBoxColumn.HeaderText = "Tag";
+            this.rFIDDataGridViewTextBoxColumn.Name = "rFIDDataGridViewTextBoxColumn";
+            this.rFIDDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // completedApprovedDataGridViewCheckBoxColumn
+            // 
+            this.completedApprovedDataGridViewCheckBoxColumn.DataPropertyName = "CompletedApproved";
+            this.completedApprovedDataGridViewCheckBoxColumn.HeaderText = "Approved";
+            this.completedApprovedDataGridViewCheckBoxColumn.Name = "completedApprovedDataGridViewCheckBoxColumn";
+            this.completedApprovedDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
+            // completedDiscardDataGridViewCheckBoxColumn
+            // 
+            this.completedDiscardDataGridViewCheckBoxColumn.DataPropertyName = "CompletedDiscard";
+            this.completedDiscardDataGridViewCheckBoxColumn.HeaderText = "Discarded";
+            this.completedDiscardDataGridViewCheckBoxColumn.Name = "completedDiscardDataGridViewCheckBoxColumn";
+            this.completedDiscardDataGridViewCheckBoxColumn.ReadOnly = true;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -645,6 +645,19 @@
         private System.Windows.Forms.TextBox txtFillTall;
         private System.Windows.Forms.TextBox txtFillRed;
         private System.Windows.Forms.TextBox txtFillBlack;
+        private System.Windows.Forms.Button btnInvoice;
+        private System.Windows.Forms.ComboBox cmbPrinters;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtSelectedOrder;
+        private System.Drawing.Printing.PrintDocument printDocument1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batchIDDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn numberOfCupsDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn batchCompletedDataGridViewCheckBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timeDateOrderedDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn timeDateCompletedDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn batchTimeDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn cupIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn typeOfCupDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn OrderedWeight;
@@ -652,19 +665,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn rFIDDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn completedApprovedDataGridViewCheckBoxColumn;
         private System.Windows.Forms.DataGridViewCheckBoxColumn completedDiscardDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.Button btnInvoice;
-        private System.Windows.Forms.ComboBox cmbPrinters;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox txtSelectedOrder;
-        private System.Windows.Forms.DataGridViewTextBoxColumn batchIDDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn numberOfCupsDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn batchCompletedDataGridViewCheckBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn timeDateOrderedDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn timeDateCompletedDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn batchTimeDataGridViewTextBoxColumn;
-        private System.Drawing.Printing.PrintDocument printDocument1;
     }
 }
 
