@@ -3,6 +3,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
 using System.IO;
+using System.Drawing;
+using System.Diagnostics;
+using System.Drawing.Printing;
+
 
 
 
@@ -36,7 +40,10 @@ namespace ERP
 
         Validation val = new Validation();
 
-        
+        //private string specialPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+        private string filePath = "0";
+
+
 
 
         public frmMain()
@@ -60,6 +67,8 @@ namespace ERP
 
             PrinterList();
             cmbPrinters.SelectedIndex = 0;
+
+            filePath = @".\Order_" + currentSelectedBatchID + ".txt";
 
         }
         private void ConnectToDatabase()
@@ -187,12 +196,21 @@ namespace ERP
 
         private void UpdateCupGrid()
         {
-            if (dataGridView1.SelectedCells.Count > 0)
+            try
             {
-                currentSelectedBatchID = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
-                this.cupOrdreTableAdapter.FillWithBatchNumber(this.cupOrderDataSet.CupOrdre, currentSelectedBatchID);
-                txtSelectedOrder.Text = currentSelectedBatchID.ToString();
+                if (dataGridView1.SelectedCells.Count > 0)
+                {
+                    currentSelectedBatchID = Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value);
+                    this.cupOrdreTableAdapter.FillWithBatchNumber(this.cupOrderDataSet.CupOrdre, currentSelectedBatchID);
+                    txtSelectedOrder.Text = currentSelectedBatchID.ToString();
+                }
             }
+            catch (Exception)
+            {
+                MessageBox.Show("Lost connection");
+               
+            }
+
         }
 
 
@@ -245,85 +263,126 @@ namespace ERP
         private void btnInvoice_Click(object sender, EventArgs e)
         {
             DataTable cupTable = cupOrderDataSet.CupOrdre;
-            DataTable batchTable = testtesttest();
+            DataTable batchTable = GetSelectedBatchOrder();
             Write(batchTable, cupTable);
+            PrintDocument();
         }
 
-        //------------------------------------------------------------------------TESTING AREA----------------------------------------------------------------------------//
+        
 
 
 
         //Source: http://stackoverflow.com/questions/7174077/export-a-c-sharp-dataset-to-a-text-file
-        private void Write(DataTable dtb,DataTable dt)
+        private void Write(DataTable dtb,DataTable dtc)
         {
+          
             
-            string filePath = @".\Order_"+currentSelectedBatchID+".txt";
-            int[] maxLengths = new int[dt.Columns.Count];
-
-//----------------------------------------------------THIS IS FOR THE BATCH ORDER DATA---------------------------------------------//
-            for (int i = 0; i < dt.Columns.Count; i++)
+            int batchLength = dtb.Columns.Count;
+            string[] cellValues = new string[batchLength];
+            for (int i = 0; i < cellValues.Length; i++)
             {
-                maxLengths[i] = dt.Columns[i].ColumnName.Length;
-
-                foreach (DataRow row in dt.Rows)
+                if (dataGridView1[i, dataGridView1.CurrentRow.Index].Value.ToString() != null)
                 {
-                    if (!row.IsNull(i))
-                    {
-                        int length = row[i].ToString().Length;
+                    cellValues[i] = dataGridView1[i, dataGridView1.CurrentRow.Index].Value.ToString();
+                }
 
-                        if (length > maxLengths[i])
+            }
+
+            //----------------------------------------------------THIS IS FOR THE BATCH ORDER DATA---------------------------------------------//  
+            //Count columns in datatable
+            int[] maxLengthsDtb = new int[dtb.Columns.Count];
+
+            //Create spacing between columns in txt file
+            for (int i = 0; i < dtb.Columns.Count; i++)
+            {
+                maxLengthsDtb[i] = dtb.Columns[i].ColumnName.Length;
+
+                    if (cellValues[i] != null)
+                    {
+                        int length = cellValues[i].ToString().Length;
+
+                        if (length > maxLengthsDtb[i])
                         {
-                            maxLengths[i] = length;
+                            maxLengthsDtb[i] = length;
                         }
                     }
-                }
+                
             }
 
             //WRITE TO FILE
             using (StreamWriter sw = new StreamWriter(filePath, false))
             {
+                
+                sw.Write("------------------------------------------ORDER DETAILS------------------------------------------");
+                sw.WriteLine();
+                sw.WriteLine();
+
                 for (int i = 0; i < dtb.Columns.Count; i++)
                 {
-                    sw.Write(dtb.Columns[i].ColumnName.PadRight(maxLengths[i] + 2));
+                    sw.Write(dtb.Columns[i].ColumnName.PadRight(maxLengthsDtb[i] + 2));
                 }
 
                 sw.WriteLine();
 
-                foreach (DataRow row in dtb.Rows)
-                {
+                
                     for (int i = 0; i < dtb.Columns.Count; i++)
                     {
-                        if (!row.IsNull(i))
+                        if (cellValues[i] != null)
                         {
-                            sw.Write(row[i].ToString().PadRight(maxLengths[i] + 2));
+                            sw.Write(cellValues[i].ToString().PadRight(maxLengthsDtb[i] + 2));
                         }
                         else
                         {
-                            sw.Write(new string(' ', maxLengths[i] + 2));
+                            sw.Write(new string(' ', maxLengthsDtb[i] + 2));
+                        }
+                }
+                sw.WriteLine();
+                sw.WriteLine();
+                sw.Write("--------------------------------------- BATCH ORDER DETAILS---------------------------------------");
+                sw.WriteLine();
+                sw.WriteLine();
+                sw.WriteLine();
+
+                //-------------------------------------------THIS IS FOR THE CUP ORDER DATA-------------------------------------//
+
+                int[] maxLengthsDtc = new int[dtc.Columns.Count];
+
+                //Create spacing between columns in txt file
+                for (int i = 0; i < dtc.Columns.Count; i++)
+                {
+                    maxLengthsDtc[i] = dtc.Columns[i].ColumnName.Length;
+
+                    foreach (DataRow row in dtc.Rows)
+                    {
+                        if (!row.IsNull(i))
+                        {
+                            int length = row[i].ToString().Length;
+
+                            if (length > maxLengthsDtc[i])
+                            {
+                                maxLengthsDtc[i] = length;
+                            }
                         }
                     }
-
-                    sw.WriteLine();
                 }
-//-------------------------------------------THIS IS FOR THE CUP ORDER DATA-------------------------------------//
-                for (int i = 0; i < dt.Columns.Count; i++)
+                for (int i = 0; i < dtc.Columns.Count; i++)
                 {
-                    sw.Write(dt.Columns[i].ColumnName.PadRight(maxLengths[i] + 2));
+                    sw.Write(dtc.Columns[i].ColumnName.PadRight(maxLengthsDtc[i] + 2));
                 }
 
                 sw.WriteLine();
 
-                foreach (DataRow row in dt.Rows)
+                foreach (DataRow row in dtc.Rows)
                 {
-                    for (int i = 0; i < dt.Columns.Count; i++)
+                    for (int i = 0; i < dtc.Columns.Count; i++)
                     {
                         if (!row.IsNull(i))
                         {
-                            sw.Write(row[i].ToString().PadRight(maxLengths[i] + 2));
+                            sw.Write(row[i].ToString().PadRight(maxLengthsDtc[i] + 2));
                         }
                         else
                         {
-                            sw.Write(new string(' ', maxLengths[i] + 2));
+                            sw.Write(new string(' ', maxLengthsDtc[i] + 2));
                         }
                     }
 
@@ -333,107 +392,51 @@ namespace ERP
                 sw.Close();
             }
         }
-        public void WriteDataToFile(DataTable submittedDataTable)
+       
+
+
+
+        private DataTable GetSelectedBatchOrder()
         {
-            int arraysize = dataGridView1.ColumnCount;
 
-            string[] batchOrder = new string[arraysize];
-            string[] headerRowTextArray = new string[arraysize];
-
-            int j = 0;
-            StreamWriter sw = null;
-            string filePath = @".\test.txt";
-
-            sw = new StreamWriter(filePath, false);
-
-            for (int i = 0; i < arraysize; i++)
-            {
-                headerRowTextArray[i] = dataGridView1.Columns[i].HeaderCell.Value.ToString();
-                batchOrder[i] = dataGridView1[i, dataGridView1.CurrentRow.Index].Value.ToString();
-
-            }
-
-            for (j = 0; j < submittedDataTable.Columns.Count - 1; j++)
-            {
-
-                sw.Write(submittedDataTable.Columns[j].ColumnName + ";");
-
-            }
-            sw.Write(submittedDataTable.Columns[j].ColumnName);
-            sw.WriteLine();
-
-            foreach (DataRow row in submittedDataTable.Rows)
-            {
-                object[] array = row.ItemArray;
-
-                for (j = 0; j < array.Length - 1; j++)
-                {
-                    sw.Write(array[j].ToString() + ";");
-                }
-                sw.Write(array[j].ToString());
-                sw.WriteLine();
-
-            }
-        }
-
-
-
-        private DataTable testtesttest()
-        {
-            //  string bajs = this.dataGridView1.Columns[i].HeaderText;
-
-            DataTable dt = new DataTable();
-            DataRow toInsert = dt.NewRow();
-            int index = dataGridView1.CurrentCell.RowIndex;
+            DataTable dt = new DataTable() ;
 
             foreach (DataGridViewColumn column in dataGridView1.Columns)
                 dt.Columns.Add(column.HeaderText); //better to have cell type
 
-            for (int i = 0; i < dataGridView1.ColumnCount; i++)
-            {
-                dt.Rows.InsertAt(toInsert, index);
-                dt.Rows.Add(dataGridView1.CurrentRow.Cells[i].Value) ;
-            }
-            // generate the data you want to insert
-            
-
-            // insert in the desired place
-            
-
-
-            //for (int j = 0; j < dataGridView1.Columns.Count; j++)
-            //{
-
-            //    dt.Rows.Add(dataGridView1.SelectedRows[index]);
-            //    //^^^^^^^^^^^
-            //}
-
             return dt;
+        }
+        //------------------------------------------------------------------------TESTING AREA----------------------------------------------------------------------------//
 
-            //THIS WORKS BUT IT USES THE DATABASE NAMES, NOT THE COLUMNN ONES
-            //
-            //DataTable dtnew = new DataTable();
-            //int index = dataGridView1.CurrentCell.RowIndex;
-            //DbConnect dc = new DbConnect();
-            //dc.GetBatchOrder();
-            //dtnew = dc.dt;
-            ////dt.Rows.Add(1);
-            //return dtnew;
+        //Source: http://stackoverflow.com/questions/1097005/how-to-set-printer-settings-while-printing-pdf
+        private void PrintDocument()
+        {
+            //ProcessStartInfo info = new ProcessStartInfo(filePath.Trim());
+            //info.Verb = "Print";
+
+            //info.CreateNoWindow = true;
+            //info.WindowStyle = ProcessWindowStyle.Hidden;
+            //Process.Start(info);
+
+            string printer = cmbPrinters.GetItemText(this.cmbPrinters.SelectedItem);
+
+            PrintDocument pdoc = new PrintDocument();
+
+            pdoc.DefaultPageSettings.PrinterSettings.PrinterName = printer;
+            pdoc.DefaultPageSettings.Landscape = true;
+            bool s = pdoc.DefaultPageSettings.Landscape;
+            bool sa = s;
 
 
-
-
-
-
-            //for (int i = 0; i < dataGridView1.SelectedRows.Count; i++)
-            //{
-            //    dt.Rows.Add();
-            //    for (int j = 0; j < dataGridView1.Columns.Count; j++)
-            //    {
-            //        dt.Rows[i][j] = dataGridView1.SelectedRows[i].Cells[j].Value;
-            //        //^^^^^^^^^^^
-            //    }
-            //}
+            ProcessStartInfo info = new ProcessStartInfo(filePath.Trim());
+                    info.Arguments = "\"" + printer + "\"";
+                    info.CreateNoWindow = true;
+                    info.WindowStyle = ProcessWindowStyle.Hidden;
+                    info.UseShellExecute = true;
+                    info.Verb = "PrintTo";
+                    Process.Start(info);
+                
+            
         }
     }
 }
