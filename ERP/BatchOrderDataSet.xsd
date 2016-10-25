@@ -29,6 +29,16 @@ ORDER BY BatchID DESC</CommandText>
               <Mapping SourceColumn="BatchTime" DataSetColumn="BatchTime" />
             </Mappings>
             <Sources>
+              <DbSource ConnectionRef="BatchOrder (Settings)" DbObjectName="[IA5-5-16].dbo.BatchOrdre" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillBySearch" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataBySearch" GeneratorSourceName="FillBySearch" GetMethodModifier="Public" GetMethodName="GetDataBySearch" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataBySearch" UserSourceName="FillBySearch">
+                <SelectCommand>
+                  <DbCommand CommandType="Text" ModifiedByUser="true">
+                    <CommandText>SELECT BatchID, NumberOfCups, BatchCompleted, TimeDateOrdered, TimeDateCompleted, BatchTime
+FROM            BatchOrdre
+WHERE BatchID LIKE '%@batchID%'</CommandText>
+                    <Parameters />
+                  </DbCommand>
+                </SelectCommand>
+              </DbSource>
               <DbSource ConnectionRef="BatchOrder (Settings)" DbObjectName="[IA5-5-16].dbo.BatchOrdre" DbObjectType="Table" FillMethodModifier="Public" FillMethodName="FillSpesificRow" GenerateMethods="Both" GenerateShortCommands="true" GeneratorGetMethodName="GetDataSpesific" GeneratorSourceName="FillSpesificRow" GetMethodModifier="Public" GetMethodName="GetDataSpesific" QueryType="Rowset" ScalarCallRetval="System.Object, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" UseOptimisticConcurrency="true" UserGetMethodName="GetDataSpesific" UserSourceName="FillSpesificRow">
                 <SelectCommand>
                   <DbCommand CommandType="Text" ModifiedByUser="true">

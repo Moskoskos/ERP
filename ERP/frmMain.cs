@@ -6,7 +6,16 @@ using System.IO;
 using System.Drawing;
 using System.Diagnostics;
 using System.Drawing.Printing;
-
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Runtime.InteropServices;
+using System.Media;
+using Microsoft.Win32;
+using System.Net.Mail;
+using System.Net;
+ 
 
 
 
@@ -39,6 +48,7 @@ namespace ERP
         private int currentSelectedBatchID;
 
         Validation val = new Validation();
+        DbConnect dbGlob = new DbConnect();
 
         //private string specialPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         private string filePath = "0";
@@ -118,7 +128,7 @@ namespace ERP
 
             //Checks that all the inputs are in a valid format before assigning values to the variables, creates the DbConnect object and summerizes.
             //Then Create the order
-            //PS I'm not proud of this 
+            //PS I'm not proud of this , BUT it works.
             if (val.TestIntegerInput(txtBlack.Text) && val.TestIntegerInput(txtRed.Text) && val.TestIntegerInput(txtTall.Text) && val.TestIntegerInput(txtTran.Text) &&
                 val.CheckGramInput(txtFillBlack.Text, smallCupMin, smallCupMax) && val.CheckGramInput(txtFillRed.Text, smallCupMin, smallCupMax) && 
                 val.CheckGramInput(txtFillTran.Text, smallCupMin, smallCupMax) && val.CheckGramInputTall(txtTall.Text, tallCupMin, tallCupMax))
@@ -208,12 +218,8 @@ namespace ERP
             catch (Exception)
             {
                 MessageBox.Show("Lost connection");
-               
             }
-
         }
-
-
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
@@ -265,21 +271,29 @@ namespace ERP
             DataTable cupTable = cupOrderDataSet.CupOrdre;
             DataTable batchTable = GetBatchOrderColumnNames();
             DataTable cupHeaders = GetCupOrderColumnNames();
-            Write(batchTable, cupTable, cupHeaders);
+            int batchLength = dataGridView1.Columns.Count;
+
+            ReportGeneration rg = new ReportGeneration();
+            
+
+            rg.Write(batchTable, cupTable, cupHeaders, GetDGVBatchRoWValues(batchLength), filePath);
             PrintDocument();
         }
 
-        
-
-
-
-        //Source: http://stackoverflow.com/questions/7174077/export-a-c-sharp-dataset-to-a-text-file
-        private void Write(DataTable dtBatchOrderHeaders,DataTable dtCupOrderData, DataTable dtCupOrderHeaders)
+        private void PrintDocument()
         {
-          
+            Printing pr = new Printing();
+            string selectedPrinter = "";
+            selectedPrinter = cmbPrinters.GetItemText(this.cmbPrinters.SelectedItem);
+            pr.PrintDocument(selectedPrinter, filePath);
             
-            int batchLength = dtBatchOrderHeaders.Columns.Count;
-            string[] cellValues = new string[batchLength];
+        }
+
+        private string[] GetDGVBatchRoWValues(int numOfColumns)
+        {
+            
+            string[] cellValues = new string[numOfColumns];
+
             for (int i = 0; i < cellValues.Length; i++)
             {
                 if (dataGridView1[i, dataGridView1.CurrentRow.Index].Value.ToString() != null)
@@ -288,112 +302,16 @@ namespace ERP
                 }
 
             }
-
-            //----------------------------------------------------THIS IS FOR THE BATCH ORDER DATA---------------------------------------------//  
-            //Count columns in datatable
-            int[] maxLengthsDtb = new int[dtBatchOrderHeaders.Columns.Count];
-
-            //Create spacing between columns in txt file
-            for (int i = 0; i < dtBatchOrderHeaders.Columns.Count; i++)
-            {
-                maxLengthsDtb[i] = dtBatchOrderHeaders.Columns[i].ColumnName.Length;
-
-                    if (cellValues[i] != null)
-                    {
-                        int length = cellValues[i].ToString().Length;
-
-                        if (length > maxLengthsDtb[i])
-                        {
-                            maxLengthsDtb[i] = length;
-                        }
-                    }
-                
-            }
-
-            //WRITE TO FILE
-            using (StreamWriter sw = new StreamWriter(filePath, false))
-            {
-
-                sw.Write("------------------------------ BATCH ORDER ----------------------------");
-                sw.WriteLine();
-                sw.WriteLine();
-
-                for (int i = 0; i < dtBatchOrderHeaders.Columns.Count; i++)
-                {
-                    sw.Write(dtBatchOrderHeaders.Columns[i].ColumnName.PadRight(maxLengthsDtb[i] + 2));
-                }
-
-                sw.WriteLine();
-
-                
-                    for (int i = 0; i < dtBatchOrderHeaders.Columns.Count; i++)
-                    {
-                        if (cellValues[i] != null)
-                        {
-                            sw.Write(cellValues[i].ToString().PadRight(maxLengthsDtb[i] + 2));
-                        }
-                        else
-                        {
-                            sw.Write(new string(' ', maxLengthsDtb[i] + 2));
-                        }
-                }
-                sw.WriteLine();
-                sw.WriteLine();
-                sw.Write("----------------------------- UNITS ORDERED ---------------------------");
-                sw.WriteLine();
-                sw.WriteLine();
-                sw.WriteLine();
-
-                //-------------------------------------------THIS IS FOR THE CUP ORDER DATA-------------------------------------//
-
-                int[] maxLengthsDtc = new int[dtCupOrderData.Columns.Count];
-
-                //Create spacing between columns in txt file
-                for (int i = 0; i < dtCupOrderHeaders.Columns.Count; i++)
-                {
-                    maxLengthsDtc[i] = dtCupOrderHeaders.Columns[i].ColumnName.Length;
-
-                    foreach (DataRow row in dtCupOrderData.Rows)
-                    {
-                        if (!row.IsNull(i))
-                        {
-                            int length = row[i].ToString().Length;
-
-                            if (length > maxLengthsDtc[i])
-                            {
-                                maxLengthsDtc[i] = length;
-                            }
-                        }
-                    }
-                }
-                for (int i = 0; i < dtCupOrderHeaders.Columns.Count; i++)
-                {
-                    sw.Write(dtCupOrderHeaders.Columns[i].ColumnName.PadRight(maxLengthsDtc[i] + 2));
-                }
-
-                sw.WriteLine();
-
-                foreach (DataRow row in dtCupOrderData.Rows)
-                {
-                    for (int i = 0; i < dtCupOrderData.Columns.Count- 1; i++)
-                    {
-                        if (!row.IsNull(i))
-                        {
-                            sw.Write(row[i].ToString().PadRight(maxLengthsDtc[i] + 2));
-                        }
-                        else
-                        {
-                            sw.Write(new string(' ', maxLengthsDtc[i] + 2));
-                        }
-                    }
-
-                    sw.WriteLine();
-                    
-                }
-
-                sw.Close();
-            }
+            return cellValues;
+            
         }
+
+        
+
+
+
+       
+        
        
 
 
@@ -419,39 +337,28 @@ namespace ERP
         }
         //------------------------------------------------------------------------TESTING AREA----------------------------------------------------------------------------//
 
-        //Source: http://stackoverflow.com/questions/1097005/how-to-set-printer-settings-while-printing-pdf
-        private void PrintDocument()
+
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            //ProcessStartInfo info = new ProcessStartInfo(filePath.Trim());
-            //info.Verb = "Print";
 
-            //info.CreateNoWindow = true;
-            //info.WindowStyle = ProcessWindowStyle.Hidden;
-            //Process.Start(info);
+            int search = 0;
+            search = Convert.ToInt32(txtSearch.Text);
+            this.batchOrdreTableAdapter.FillSpesificRow(this.batchOrderDataSet.BatchOrdre, search);
 
-            string printer = cmbPrinters.GetItemText(this.cmbPrinters.SelectedItem);
-
-            PrintDocument pdoc = new PrintDocument();
-
-            //PaperSize ps = new PaperSize("Custom", 100, 100);
-
-            
-           
-            pdoc.DefaultPageSettings.PrinterSettings.PrinterName = printer;
-
-            //pdoc.DefaultPageSettings.PaperSize.Height = 104;
-            //pdoc.DefaultPageSettings.PaperSize.Width = 140;
-
-
-            ProcessStartInfo info = new ProcessStartInfo(filePath.Trim());
-                    info.Arguments = "\"" + printer + "\"";
-                    info.CreateNoWindow = true;
-                    info.WindowStyle = ProcessWindowStyle.Hidden;
-                    info.UseShellExecute = true;
-                    info.Verb = "PrintTo";
-                    Process.Start(info);
-                
-            
         }
+
+        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == Convert.ToChar(Keys.Back))
+            {
+               
+                if (String.IsNullOrWhiteSpace(txtSearch.Text))
+                {
+                    UpdateDataGridViews();
+                }
+            }
+        }
+
     }
 }
