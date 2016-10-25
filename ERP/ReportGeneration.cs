@@ -26,7 +26,7 @@ namespace ERP
         }
 
         //Source: http://stackoverflow.com/questions/7174077/export-a-c-sharp-dataset-to-a-text-file
-        public void Write(DataTable dtBatchOrderHeaders, DataTable dtCupOrderData, DataTable dtCupOrderHeaders, string[] cellValues, string filePath)
+        public void Generate(DataTable dtBatchOrderHeaders, DataTable dtCupOrderData, DataTable dtCupOrderHeaders, string[] cellValues, string filePath)
         {
 
 

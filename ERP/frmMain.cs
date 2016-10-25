@@ -51,7 +51,8 @@ namespace ERP
         DbConnect dbGlob = new DbConnect();
 
         //private string specialPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-        private string filePath = "0";
+        private string fileReportPath = "0";
+        private string fileInvoicePath = "0";
 
 
 
@@ -78,7 +79,8 @@ namespace ERP
             PrinterList();
             cmbPrinters.SelectedIndex = 0;
 
-            filePath = @".\Order_" + currentSelectedBatchID + ".txt";
+            fileReportPath = @".\Order " + currentSelectedBatchID + ".txt";
+            fileInvoicePath = @".\Invoice " + currentSelectedBatchID + ".txt";
 
         }
         private void ConnectToDatabase()
@@ -114,7 +116,7 @@ namespace ERP
             string help = "\\help.pdf";
             try
             {
-                System.Diagnostics.Process.Start(help);
+                Process.Start(help);
             }
             catch (Exception)
             {
@@ -167,6 +169,7 @@ namespace ERP
                     {
                         dc.InsertOrderIntoDataTable(numTran, tran, fillTran);
                     }
+                    InvoiceGeneration();
                 }
             }
             else
@@ -177,8 +180,6 @@ namespace ERP
             UpdateDataGridViews();
             UpdateCupGrid();
         }
-
-        //Disables the fill box if selected index = 0
 
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -276,7 +277,7 @@ namespace ERP
             ReportGeneration rg = new ReportGeneration();
             
 
-            rg.Write(batchTable, cupTable, cupHeaders, GetDGVBatchRoWValues(batchLength), filePath);
+            rg.Generate(batchTable, cupTable, cupHeaders, GetDGVBatchRoWValues(batchLength), fileReportPath);
             PrintDocument();
         }
 
@@ -285,7 +286,7 @@ namespace ERP
             Printing pr = new Printing();
             string selectedPrinter = "";
             selectedPrinter = cmbPrinters.GetItemText(this.cmbPrinters.SelectedItem);
-            pr.PrintDocument(selectedPrinter, filePath);
+            pr.PrintDocument(selectedPrinter, fileReportPath);
             
         }
 
@@ -303,18 +304,7 @@ namespace ERP
 
             }
             return cellValues;
-            
         }
-
-        
-
-
-
-       
-        
-       
-
-
 
         private DataTable GetBatchOrderColumnNames()
         {
@@ -335,17 +325,12 @@ namespace ERP
 
             return dt;
         }
-        //------------------------------------------------------------------------TESTING AREA----------------------------------------------------------------------------//
-
-
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-
             int search = 0;
             search = Convert.ToInt32(txtSearch.Text);
             this.batchOrdreTableAdapter.FillSpesificRow(this.batchOrderDataSet.BatchOrdre, search);
-
         }
 
         private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
@@ -357,6 +342,42 @@ namespace ERP
                 {
                     UpdateDataGridViews();
                 }
+            }
+        }
+
+
+        //------------------------------------------------------------------------TESTING AREA----------------------------------------------------------------------------//
+
+        private void InvoiceGeneration()
+        {
+            using (StreamWriter sw = new StreamWriter(fileInvoicePath, false))
+            {
+                DbConnect dc = new DbConnect();
+
+                sw.Write("------------------------------ BATCH ORDER INVOICE --------------------");
+                sw.WriteLine();
+                sw.WriteLine();
+                sw.Write("Batch Numnber from dgv");
+                sw.Write(dc.batchid);
+                sw.WriteLine();
+                sw.Write("Total Cups from dgv");
+                sw.Write(GetTotalCups());
+                sw.WriteLine();
+                sw.WriteLine();
+                sw.Write("Red Cups");
+                sw.Write(numRed);
+                sw.WriteLine();
+                sw.Write("Black Cups");
+                sw.Write(numBlack);
+                sw.WriteLine();
+                sw.Write("Tall Cups");
+                sw.Write(numTall);
+                sw.WriteLine();
+                sw.Write("Transparent Cups");
+                sw.Write(numTran);
+                sw.WriteLine();
+                sw.WriteLine(DateTime.Now);
+
             }
         }
 
