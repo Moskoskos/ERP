@@ -35,10 +35,10 @@ namespace ERP
         private const int tran = 3;  //Identifier for DB
         private const int tall = 4;  //Identifier for DB
 
-        private int fillBlack = 0;
-        private int fillRed = 0;
-        private int fillTran = 0;
-        private int fillTall = 0;
+        private double fillBlack = 0.0;
+        private double fillRed = 0.0;
+        private double fillTran = 0.0;
+        private double fillTall = 0.0;
 
         private string smallCupMin = "0";
         private string smallCupMax = "100";
@@ -48,7 +48,7 @@ namespace ERP
         private int currentSelectedBatchID;
 
         Validation val = new Validation();
-        DbConnect dbGlob = new DbConnect();
+        DbConnect dcGlob = new DbConnect();
 
         //private string specialPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         private string fileReportPath = "0";
@@ -132,15 +132,15 @@ namespace ERP
             //Then Create the order
             //PS I'm not proud of this , BUT it works.
 
-            if (val.TestIntegerInput(txtRed.Text) && val.TestIntegerInput(txtTall.Text) && val.TestIntegerInput(txtTran.Text) && val.TestIntegerInput(txtBlack.Text) &&
+                if (val.TestIntegerInput(txtRed.Text) && val.TestIntegerInput(txtTall.Text) && val.TestIntegerInput(txtTran.Text) && val.TestIntegerInput(txtBlack.Text) &&
                 val.CheckGramInput(txtFillBlack.Text, smallCupMin, smallCupMax) && val.CheckGramInput(txtFillRed.Text, smallCupMin, smallCupMax) && 
-                val.CheckGramInput(txtFillTran.Text, smallCupMin, smallCupMax) && val.CheckGramInputTall(txtTall.Text, tallCupMin, tallCupMax))
+                val.CheckGramInput(txtFillTran.Text, smallCupMin, smallCupMax) && val.CheckGramInputTall(txtFillTall.Text, tallCupMin, tallCupMax))
                 {
                
-                fillBlack = Convert.ToInt32(txtFillBlack.Text);
-                fillRed = Convert.ToInt32(txtFillRed.Text);
-                fillTran = Convert.ToInt32(txtFillTran.Text);
-                fillTall = Convert.ToInt32(txtFillTall.Text);
+                fillBlack = Convert.ToDouble(txtFillBlack.Text);
+                fillRed = Convert.ToDouble(txtFillRed.Text);
+                fillTran = Convert.ToDouble(txtFillTran.Text);
+                fillTall = Convert.ToDouble(txtFillTall.Text);
                 numBlack = Convert.ToInt32(txtBlack.Text);
                 numRed = Convert.ToInt32(txtRed.Text);
                 numTall = Convert.ToInt32(txtTall.Text);
@@ -170,24 +170,24 @@ namespace ERP
             UpdateCupGrid();
         }
 
-        private bool TestVadilityOfCupInput(int colorCup, int colorFill)
+        private bool TestVadilityOfCupInput(double colorCup, double colorFill)
         {
             //If cup is bigger than 0, then cup needs to have fill level bigger than 0.
             //if this is true, set validation == true
             //HOWEVER if cup is 0 and fill level is 0, send true
             //
 
-            if (colorCup > 0 && colorFill > 0)
+            if (colorCup > 0.0 && colorFill > 0.0)
             {
                 return true;
             }
-            if (colorCup == 0 && colorFill == 0)
+            if (colorCup == 0.0 && colorFill == 0.0)
             {
                 return true;
             }
 
             //Suspect this one of being redundant
-            if ((colorCup > 0 && colorFill <= 0) && (colorCup <= 0 && colorFill > 0))
+            if ((colorCup > 0 && colorFill <= 0.0) && (colorCup <= 0 && colorFill > 0.0))
             {
                 return false;
             }
@@ -299,15 +299,15 @@ namespace ERP
             
 
             rg.Generate(batchTable, cupTable, cupHeaders, GetDGVBatchRoWValues(batchLength), fileReportPath);
-            PrintDocument();
+            PrintDocument(fileReportPath);
         }
 
-        private void PrintDocument()
+        private void PrintDocument(string file)
         {
             Printing pr = new Printing();
             string selectedPrinter = "";
             selectedPrinter = cmbPrinters.GetItemText(this.cmbPrinters.SelectedItem);
-            pr.PrintDocument(selectedPrinter, fileReportPath);
+            pr.PrintDocument(selectedPrinter, file);
             
         }
 
@@ -373,33 +373,52 @@ namespace ERP
         {
             using (StreamWriter sw = new StreamWriter(fileInvoicePath, false))
             {
-                DbConnect dc = new DbConnect();
 
-                sw.Write("------------------------------ BATCH ORDER INVOICE --------------------");
+                sw.Write("--- BATCH ORDER INVOICE ---");
                 sw.WriteLine();
                 sw.WriteLine();
+
                 sw.Write(dataGridView1.Columns[0].HeaderText);
-                sw.Write(dc.batchid);
                 sw.WriteLine();
+                sw.Write(currentSelectedBatchID);
+                sw.WriteLine();
+
                 sw.Write(dataGridView1.Columns[1].HeaderText);
+                sw.WriteLine();
                 sw.Write(GetTotalCups());
                 sw.WriteLine();
                 sw.WriteLine();
+
                 sw.Write("Red Cups\t\t" + numRed);
-                sw.Write("Weight\t\t" + fillRed);
                 sw.WriteLine();
-                sw.Write("Black Cups");
-                sw.Write(numBlack);
+                sw.Write("Weight\t\t\t" + fillRed + "g");
                 sw.WriteLine();
-                sw.Write("Tall Cups");
-                sw.Write(numTall);
                 sw.WriteLine();
-                sw.Write("Transparent Cups");
-                sw.Write(numTran);
+
+                sw.Write("Black Cups\t\t" + numBlack);
+                sw.WriteLine();
+                sw.Write("Weight\t\t\t" + fillBlack + "g");
+                sw.WriteLine();
+                sw.WriteLine();
+
+                sw.Write("Tall Cups\t\t" + numTall);
+                sw.WriteLine();
+                sw.Write("Weight\t\t\t" + fillTall + "g");
+                sw.WriteLine();
+                sw.WriteLine();
+
+                sw.Write("Transparent Cups\t" + numTran);
+                sw.WriteLine();
+                sw.Write("Weight\t\t\t" + fillTran + "g");
+                sw.WriteLine();
+                sw.WriteLine();
+
+                sw.Write("----- ORDER CREATED -----");
                 sw.WriteLine();
                 sw.WriteLine(DateTime.Now);
 
             }
+            PrintDocument(fileInvoicePath);
         }
 
     }

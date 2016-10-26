@@ -108,7 +108,7 @@ namespace ERP
             }
         }
 
-        public void InsertOrderIntoDataTable(int numOfCups, int typeOfCup, int fillLevel)
+        public void InsertOrderIntoDataTable(int numOfCups, int typeOfCup, double fillLevel)
         {
             try
             {

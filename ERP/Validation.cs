@@ -37,11 +37,11 @@ namespace ERP
         public bool CheckGramInput(string input, string min, string max)
         {
             //Check that input is an integer
-            int output;
-            if (Int32.TryParse(input, out output))
+            double output;
+            if (Double.TryParse(input, out output))
             {
                 //Check that input is within x grams
-                if (output >= Convert.ToInt32(min) && output <= Convert.ToInt32(max))
+                if (output >= Convert.ToDouble(min) && output <= Convert.ToDouble(max))
                 {
                     return true;
                 }
@@ -60,10 +60,10 @@ namespace ERP
         //Checks if the input is an integer and also if the content is between certain values
         public bool CheckGramInputTall(string input, string min, string max)
         {
-            int output;
-            if (Int32.TryParse(input, out output))
+            double output;
+            if (Double.TryParse(input, out output))
             {
-                if (output >= Convert.ToInt32(min) && output <= Convert.ToInt32(max))
+                if (output >= Convert.ToDouble(min) && output <= Convert.ToDouble(max))
                 {
                     return true;
                 }
