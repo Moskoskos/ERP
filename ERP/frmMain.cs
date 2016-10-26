@@ -40,9 +40,9 @@ namespace ERP
         private int fillTran = 0;
         private int fillTall = 0;
 
-        private string smallCupMin = "1";
+        private string smallCupMin = "0";
         private string smallCupMax = "100";
-        private string tallCupMin = "1";
+        private string tallCupMin = "0";
         private string tallCupMax = "150";
 
         private int currentSelectedBatchID;
@@ -131,10 +131,12 @@ namespace ERP
             //Checks that all the inputs are in a valid format before assigning values to the variables, creates the DbConnect object and summerizes.
             //Then Create the order
             //PS I'm not proud of this , BUT it works.
-            if (val.TestIntegerInput(txtBlack.Text) && val.TestIntegerInput(txtRed.Text) && val.TestIntegerInput(txtTall.Text) && val.TestIntegerInput(txtTran.Text) &&
+
+            if (val.TestIntegerInput(txtRed.Text) && val.TestIntegerInput(txtTall.Text) && val.TestIntegerInput(txtTran.Text) && val.TestIntegerInput(txtBlack.Text) &&
                 val.CheckGramInput(txtFillBlack.Text, smallCupMin, smallCupMax) && val.CheckGramInput(txtFillRed.Text, smallCupMin, smallCupMax) && 
                 val.CheckGramInput(txtFillTran.Text, smallCupMin, smallCupMax) && val.CheckGramInputTall(txtTall.Text, tallCupMin, tallCupMax))
-            {
+                {
+               
                 fillBlack = Convert.ToInt32(txtFillBlack.Text);
                 fillRed = Convert.ToInt32(txtFillRed.Text);
                 fillTran = Convert.ToInt32(txtFillTran.Text);
@@ -147,29 +149,16 @@ namespace ERP
                 DbConnect dc = new DbConnect();
                 numOfCups = GetTotalCups();
 
-                //Creates the Batchorder
-                if (numOfCups != 0)
+                //Creates CupOrder data for the batchorder and checks if the inputs are corresponding.
+                if (numOfCups != 0 && TestVadilityOfCupInput(numBlack, fillBlack) && TestVadilityOfCupInput(numRed, fillRed)
+                    && TestVadilityOfCupInput(numTall, fillTall) && TestVadilityOfCupInput(numTran, fillTran))
                 {
                     dc.CreateBatchOrder(numOfCups);
-
-                    //Creates CupOrder data for the batchorder
-                    if (numBlack != 0)
-                    {
-                        dc.InsertOrderIntoDataTable(numBlack, black, fillBlack);
-                    }
-                    if (numRed != 0)
-                    {
-                        dc.InsertOrderIntoDataTable(numRed, red, fillRed);
-                    }
-                    if (numTall != 0)
-                    {
-                        dc.InsertOrderIntoDataTable(numTall, tall, fillTall);
-                    }
-                    if (numTran != 0)
-                    {
-                        dc.InsertOrderIntoDataTable(numTran, tran, fillTran);
-                    }
-                    InvoiceGeneration();
+                    dc.InsertOrderIntoDataTable(numBlack, black, fillBlack);
+                    dc.InsertOrderIntoDataTable(numRed, red, fillRed);
+                    dc.InsertOrderIntoDataTable(numTall, tall, fillTall);
+                    dc.InsertOrderIntoDataTable(numTran, tran, fillTran);
+                    GenerateInvoice();
                 }
             }
             else
@@ -181,10 +170,37 @@ namespace ERP
             UpdateCupGrid();
         }
 
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private bool TestVadilityOfCupInput(int colorCup, int colorFill)
         {
+            //If cup is bigger than 0, then cup needs to have fill level bigger than 0.
+            //if this is true, set validation == true
+            //HOWEVER if cup is 0 and fill level is 0, send true
+            //
 
+            if (colorCup > 0 && colorFill > 0)
+            {
+                return true;
+            }
+            if (colorCup == 0 && colorFill == 0)
+            {
+                return true;
+            }
+
+            //Suspect this one of being redundant
+            if ((colorCup > 0 && colorFill <= 0) && (colorCup <= 0 && colorFill > 0))
+            {
+                return false;
+            }
+
+            else
+            {
+                return false;
+            }
+        }
+
+        private void ErrorFillNumber()
+        {
+            MessageBox.Show("Entered number of cups and fill level do not coresspond");
         }
 
         private void btnReconnect_Click(object sender, EventArgs e)
@@ -267,6 +283,11 @@ namespace ERP
 
         }
 
+        /// <summary>
+        /// Creates datatables which are filled with vital information to generate a report.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnInvoice_Click(object sender, EventArgs e)
         {
             DataTable cupTable = cupOrderDataSet.CupOrdre;
@@ -348,7 +369,7 @@ namespace ERP
 
         //------------------------------------------------------------------------TESTING AREA----------------------------------------------------------------------------//
 
-        private void InvoiceGeneration()
+        private void GenerateInvoice()
         {
             using (StreamWriter sw = new StreamWriter(fileInvoicePath, false))
             {
@@ -357,15 +378,15 @@ namespace ERP
                 sw.Write("------------------------------ BATCH ORDER INVOICE --------------------");
                 sw.WriteLine();
                 sw.WriteLine();
-                sw.Write("Batch Numnber from dgv");
+                sw.Write(dataGridView1.Columns[0].HeaderText);
                 sw.Write(dc.batchid);
                 sw.WriteLine();
-                sw.Write("Total Cups from dgv");
+                sw.Write(dataGridView1.Columns[1].HeaderText);
                 sw.Write(GetTotalCups());
                 sw.WriteLine();
                 sw.WriteLine();
-                sw.Write("Red Cups");
-                sw.Write(numRed);
+                sw.Write("Red Cups\t\t" + numRed);
+                sw.Write("Weight\t\t" + fillRed);
                 sw.WriteLine();
                 sw.Write("Black Cups");
                 sw.Write(numBlack);
