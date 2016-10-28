@@ -18,7 +18,7 @@ namespace ERP
             int output;
             if (Int32.TryParse(input, out output))
             {
-                if (output >= 0 && output <= 1000)
+                if (output >= 0 && output <= Int32.MaxValue)
                 {
                     return true;
                 }

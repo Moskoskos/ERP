@@ -136,24 +136,26 @@ namespace ERP
                 throw;
             }
         }
-        public void GetBatchOrder()
+        public int GetLatestRow()
         {
             try
             {
-                string query = "SELECT * FROM BatchOrdre WHERE BatchID = @batchID";
+                int value = 0;
+                string query = "SELECT TOP 1 BatchID FROM BatchOrdre;";
                 if (OpenConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand(query, connection))
                     {
-                        cmd.Parameters.AddWithValue("@batchID", batchid);
-                        dt.Load(cmd.ExecuteReader());
+                        value = Convert.ToInt32(cmd.ExecuteScalar()); 
                         CloseConnection();
                     }
                 }
+                return value;
             }
             catch(Exception e)
             {
                 MessageBox.Show(e.Message);
+                return -1;
             }
         }
     }

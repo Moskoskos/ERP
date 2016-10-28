@@ -15,6 +15,7 @@ using System.Media;
 using Microsoft.Win32;
 using System.Net.Mail;
 using System.Net;
+using System.Data.SqlClient;
  
 
 
@@ -54,6 +55,11 @@ namespace ERP
         private string fileReportPath = "0";
         private string fileInvoicePath = "0";
 
+        private int latestBatchRowID = 0;
+        private const int diffBatchRetrieve = 10;
+        private int currentViewMax = 0;
+        private int currentViewMin = 0;
+
 
 
 
@@ -82,6 +88,8 @@ namespace ERP
             fileReportPath = @".\Order " + currentSelectedBatchID + ".txt";
             fileInvoicePath = @".\Invoice " + currentSelectedBatchID + ".txt";
 
+            currentViewMax = latestBatchRowID;
+            currentViewMin = currentViewMax - diffBatchRetrieve;
         }
         private void ConnectToDatabase()
         {
@@ -105,6 +113,8 @@ namespace ERP
             this.batchOrdreTableAdapter.Fill(this.batchOrderDataSet.BatchOrdre);
             // TODO: This line of code loads data into the 'cupOrderDataSet.CupOrdre' table. You can move, or remove it, as needed.
             this.cupOrdreTableAdapter.Fill(this.cupOrderDataSet.CupOrdre);
+
+            latestBatchRowID = dcGlob.GetLatestRow();
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -240,9 +250,36 @@ namespace ERP
 
         private void btnPrevious_Click(object sender, EventArgs e)
         {
+            if (currentViewMax <= (latestBatchRowID - diffBatchRetrieve))
+            {
+                currentViewMax = currentViewMax + diffBatchRetrieve;
+                currentViewMin = currentViewMin + diffBatchRetrieve;
+                this.batchOrdreTableAdapter.FillBy(this.batchOrderDataSet.BatchOrdre, currentViewMin, currentViewMax);
+            }
+            else
+            {
+                MessageBox.Show("No more records to show");
+            }
+            
         }
 
         private void btnNext_Click(object sender, EventArgs e)
+        {
+
+            if (currentViewMin >= (currentViewMin - diffBatchRetrieve))
+            {
+                currentViewMax = currentViewMax - diffBatchRetrieve;
+                currentViewMin = currentViewMin - diffBatchRetrieve;
+                this.batchOrdreTableAdapter.FillBy(this.batchOrderDataSet.BatchOrdre, currentViewMin, currentViewMax);
+            }
+            else
+            {
+                MessageBox.Show("No more records to show");
+            }
+
+        }
+
+        private void ViewParameters()
         {
 
         }
@@ -347,24 +384,6 @@ namespace ERP
             return dt;
         }
 
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            int search = 0;
-            search = Convert.ToInt32(txtSearch.Text);
-            this.batchOrdreTableAdapter.FillSpesificRow(this.batchOrderDataSet.BatchOrdre, search);
-        }
-
-        private void txtSearch_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == Convert.ToChar(Keys.Back))
-            {
-               
-                if (String.IsNullOrWhiteSpace(txtSearch.Text))
-                {
-                    UpdateDataGridViews();
-                }
-            }
-        }
 
 
         //------------------------------------------------------------------------TESTING AREA----------------------------------------------------------------------------//
@@ -421,5 +440,34 @@ namespace ERP
             PrintDocument(fileInvoicePath);
         }
 
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            
+            int search = 0;
+            if (val.TestIntegerInput(txtSearch.Text))
+            {
+                search = Convert.ToInt32(txtSearch.Text);
+                if (String.IsNullOrWhiteSpace(txtSearch.Text))
+                {
+                    MessageBox.Show("Please insert a value");
+                }
+                else
+                {
+                    this.batchOrdreTableAdapter.FillSpesificRow(this.batchOrderDataSet.BatchOrdre, search);
+                }
+            }
+            
+
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(txtSearch.Text))
+            {
+                UpdateDataGridViews();
+            }
+
+        }
     }
 }
