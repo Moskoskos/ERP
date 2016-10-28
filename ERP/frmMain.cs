@@ -213,6 +213,11 @@ namespace ERP
             MessageBox.Show("Entered number of cups and fill level do not coresspond");
         }
 
+        /// <summary>
+        /// Calls a method to try to reconnect to the grid
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnReconnect_Click(object sender, EventArgs e)
         {
             ConnectToDatabase();
