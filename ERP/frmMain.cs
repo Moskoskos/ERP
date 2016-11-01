@@ -36,10 +36,10 @@ namespace ERP
         private const int tran = 3;  //Identifier for DB
         private const int tall = 4;  //Identifier for DB
 
-        private double fillBlack = 0.0;
-        private double fillRed = 0.0;
-        private double fillTran = 0.0;
-        private double fillTall = 0.0;
+        private int fillBlack = 0;
+        private int fillRed = 0;
+        private int fillTran = 0;
+        private int fillTall = 0;
 
         private string smallCupMin = "0";
         private string smallCupMax = "100";
@@ -56,7 +56,7 @@ namespace ERP
         private string fileInvoicePath = "0";
 
         private int latestBatchRowID = 0;
-        private const int diffBatchRetrieve = 10;
+        private const int diffBatchRetrieve = 2;
         private int currentViewMax = 0;
         private int currentViewMin = 0;
 
@@ -147,10 +147,10 @@ namespace ERP
                 val.CheckGramInput(txtFillTran.Text, smallCupMin, smallCupMax) && val.CheckGramInputTall(txtFillTall.Text, tallCupMin, tallCupMax))
                 {
                
-                fillBlack = Convert.ToDouble(txtFillBlack.Text);
-                fillRed = Convert.ToDouble(txtFillRed.Text);
-                fillTran = Convert.ToDouble(txtFillTran.Text);
-                fillTall = Convert.ToDouble(txtFillTall.Text);
+                fillBlack = Convert.ToInt32(txtFillBlack.Text);
+                fillRed = Convert.ToInt32(txtFillRed.Text);
+                fillTran = Convert.ToInt32(txtFillTran.Text);
+                fillTall = Convert.ToInt32(txtFillTall.Text);
                 numBlack = Convert.ToInt32(txtBlack.Text);
                 numRed = Convert.ToInt32(txtRed.Text);
                 numTall = Convert.ToInt32(txtTall.Text);
@@ -180,24 +180,24 @@ namespace ERP
             UpdateCupGrid();
         }
 
-        private bool TestVadilityOfCupInput(double colorCup, double colorFill)
+        private bool TestVadilityOfCupInput(int colorCup, int colorFill)
         {
             //If cup is bigger than 0, then cup needs to have fill level bigger than 0.
             //if this is true, set validation == true
             //HOWEVER if cup is 0 and fill level is 0, send true
             //
 
-            if (colorCup > 0.0 && colorFill > 0.0)
+            if (colorCup > 0 && colorFill > 0)
             {
                 return true;
             }
-            if (colorCup == 0.0 && colorFill == 0.0)
+            if (colorCup == 0 && colorFill == 0)
             {
                 return true;
             }
 
             //Suspect this one of being redundant
-            if ((colorCup > 0 && colorFill <= 0.0) && (colorCup <= 0 && colorFill > 0.0))
+            if ((colorCup > 0 && colorFill <= 0) && (colorCup <= 0 && colorFill > 0))
             {
                 return false;
             }
@@ -206,11 +206,6 @@ namespace ERP
             {
                 return false;
             }
-        }
-
-        private void ErrorFillNumber()
-        {
-            MessageBox.Show("Entered number of cups and fill level do not coresspond");
         }
 
         /// <summary>
@@ -253,6 +248,7 @@ namespace ERP
             }
         }
 
+        //Loads the the "X" previous orders made of a lower batchID.
         private void btnPrevious_Click(object sender, EventArgs e)
         {
             if (currentViewMax <= (latestBatchRowID - diffBatchRetrieve))
@@ -265,35 +261,36 @@ namespace ERP
             {
                 MessageBox.Show("No more records to show");
             }
-            
         }
 
+        //Loads the "X" next orders made of a higher batchID
         private void btnNext_Click(object sender, EventArgs e)
         {
-
-            if (currentViewMin >= (currentViewMin - diffBatchRetrieve))
+            try
             {
-                currentViewMax = currentViewMax - diffBatchRetrieve;
-                currentViewMin = currentViewMin - diffBatchRetrieve;
-                this.batchOrdreTableAdapter.FillBy(this.batchOrderDataSet.BatchOrdre, currentViewMin, currentViewMax);
+                if (currentViewMin >= (currentViewMin - diffBatchRetrieve))
+                {
+                    currentViewMax = currentViewMax - diffBatchRetrieve;
+                    currentViewMin = currentViewMin - diffBatchRetrieve;
+                    this.batchOrdreTableAdapter.FillBy(this.batchOrderDataSet.BatchOrdre, currentViewMin, currentViewMax);
+                }
+                else
+                {
+                    MessageBox.Show("No more records to show");
+                }
+
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("No more records to show");
+                MessageBox.Show(ex.Message);
             }
-
-        }
-
-        private void ViewParameters()
-        {
-
         }
 
         //Method to show a tooltip over the txtFill-boxes, where minimum and maximum content is displayed.
         private void FillMessage(TextBox textbox, string min, string max)
         {
             ToolTip ToolTip1 = new ToolTip();
-            ToolTip1.SetToolTip(textbox, "Value may be between " + min + "g and " + max + "g.");
+            ToolTip1.SetToolTip(textbox, "Value may be between " + min + "g and " + max + "g. Only positive real numbers allowed. Ex : 1, 2, 3, 4. etc");
         }
 
         private void txtFillBlack_MouseHover(object sender, EventArgs e)
@@ -389,10 +386,6 @@ namespace ERP
             return dt;
         }
 
-
-
-        //------------------------------------------------------------------------TESTING AREA----------------------------------------------------------------------------//
-
         private void GenerateInvoice()
         {
             using (StreamWriter sw = new StreamWriter(fileInvoicePath, false))
@@ -402,6 +395,7 @@ namespace ERP
                 sw.WriteLine();
                 sw.WriteLine();
 
+                
                 sw.Write(dataGridView1.Columns[0].HeaderText);
                 sw.WriteLine();
                 sw.Write(currentSelectedBatchID);
@@ -445,7 +439,6 @@ namespace ERP
             PrintDocument(fileInvoicePath);
         }
 
-
         private void btnSearch_Click(object sender, EventArgs e)
         {
             
@@ -468,11 +461,7 @@ namespace ERP
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            if (String.IsNullOrWhiteSpace(txtSearch.Text))
-            {
                 UpdateDataGridViews();
-            }
-
         }
     }
 }
