@@ -41,10 +41,11 @@ namespace ERP
         private int fillTran = 0;
         private int fillTall = 0;
 
+        //Limits for how much each jar can be filled
         private string smallCupMin = "0";
-        private string smallCupMax = "100";
+        private string smallCupMax = "30";
         private string tallCupMin = "0";
-        private string tallCupMax = "150";
+        private string tallCupMax = "40";
 
         private int currentSelectedBatchID;
 
@@ -56,12 +57,6 @@ namespace ERP
         private string fileInvoicePath = "0";
 
         private int latestBatchRowID = 0;
-        private const int diffBatchRetrieve = 2;
-        private int currentViewMax = 0;
-        private int currentViewMin = 0;
-
-
-
 
         public frmMain()
         {
@@ -88,11 +83,15 @@ namespace ERP
             fileReportPath = @".\Order " + currentSelectedBatchID + ".txt";
             fileInvoicePath = @".\Invoice " + currentSelectedBatchID + ".txt";
 
-            currentViewMax = latestBatchRowID;
-            currentViewMin = currentViewMax - diffBatchRetrieve;
         }
+
+        /// <summary>
+        /// Will attempt to ping the server, then if it went OK, it will attempt to update the grids
+        /// If it fails it will not attempt to update the grids and will show the reconnect button.
+        /// </summary>
         private void ConnectToDatabase()
         {
+
             DbConnect dc = new DbConnect();
             if (dc.PingHost())
             {
@@ -106,15 +105,28 @@ namespace ERP
             }
         }
 
+        /// <summary>
+        /// If successfull ping, will update datagrids. 
+        /// Ping mightbe redundant
+        /// </summary>
         private void UpdateDataGridViews()
         {
 
-            // TODO: This line of code loads data into the 'batchOrderDataSet.BatchOrdre' table. You can move, or remove it, as needed.
-            this.batchOrdreTableAdapter.Fill(this.batchOrderDataSet.BatchOrdre);
-            // TODO: This line of code loads data into the 'cupOrderDataSet.CupOrdre' table. You can move, or remove it, as needed.
-            this.cupOrdreTableAdapter.Fill(this.cupOrderDataSet.CupOrdre);
+            if (dcGlob.PingHost())
+            {
+                // TODO: This line of code loads data into the 'batchOrderDataSet.BatchOrdre' table. You can move, or remove it, as needed.
+                this.batchOrdreTableAdapter.Fill(this.batchOrderDataSet.BatchOrdre);
+                // TODO: This line of code loads data into the 'cupOrderDataSet.CupOrdre' table. You can move, or remove it, as needed.
+                this.cupOrdreTableAdapter.Fill(this.cupOrderDataSet.CupOrdre);
 
-            latestBatchRowID = dcGlob.GetLatestRow();
+                latestBatchRowID = dcGlob.GetLatestRow();
+            }
+            else
+            {
+                btnReconnect.Show();
+                MessageBox.Show("Unable to retrieve data from the Database. No connection present");
+            }
+
         }
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -123,7 +135,7 @@ namespace ERP
 
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            string help = "\\help.pdf";
+            string help = "\\usermanual.pdf";
             try
             {
                 Process.Start(help);
@@ -134,6 +146,12 @@ namespace ERP
             }
         }
 
+        /// <summary>
+        /// Will check all text boxes for valid input. If succesfull, write the values to their assigned variables.
+        /// It will then check if the inputs are properly filled out. One cannot order 0 cups with 4 grams,
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSubmit_Click(object sender, EventArgs e)
         {
             int numOfCups = 0;
@@ -248,43 +266,6 @@ namespace ERP
             }
         }
 
-        //Loads the the "X" previous orders made of a lower batchID.
-        private void btnPrevious_Click(object sender, EventArgs e)
-        {
-            if (currentViewMax <= (latestBatchRowID - diffBatchRetrieve))
-            {
-                currentViewMax = currentViewMax + diffBatchRetrieve;
-                currentViewMin = currentViewMin + diffBatchRetrieve;
-                this.batchOrdreTableAdapter.FillBy(this.batchOrderDataSet.BatchOrdre, currentViewMin, currentViewMax);
-            }
-            else
-            {
-                MessageBox.Show("No more records to show");
-            }
-        }
-
-        //Loads the "X" next orders made of a higher batchID
-        private void btnNext_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (currentViewMin >= (currentViewMin - diffBatchRetrieve))
-                {
-                    currentViewMax = currentViewMax - diffBatchRetrieve;
-                    currentViewMin = currentViewMin - diffBatchRetrieve;
-                    this.batchOrdreTableAdapter.FillBy(this.batchOrderDataSet.BatchOrdre, currentViewMin, currentViewMax);
-                }
-                else
-                {
-                    MessageBox.Show("No more records to show");
-                }
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
 
         //Method to show a tooltip over the txtFill-boxes, where minimum and maximum content is displayed.
         private void FillMessage(TextBox textbox, string min, string max)
