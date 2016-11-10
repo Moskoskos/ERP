@@ -41,11 +41,12 @@ namespace ERP
         private int fillTran = 0;
         private int fillTall = 0;
 
+        //Minimum is 16 for small and 24 for tall.
         //Limits for how much each jar can be filled
         private string smallCupMin = "0";
-        private string smallCupMax = "30";
+        private string smallCupMax = "28";
         private string tallCupMin = "0";
-        private string tallCupMax = "40";
+        private string tallCupMax = "65";
 
         private int currentSelectedBatchID;
 
@@ -178,8 +179,8 @@ namespace ERP
                 numOfCups = GetTotalCups();
 
                 //Creates CupOrder data for the batchorder and checks if the inputs are corresponding.
-                if (numOfCups != 0 && TestVadilityOfCupInput(numBlack, fillBlack) && TestVadilityOfCupInput(numRed, fillRed)
-                    && TestVadilityOfCupInput(numTall, fillTall) && TestVadilityOfCupInput(numTran, fillTran))
+                if (numOfCups != 0 && val.TestVadilityOfCupInput(numBlack, fillBlack) && val.TestVadilityOfCupInput(numRed, fillRed)
+                    && val.TestVadilityOfCupInput(numTall, fillTall) && val.TestVadilityOfCupInput(numTran, fillTran))
                 {
                     dc.CreateBatchOrder(numOfCups);
                     dc.InsertOrderIntoDataTable(numBlack, black, fillBlack);
@@ -198,33 +199,7 @@ namespace ERP
             UpdateCupGrid();
         }
 
-        private bool TestVadilityOfCupInput(int colorCup, int colorFill)
-        {
-            //If cup is bigger than 0, then cup needs to have fill level bigger than 0.
-            //if this is true, set validation == true
-            //HOWEVER if cup is 0 and fill level is 0, send true
-            //
 
-            if (colorCup > 0 && colorFill > 0)
-            {
-                return true;
-            }
-            if (colorCup == 0 && colorFill == 0)
-            {
-                return true;
-            }
-
-            //Suspect this one of being redundant
-            if ((colorCup > 0 && colorFill <= 0) && (colorCup <= 0 && colorFill > 0))
-            {
-                return false;
-            }
-
-            else
-            {
-                return false;
-            }
-        }
 
         /// <summary>
         /// Calls a method to try to reconnect to the grid

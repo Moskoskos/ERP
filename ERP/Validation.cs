@@ -78,5 +78,32 @@ namespace ERP
             }
 
         }
+        public bool TestVadilityOfCupInput(int colorCup, int colorFill)
+        {
+            //If cup is bigger than 0, then cup needs to have fill level bigger than 0.
+            //if this is true, set validation == true
+            //HOWEVER if cup is 0 and fill level is 0, send true
+            //
+
+            if (colorCup > 0 && colorFill > 0)
+            {
+                return true;
+            }
+            if (colorCup == 0 && colorFill == 0)
+            {
+                return true;
+            }
+
+            //Suspect this one of being redundant
+            if ((colorCup > 0 && colorFill <= 0) && (colorCup <= 0 && colorFill > 0))
+            {
+                return false;
+            }
+
+            else
+            {
+                return false;
+            }
+        }
     }
 }
