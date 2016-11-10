@@ -98,8 +98,10 @@ namespace ERP
                     {
                         if (!row.IsNull(i))
                         {
+                            //Gets the lenght of the string.
                             int length = row[i].ToString().Length;
 
+                            //Applies the longest tring as default spacing.
                             if (length > maxLengthsDtc[i])
                             {
                                 maxLengthsDtc[i] = length;
@@ -107,12 +109,16 @@ namespace ERP
                         }
                     }
                 }
+                //Counts the number of collums and itterates.
                 for (int i = 0; i < dtCupOrderHeaders.Columns.Count; i++)
-                {
+                {   
+                    //Writes to the text file and creates a fixed spacing between the colums.
                     sw.Write(dtCupOrderHeaders.Columns[i].ColumnName.PadRight(maxLengthsDtc[i] + 2));
                 }
 
+                //Next line
                 sw.WriteLine();
+
 
                 foreach (DataRow row in dtCupOrderData.Rows)
                 {

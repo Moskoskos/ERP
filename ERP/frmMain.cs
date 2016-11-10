@@ -249,6 +249,7 @@ namespace ERP
             UpdateCupGrid();
         }
 
+        
         private void UpdateCupGrid()
         {
             try
@@ -322,6 +323,10 @@ namespace ERP
             PrintDocument(fileReportPath);
         }
 
+        /// <summary>
+        /// Delcares the printing class, gets the current selected printer and file which is to be sent to it.
+        /// </summary>
+        /// <param name="file">path to file and the name of it.</param>
         private void PrintDocument(string file)
         {
             Printing pr = new Printing();
@@ -347,6 +352,10 @@ namespace ERP
             return cellValues;
         }
 
+        /// <summary>
+        /// Gets the column name of each column in the datagridview for batch orders.
+        /// </summary>
+        /// <returns></returns>
         private DataTable GetBatchOrderColumnNames()
         {
 
@@ -357,6 +366,11 @@ namespace ERP
 
             return dt;
         }
+
+        /// <summary>
+        /// Gets the column name of each column in the datagridview for cup data.
+        /// </summary>
+        /// <returns></returns>
         private DataTable GetCupOrderColumnNames()
         {
             DataTable dt = new DataTable();
@@ -367,6 +381,9 @@ namespace ERP
             return dt;
         }
 
+        /// <summary>
+        /// Generates a invoice.
+        /// </summary>
         private void GenerateInvoice()
         {
             using (StreamWriter sw = new StreamWriter(fileInvoicePath, false))
@@ -420,6 +437,12 @@ namespace ERP
             PrintDocument(fileInvoicePath);
         }
 
+        /// <summary>
+        /// If activated. Will test input in txtSearch, then do another test to see if its not null or whitespace.
+        /// If everything checks out, run query to find spesified batchOrder.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSearch_Click(object sender, EventArgs e)
         {
             

@@ -86,6 +86,10 @@ namespace ERP
         }
 
 
+        /// <summary>
+        /// Inserts a new row in the BatchOrdre table with the given number of cups
+        /// </summary>
+        /// <param name="numberOfCups">Integer</param>
         public void CreateBatchOrder(int numberOfCups)
         {
             try
