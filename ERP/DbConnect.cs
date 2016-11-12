@@ -105,10 +105,9 @@ namespace ERP
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -129,15 +128,15 @@ namespace ERP
                             cmd.ExecuteNonQuery();
                             CloseConnection();
                         }
+
                     }
 
                 }
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                MessageBox.Show(ex.Message);
             }
         }
         public int GetLatestRow()

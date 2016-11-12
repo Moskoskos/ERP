@@ -225,6 +225,9 @@ namespace ERP
         }
 
         
+        /// <summary>
+        /// Will populate the cuporder datagridview with cups beloning to a spesific order.
+        /// </summary>
         private void UpdateCupGrid()
         {
             try
