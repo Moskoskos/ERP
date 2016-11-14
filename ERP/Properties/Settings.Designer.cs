@@ -37,29 +37,8 @@ namespace ERP.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.2.15\\SQLEXPRESS;Initial Catalog=halo;User ID=sa;Password=netl" +
-            "ab_1")]
-        public string haloConnectionString {
-            get {
-                return ((string)(this["haloConnectionString"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=BRUKER-PC\\SQLEXPRESS;Initial Catalog=halo;User ID=sa")]
-        public string haloConnectionString1 {
-            get {
-                return ((string)(this["haloConnectionString1"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.2.15\\SQLEXPRESS;Initial Catalog=IA5-5-16;User ID=sa;Password=" +
-            "netlab_1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.12.116,1434\\SQLEXPRESS;Initial Catalog=IA5-5-16;User ID=sa;Pa" +
+            "ssword=netlab_1")]
         public string BatchOrder {
             get {
                 return ((string)(this["BatchOrder"]));

@@ -3,21 +3,8 @@ using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
 using System.IO;
-using System.Drawing;
 using System.Diagnostics;
 using System.Drawing.Printing;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Runtime.InteropServices;
-using System.Media;
-using Microsoft.Win32;
-using System.Net.Mail;
-using System.Net;
-using System.Data.SqlClient;
- 
-
 
 
 namespace ERP
@@ -223,7 +210,6 @@ namespace ERP
         {
             UpdateCupGrid();
         }
-
         
         /// <summary>
         /// Will populate the cuporder datagridview with cups beloning to a spesific order.
@@ -296,7 +282,6 @@ namespace ERP
 
             ReportGeneration rg = new ReportGeneration();
             
-
             rg.Generate(batchTable, cupTable, cupHeaders, GetDGVBatchRoWValues(batchLength), fileReportPath);
             PrintDocument(fileReportPath);
         }
@@ -443,7 +428,14 @@ namespace ERP
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-                UpdateDataGridViews();
+            CheckIfOrderIsComplete();
+            UpdateDataGridViews();
+
+        }
+
+        private void CheckIfOrderIsComplete()
+        {
+            dcGlob.GetNumberOfCupsInOrder(latestBatchRowID);
         }
     }
 }
