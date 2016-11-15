@@ -23,7 +23,7 @@ namespace ERP
         public DbConnect()
         {
             //Initialze connection with connectionString
-            conString = "Data Source = 192.168.12.116\\SQLEXPRESS,1434; Initial Catalog = IA5-5-16; User ID = sa; Password = " + "netlab_1";
+            conString = "Data Source = 192.168.12.116\\SQLEXPRESS,1433; Initial Catalog = IA5-5-16; User ID = sa; Password = " + "netlab_1";
             connection = new SqlConnection(conString);
             dt.Columns.Add("TypeOfCup", typeof(int));
             dt.Columns.Add("OrderedWeight", typeof(int));
@@ -31,7 +31,7 @@ namespace ERP
         }
         public bool PingHost()
         {
-            string nameOrAddress = "192.168.2.15";
+            string nameOrAddress = "192.168.12.116";
             bool pingable = false;
             Ping pinger = new Ping();
             try
@@ -162,30 +162,6 @@ namespace ERP
             }
         }
 
-        public int GetNumberOfCupsInOrder(int batchId)
-        {
-            try
-            {
-                int value = 0;
-                int value2 = 0;
-                string query = "SELECT COUNT(*), SUM(CASE WHEN CompletedApproved = 'true' THEN 1 ELSE 0 END) FROM CupOrdre;";
-
-                if (OpenConnection())
-                {
-                    using (SqlCommand cmd = new SqlCommand(query, connection))
-                    {
-                        value = Convert.ToInt32(cmd.ExecuteScalar());
-                        CloseConnection();
-                    }
-                }
-                return value;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show(e.Message);
-                return -1;
-            }
-        }
     }
 }
 

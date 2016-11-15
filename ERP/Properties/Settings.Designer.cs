@@ -37,7 +37,7 @@ namespace ERP.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.12.116,1434\\SQLEXPRESS;Initial Catalog=IA5-5-16;User ID=sa;Pa" +
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.12.116\\SQLEXPRESS,1433;Initial Catalog=IA5-5-16;User ID=sa;Pa" +
             "ssword=netlab_1")]
         public string BatchOrder {
             get {

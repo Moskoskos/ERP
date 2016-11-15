@@ -429,7 +429,7 @@ namespace ERP {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public CupOrdreRow AddCupOrdreRow(int TypeOfCup, double OrderedWeight, double ActualWeight, string RFID, bool CompletedApproved, bool CompletedDiscard, int BatchID) {
+            public CupOrdreRow AddCupOrdreRow(int TypeOfCup, double OrderedWeight, string ActualWeight, string RFID, bool CompletedApproved, bool CompletedDiscard, int BatchID) {
                 CupOrdreRow rowCupOrdreRow = ((CupOrdreRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -488,7 +488,7 @@ namespace ERP {
                 base.Columns.Add(this.columnTypeOfCup);
                 this.columnOrderedWeight = new global::System.Data.DataColumn("OrderedWeight", typeof(double), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOrderedWeight);
-                this.columnActualWeight = new global::System.Data.DataColumn("ActualWeight", typeof(double), null, global::System.Data.MappingType.Element);
+                this.columnActualWeight = new global::System.Data.DataColumn("ActualWeight", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnActualWeight);
                 this.columnRFID = new global::System.Data.DataColumn("RFID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnRFID);
@@ -692,10 +692,10 @@ namespace ERP {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public double ActualWeight {
+            public string ActualWeight {
                 get {
                     try {
-                        return ((double)(this[this.tableCupOrdre.ActualWeightColumn]));
+                        return ((string)(this[this.tableCupOrdre.ActualWeightColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("The value for column \'ActualWeight\' in table \'CupOrdre\' is DBNull.", e);

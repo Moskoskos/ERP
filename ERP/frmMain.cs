@@ -31,9 +31,9 @@ namespace ERP
         //Minimum is 16 for small and 24 for tall.
         //Limits for how much each jar can be filled
         private string smallCupMin = "0";
-        private string smallCupMax = "28";
+        private string smallCupMax = "12";
         private string tallCupMin = "0";
-        private string tallCupMax = "65";
+        private string tallCupMax = "41";
 
         private int currentSelectedBatchID;
 
@@ -148,11 +148,11 @@ namespace ERP
             //Then Create the order
             //PS I'm not proud of this , BUT it works.
 
-                if (val.TestIntegerInput(txtRed.Text) && val.TestIntegerInput(txtTall.Text) && val.TestIntegerInput(txtTran.Text) && val.TestIntegerInput(txtBlack.Text) &&
-                val.CheckGramInput(txtFillBlack.Text, smallCupMin, smallCupMax) && val.CheckGramInput(txtFillRed.Text, smallCupMin, smallCupMax) && 
-                val.CheckGramInput(txtFillTran.Text, smallCupMin, smallCupMax) && val.CheckGramInputTall(txtFillTall.Text, tallCupMin, tallCupMax))
-                {
-               
+            if (val.TestIntegerInput(txtRed.Text) && val.TestIntegerInput(txtTall.Text) && val.TestIntegerInput(txtTran.Text) && val.TestIntegerInput(txtBlack.Text) &&
+            val.CheckGramInput(txtFillBlack.Text, smallCupMin, smallCupMax) && val.CheckGramInput(txtFillRed.Text, smallCupMin, smallCupMax) &&
+            val.CheckGramInput(txtFillTran.Text, smallCupMin, smallCupMax) && val.CheckGramInputTall(txtFillTall.Text, tallCupMin, tallCupMax))
+            {
+
                 fillBlack = Convert.ToInt32(txtFillBlack.Text);
                 fillRed = Convert.ToInt32(txtFillRed.Text);
                 fillTran = Convert.ToInt32(txtFillTran.Text);
@@ -169,18 +169,23 @@ namespace ERP
                 if (numOfCups != 0 && val.TestVadilityOfCupInput(numBlack, fillBlack) && val.TestVadilityOfCupInput(numRed, fillRed)
                     && val.TestVadilityOfCupInput(numTall, fillTall) && val.TestVadilityOfCupInput(numTran, fillTran))
                 {
-                    dc.CreateBatchOrder(numOfCups);
-                    dc.InsertOrderIntoDataTable(numBlack, black, fillBlack);
-                    dc.InsertOrderIntoDataTable(numRed, red, fillRed);
-                    dc.InsertOrderIntoDataTable(numTall, tall, fillTall);
-                    dc.InsertOrderIntoDataTable(numTran, tran, fillTran);
-                    GenerateInvoice();
+                    if (dcGlob.PingHost())
+                    {
+                        dc.CreateBatchOrder(numOfCups);
+                        dc.InsertOrderIntoDataTable(numBlack, black, fillBlack);
+                        dc.InsertOrderIntoDataTable(numRed, red, fillRed);
+                        dc.InsertOrderIntoDataTable(numTran, tran, fillTran);
+                        dc.InsertOrderIntoDataTable(numTall, tall, fillTall);
+                        GenerateInvoice();
+                    }
+
+                }
+                else
+                {
+                    MessageBox.Show("Order empty or invalid input");
                 }
             }
-            else
-            {
-                MessageBox.Show("Order empty or invalid input");
-            }
+
 
             UpdateDataGridViews();
             UpdateCupGrid();
@@ -408,34 +413,42 @@ namespace ERP
         /// <param name="e"></param>
         private void btnSearch_Click(object sender, EventArgs e)
         {
-            
-            int search = 0;
-            if (val.TestIntegerInput(txtSearch.Text))
+
+            try
             {
-                search = Convert.ToInt32(txtSearch.Text);
-                if (String.IsNullOrWhiteSpace(txtSearch.Text))
+                int search = 0;
+                if (val.TestIntegerInput(txtSearch.Text))
                 {
-                    MessageBox.Show("Please insert a value");
+                    search = Convert.ToInt32(txtSearch.Text);
+                    if (String.IsNullOrWhiteSpace(txtSearch.Text))
+                    {
+                        MessageBox.Show("Please insert a value");
+                    }
+                    else
+                    {
+                        this.batchOrdreTableAdapter.FillSpesificRow(this.batchOrderDataSet.BatchOrdre, search);
+                    }
                 }
                 else
                 {
-                    this.batchOrdreTableAdapter.FillSpesificRow(this.batchOrderDataSet.BatchOrdre, search);
+                    MessageBox.Show("Invalid Input");
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             
 
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            CheckIfOrderIsComplete();
             UpdateDataGridViews();
 
         }
 
-        private void CheckIfOrderIsComplete()
-        {
-            dcGlob.GetNumberOfCupsInOrder(latestBatchRowID);
-        }
+
     }
 }
