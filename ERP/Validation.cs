@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace ERP
 {
@@ -47,11 +44,13 @@ namespace ERP
                 }
                 else
                 {
+                    MessageBox.Show("Value cannot be smaller than " + min + "g or bigger than " + max + "g");
                     return false;
                 }
             }
             else
             {
+                MessageBox.Show(input + " is not a valid value");
                 return false;
             }
 
@@ -69,11 +68,13 @@ namespace ERP
                 }
                 else
                 {
+                    MessageBox.Show("Value cannot be smaller than " + min + "g or bigger than " + max + "g");
                     return false;
                 }
             }
             else
             {
+                MessageBox.Show(input + " is not a valid value");
                 return false;
             }
 

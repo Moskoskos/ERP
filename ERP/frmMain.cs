@@ -18,8 +18,8 @@ namespace ERP
         private int numTall = 0;
         private int numTran = 0;
 
-        private const int black = 1; //Identifier for DB
-        private const int red = 2;   //Identifier for DB
+        private const int red = 1;   //Identifier for DB
+        private const int black = 2; //Identifier for DB
         private const int tran = 3;  //Identifier for DB
         private const int tall = 4;  //Identifier for DB
 
@@ -68,11 +68,18 @@ namespace ERP
             PrinterList();
             cmbPrinters.SelectedIndex = 0;
 
-            fileReportPath = @".\Order " + currentSelectedBatchID + ".txt";
-            fileInvoicePath = @".\Invoice " + currentSelectedBatchID + ".txt";
+            UpdatePaths();
+
 
         }
 
+
+        private void UpdatePaths()
+        {
+            latestBatchRowID = dcGlob.GetLatestRow();
+            fileReportPath = @".\Order " + currentSelectedBatchID + ".txt";
+            fileInvoicePath = @".\Invoice " + latestBatchRowID + ".txt";
+        }
         /// <summary>
         /// Will attempt to ping the server, then if it went OK, it will attempt to update the grids
         /// If it fails it will not attempt to update the grids and will show the reconnect button.
@@ -172,10 +179,11 @@ namespace ERP
                     if (dcGlob.PingHost())
                     {
                         dc.CreateBatchOrder(numOfCups);
-                        dc.InsertOrderIntoDataTable(numBlack, black, fillBlack);
                         dc.InsertOrderIntoDataTable(numRed, red, fillRed);
+                        dc.InsertOrderIntoDataTable(numBlack, black, fillBlack);
                         dc.InsertOrderIntoDataTable(numTran, tran, fillTran);
                         dc.InsertOrderIntoDataTable(numTall, tall, fillTall);
+                        UpdatePaths();
                         GenerateInvoice();
                     }
 
@@ -286,6 +294,7 @@ namespace ERP
             int batchLength = dataGridView1.Columns.Count;
 
             ReportGeneration rg = new ReportGeneration();
+            UpdatePaths();
             
             rg.Generate(batchTable, cupTable, cupHeaders, GetDGVBatchRoWValues(batchLength), fileReportPath);
             PrintDocument(fileReportPath);
@@ -354,6 +363,7 @@ namespace ERP
         /// </summary>
         private void GenerateInvoice()
         {
+            UpdatePaths();
             using (StreamWriter sw = new StreamWriter(fileInvoicePath, false))
             {
 
@@ -364,7 +374,7 @@ namespace ERP
                 
                 sw.Write(dataGridView1.Columns[0].HeaderText);
                 sw.WriteLine();
-                sw.Write(currentSelectedBatchID);
+                sw.Write(latestBatchRowID);
                 sw.WriteLine();
 
                 sw.Write(dataGridView1.Columns[1].HeaderText);

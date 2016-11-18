@@ -144,7 +144,7 @@ namespace ERP
             try
             {
                 int value = 0;
-                string query = "SELECT TOP 1 BatchID FROM BatchOrdre;";
+                string query = "SELECT TOP 1 BatchID FROM BatchOrdre ORDER BY BatchID DESC;";
                 if (OpenConnection())
                 {
                     using (SqlCommand cmd = new SqlCommand(query, connection))
