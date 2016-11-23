@@ -1,20 +1,5 @@
-﻿using System;
-using System.ComponentModel;
-using System.Data;
-using System.Windows.Forms;
+﻿using System.Data;
 using System.IO;
-using System.Drawing;
-using System.Diagnostics;
-using System.Drawing.Printing;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Runtime.InteropServices;
-using System.Media;
-using Microsoft.Win32;
-using System.Net.Mail;
-using System.Net;
 
 namespace ERP
 {
@@ -25,7 +10,14 @@ namespace ERP
 
         }
 
-        //Source: http://stackoverflow.com/questions/7174077/export-a-c-sharp-dataset-to-a-text-file
+        /// <summary>
+        /// http://stackoverflow.com/questions/7174077/export-a-c-sharp-dataset-to-a-text-file
+        /// </summary>
+        /// <param name="dtBatchOrderHeaders">Data table containing the names of the headers for a selected datagridview.</param>
+        /// <param name="dtCupOrderData">Data table with unlimited rows to be processed.</param>
+        /// <param name="dtCupOrderHeaders">Data table containing the names of the headers for a selected datagridview.</param>
+        /// <param name="cellValues"></param>
+        /// <param name="filePath"></param>
         public void Generate(DataTable dtBatchOrderHeaders, DataTable dtCupOrderData, DataTable dtCupOrderHeaders, string[] cellValues, string filePath)
         {
 
@@ -51,7 +43,7 @@ namespace ERP
 
             }
 
-            //WRITE TO FILE
+            //Write content to file.
             using (StreamWriter sw = new StreamWriter(filePath, false))
             {
 

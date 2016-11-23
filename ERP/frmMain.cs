@@ -51,6 +51,13 @@ namespace ERP
             InitializeComponent();
         }
 
+        /// <summary>
+        /// When the form loads it will attempt to connect to the database. If successfull it will initialize the datagrids with "ReadOnly==true".
+        /// The datagridviews will then be sorted. Additionally the cmbPrinters will be filled with every single installed printer(& -program) that is installed on the machine.
+        /// Finally it will update the path variables.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ERP_Load(object sender, EventArgs e)
         {
             ConnectToDatabase();
@@ -67,13 +74,13 @@ namespace ERP
 
             PrinterList();
             cmbPrinters.SelectedIndex = 0;
-
             UpdatePaths();
-
-
         }
 
 
+        /// <summary>
+        /// Updates currentSelectedBatchID and latestBatchRowID.
+        /// </summary>
         private void UpdatePaths()
         {
             latestBatchRowID = dcGlob.GetLatestRow();
@@ -102,7 +109,7 @@ namespace ERP
 
         /// <summary>
         /// If successfull ping, will update datagrids. 
-        /// Ping mightbe redundant
+        /// Ping might be redundant
         /// </summary>
         private void UpdateDataGridViews()
         {
@@ -123,11 +130,21 @@ namespace ERP
             }
 
         }
+        /// <summary>
+        /// "Informs all message pumps that they must terminate, and then closes all application windows after the messages have been processed." -MSDN
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        /// <summary>
+        /// Starts the default program assosiated with the .pdf extension and displays the user manual.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void helpToolStripMenuItem_Click(object sender, EventArgs e)
         {
             string help = "\\usermanual.pdf";
@@ -143,7 +160,7 @@ namespace ERP
 
         /// <summary>
         /// Will check all text boxes for valid input. If succesfull, write the values to their assigned variables.
-        /// It will then check if the inputs are properly filled out. One cannot order 0 cups with 4 grams,
+        /// It will then check if the inputs are properly filled out. One cannot order 0 cups with 4 grams, neither 4 cups with 0 grams.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -153,7 +170,7 @@ namespace ERP
 
             //Checks that all the inputs are in a valid format before assigning values to the variables, creates the DbConnect object and summerizes.
             //Then Create the order
-            //PS I'm not proud of this , BUT it works.
+            //PS It aint pretty , BUT it works.
 
             if (val.TestIntegerInput(txtRed.Text) && val.TestIntegerInput(txtTall.Text) && val.TestIntegerInput(txtTran.Text) && val.TestIntegerInput(txtBlack.Text) &&
             val.CheckGramInput(txtFillBlack.Text, smallCupMin, smallCupMax) && val.CheckGramInput(txtFillRed.Text, smallCupMin, smallCupMax) &&
@@ -176,9 +193,12 @@ namespace ERP
                 if (numOfCups != 0 && val.TestVadilityOfCupInput(numBlack, fillBlack) && val.TestVadilityOfCupInput(numRed, fillRed)
                     && val.TestVadilityOfCupInput(numTall, fillTall) && val.TestVadilityOfCupInput(numTran, fillTran))
                 {
+                    //Before queries are run, make sure that the database is responding to pings.
                     if (dcGlob.PingHost())
                     {
+                        //Creates the batch order with the total number of cups with a new auto-incremented ID.
                         dc.CreateBatchOrder(numOfCups);
+                        //Get number of each type of cup, their color code and how much will be filled in each type.
                         dc.InsertOrderIntoDataTable(numRed, red, fillRed);
                         dc.InsertOrderIntoDataTable(numBlack, black, fillBlack);
                         dc.InsertOrderIntoDataTable(numTran, tran, fillTran);
@@ -200,7 +220,6 @@ namespace ERP
         }
 
 
-
         /// <summary>
         /// Calls a method to try to reconnect to the grid
         /// </summary>
@@ -211,6 +230,10 @@ namespace ERP
             ConnectToDatabase();
         }
 
+        /// <summary>
+        /// Summerizes the values in all num(COLOR) textboxes.
+        /// </summary>
+        /// <returns></returns>
         private int GetTotalCups()
         {
             int sum = 0;
@@ -245,40 +268,68 @@ namespace ERP
         }
 
 
-        //Method to show a tooltip over the txtFill-boxes, where minimum and maximum content is displayed.
+
+        /// <summary>
+        /// Method to show a tooltip over the txtFill-boxes, where minimum and maximum content is displayed.
+        /// </summary>
+        /// <param name="textbox"></param>
+        /// <param name="min"></param>
+        /// <param name="max"></param>
         private void FillMessage(TextBox textbox, string min, string max)
         {
             ToolTip ToolTip1 = new ToolTip();
             ToolTip1.SetToolTip(textbox, "Value may be between " + min + "g and " + max + "g. Only positive real numbers allowed. Ex : 1, 2, 3, 4. etc");
         }
 
+        /// <summary>
+        /// Displays the minimum and maximum values for the selected cup type
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtFillBlack_MouseHover(object sender, EventArgs e)
         {
             FillMessage(txtFillBlack, smallCupMin, smallCupMax);
         }
 
+        /// <summary>
+        /// Displays the minimum and maximum values for the selected cup type
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtFillRed_MouseHover(object sender, EventArgs e)
         {
             FillMessage(txtFillRed, smallCupMin, smallCupMax);
         }
 
+        /// <summary>
+        /// Displays the minimum and maximum values for the selected cup type
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtFillTall_MouseHover(object sender, EventArgs e)
         {
             FillMessage(txtFillTall, tallCupMin, tallCupMax);
         }
 
+        /// <summary>
+        /// Displays the minimum and maximum values for the selected cup type
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtFillTran_MouseHover(object sender, EventArgs e)
         {
             FillMessage(txtFillTran, smallCupMin, smallCupMax);
         }
+
+        /// <summary>
+        /// Populates the combobox with the names of all printers installed on the computer.
+        /// </summary>
         private void PrinterList()
         {
-            // POPULATE THE COMBO BOX.
             foreach (string sPrinters in PrinterSettings.InstalledPrinters)
             {
                 cmbPrinters.Items.Add(sPrinters);
             }
-
         }
 
         /// <summary>
@@ -293,9 +344,11 @@ namespace ERP
             DataTable cupHeaders = GetCupOrderColumnNames();
             int batchLength = dataGridView1.Columns.Count;
 
+            //Creates an object of class ReportGeneration.
             ReportGeneration rg = new ReportGeneration();
+            //Makes sure that the paths are updated before data collection is processed.
             UpdatePaths();
-            
+            //Send information to method Generate()
             rg.Generate(batchTable, cupTable, cupHeaders, GetDGVBatchRoWValues(batchLength), fileReportPath);
             PrintDocument(fileReportPath);
         }
@@ -313,6 +366,11 @@ namespace ERP
             
         }
 
+        /// <summary>
+        /// Iterates between every single cell in a selected row and gets its values. 
+        /// </summary>
+        /// <param name="numOfColumns"></param>
+        /// <returns></returns>
         private string[] GetDGVBatchRoWValues(int numOfColumns)
         {
             

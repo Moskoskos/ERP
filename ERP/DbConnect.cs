@@ -1,34 +1,33 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
 using System.Windows.Forms;
 using System.Net.NetworkInformation;
-using System.ComponentModel;
 
 namespace ERP
 {
     public class DbConnect
     {
+        //Declares global variables.
         private SqlConnection connection;
-        public DataTable dt = new DataTable();
         public  string batchid = "";
         public string conString = "";
 
 
-
+        /// <summary>
+        /// Sets the static connection string with user credidentals.
+        /// </summary>
         public DbConnect()
         {
             //Initialze connection with connectionString
             conString = "Data Source = 192.168.12.116\\SQLEXPRESS,1433; Initial Catalog = IA5-5-16; User ID = sa; Password = " + "netlab_1";
             connection = new SqlConnection(conString);
-            dt.Columns.Add("TypeOfCup", typeof(int));
-            dt.Columns.Add("OrderedWeight", typeof(int));
-            dt.Columns.Add("BatchID", typeof(int));
+
         }
+        /// <summary>
+        /// Pings 192.168.12.116.
+        /// </summary>
+        /// <returns></returns>
         public bool PingHost()
         {
             string nameOrAddress = "192.168.12.116";
@@ -39,13 +38,17 @@ namespace ERP
                 PingReply reply = pinger.Send(nameOrAddress);
                 pingable = reply.Status == IPStatus.Success;
             }
-            catch (PingException)
+            catch (PingException pe)
             {
-                // Discard PingExceptions and return false;
+                MessageBox.Show(pe.Message);
             }
             return pingable;
         }
 
+        /// <summary>
+        /// Method to attempt to open an connection to the SQL database. if an connection is already open, it will close it.
+        /// </summary>
+        /// <returns></returns>
         public bool OpenConnection()
         {
             try
@@ -70,6 +73,10 @@ namespace ERP
             }
         }
 
+        /// <summary>
+        /// Method to close an active connection.
+        /// </summary>
+        /// <returns></returns>
         public bool CloseConnection()
         {
 
@@ -88,6 +95,7 @@ namespace ERP
 
         /// <summary>
         /// Inserts a new row in the BatchOrdre table with the given number of cups
+        /// Returns the identity of the inserted row.
         /// </summary>
         /// <param name="numberOfCups">Integer</param>
         public void CreateBatchOrder(int numberOfCups)
@@ -111,6 +119,12 @@ namespace ERP
             }
         }
 
+        /// <summary>
+        /// Generate a number of rows containing cup ID and fill level.
+        /// </summary>
+        /// <param name="numOfCups">The total number of cups for a given type / color.</param>
+        /// <param name="typeOfCup">The cup type.</param>
+        /// <param name="fillLevel">How many grams the particular cup should contain.</param>
         public void InsertOrderIntoDataTable(int numOfCups, int typeOfCup, double fillLevel)
         {
             try
@@ -139,6 +153,10 @@ namespace ERP
                 MessageBox.Show(ex.Message);
             }
         }
+        /// <summary>
+        /// Gets the latest row inserted, or rather the row with the highest value in the BatchID collumn.
+        /// </summary>
+        /// <returns></returns>
         public int GetLatestRow()
         {
             try

@@ -9,7 +9,11 @@ namespace ERP
         {
 
         }
-        //Check if amount of cups is an integer and a positive number
+        /// <summary>
+        /// Check if amount of cups is an integer and a positive number
+        /// </summary>
+        /// <param name="input">Value to be tested.</param>
+        /// <returns></returns>
         public bool TestIntegerInput(string input)
         {
             int output;
@@ -31,6 +35,13 @@ namespace ERP
 
         }
 
+        /// <summary>
+        /// Checks whether or not the inserted value is within the spesified range defined in min and max.
+        /// </summary>
+        /// <param name="input">Actual value to be inserted</param>
+        /// <param name="min">The minimum value allowed.</param>
+        /// <param name="max">The maximum value allowed.</param>
+        /// <returns></returns>
         public bool CheckGramInput(string input, string min, string max)
         {
             //Check that input is an integer
@@ -56,7 +67,13 @@ namespace ERP
 
         }
 
-        //Checks if the input is an integer and also if the content is between certain values
+        /// <summary>
+        /// Checks whether or not the inserted value is within the spesified range defined in min and max.
+        /// </summary>
+        /// <param name="input">Actual value to be inserted</param>
+        /// <param name="min">The minimum value allowed.</param>
+        /// <param name="max">The maximum value allowed.</param>
+        /// <returns></returns>
         public bool CheckGramInputTall(string input, string min, string max)
         {
             int output;
@@ -79,13 +96,17 @@ namespace ERP
             }
 
         }
+
+        /// <summary>
+        /// If cup is bigger than 0, then cup needs to have fill level bigger than 0.
+        /// if this is true, set validation == true
+        /// HOWEVER if cup is 0 and fill level is 0, send true
+        /// </summary>
+        /// <param name="colorCup">Color Code for the cup</param>
+        /// <param name="colorFill">Any given value [g]</param>
+        /// <returns></returns>
         public bool TestVadilityOfCupInput(int colorCup, int colorFill)
         {
-            //If cup is bigger than 0, then cup needs to have fill level bigger than 0.
-            //if this is true, set validation == true
-            //HOWEVER if cup is 0 and fill level is 0, send true
-            //
-
             if (colorCup > 0 && colorFill > 0)
             {
                 return true;
